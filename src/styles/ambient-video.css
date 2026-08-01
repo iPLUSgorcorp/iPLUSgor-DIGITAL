@@ -1,0 +1,262 @@
+.ambient-brand-video {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.ambient-brand-video video,
+.ambient-brand-video img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+  user-select: none;
+}
+
+.site-wide-ambient {
+  position: fixed;
+  z-index: 50;
+  inset: 0;
+  border-radius: 0;
+  opacity: 0.008;
+  filter: grayscale(1) contrast(3.05);
+  mix-blend-mode: multiply;
+}
+
+.site-wide-ambient video,
+.site-wide-ambient img {
+  object-position: 50% 50%;
+}
+
+:root[data-theme="dark"] .site-wide-ambient {
+  opacity: 0.008;
+  mix-blend-mode: screen;
+}
+
+/* Home uses the film as material inside the first shell. The strong left-side
+   veil protects the message while leaving the moving form visible to the right. */
+.home-hero--ambient {
+  position: relative;
+  z-index: 51;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.home-hero--ambient::before {
+  display: none;
+}
+
+.home-hero--ambient::after {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg,
+    rgba(227, 230, 223, 0.98) 0%,
+    rgba(227, 230, 223, 0.94) 36%,
+    rgba(227, 230, 223, 0.68) 58%,
+    rgba(227, 230, 223, 0.18) 100%
+  );
+  content: "";
+  pointer-events: none;
+}
+
+.home-hero__ambient {
+  opacity: 0.78;
+  filter: contrast(1.08);
+}
+
+/* Local films are their own material layer. Keeping the full 16:9 frame inside
+   each shell protects the centred end card at every container ratio. */
+.home-hero__ambient video,
+.home-hero__ambient img,
+.site-header__ambient video,
+.site-header__ambient img,
+.site-footer__ambient video,
+.site-footer__ambient img {
+  object-fit: contain;
+  object-position: 50% 50%;
+}
+
+.home-hero--ambient .home-hero__copy {
+  position: relative;
+  z-index: 2;
+}
+
+.home-hero--ambient .home-hero__scroll {
+  z-index: 2;
+}
+
+/* The header film stays behind the optical shell. Logo and controls are on a
+   separate layer, so backdrop blur can never soften the brand mark itself. */
+.site-header--ambient::before,
+.site-header--ambient::after {
+  z-index: 1;
+}
+
+.site-header--ambient::before {
+  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(243, 240, 234, 0.3);
+  opacity: 0.74;
+  transform: translate(-50%, 0) scaleX(1);
+  -webkit-backdrop-filter: blur(14px) saturate(1.08);
+  backdrop-filter: blur(14px) saturate(1.08);
+}
+
+.site-header--ambient .desktop-nav,
+.site-header--ambient.is-scrolled .desktop-nav {
+  border-color: rgba(255, 255, 255, 0.34);
+  background: rgba(247, 245, 241, 0.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.34);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.site-header--ambient > .brand,
+.site-header--ambient > .desktop-nav,
+.site-header--ambient > .menu-toggle {
+  z-index: 2;
+}
+
+.site-header__ambient {
+  top: 0.45rem;
+  bottom: 0.45rem;
+  border-radius: var(--radius-round);
+}
+
+.site-header__ambient--cover {
+  opacity: 0.19;
+  filter: blur(0.45px) contrast(1.32);
+}
+
+.site-header__ambient--cover video,
+.site-header__ambient--cover img {
+  object-fit: cover;
+  transform: scale(1.025);
+}
+
+.site-header__ambient--contain {
+  opacity: 0.36;
+  filter: contrast(1.24) drop-shadow(0 0 0.85rem rgba(121, 184, 166, 0.18));
+  -webkit-mask-image: radial-gradient(ellipse 19% 115% at 50% 50%, #000 0 38%, rgba(0, 0, 0, 0.72) 62%, transparent 100%);
+  mask-image: radial-gradient(ellipse 19% 115% at 50% 50%, #000 0 38%, rgba(0, 0, 0, 0.72) 62%, transparent 100%);
+}
+
+.site-header__ambient--contain video,
+.site-header__ambient--contain img {
+  transform: scale(1.9);
+}
+
+.site-footer {
+  position: relative;
+  z-index: 51;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.site-footer::after {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(11, 14, 13, 0.8), rgba(11, 14, 13, 0.56));
+  content: "";
+  pointer-events: none;
+}
+
+.site-footer__ambient {
+  opacity: 0.52;
+  filter: contrast(1.14) saturate(0.82);
+}
+
+.site-footer > :not(.site-footer__ambient) {
+  position: relative;
+  z-index: 2;
+}
+
+:root[data-theme="dark"] .home-hero--ambient::after {
+  background: linear-gradient(
+    90deg,
+    rgba(27, 32, 30, 0.98) 0%,
+    rgba(27, 32, 30, 0.93) 38%,
+    rgba(27, 32, 30, 0.66) 60%,
+    rgba(27, 32, 30, 0.18) 100%
+  );
+}
+
+:root[data-theme="dark"] .site-header--ambient::before,
+:root[data-theme="dark"] .site-header--ambient.is-scrolled::before {
+  border-color: rgba(243, 240, 234, 0.14);
+  background: rgba(16, 19, 17, 0.34);
+}
+
+:root[data-theme="dark"] .site-header--ambient .desktop-nav,
+:root[data-theme="dark"] .site-header--ambient.is-scrolled .desktop-nav {
+  border-color: rgba(243, 240, 234, 0.16);
+  background: rgba(16, 19, 17, 0.12);
+}
+
+:root[data-theme="dark"] .site-header__ambient {
+  opacity: 0.42;
+}
+
+:root[data-theme="dark"] .site-header__ambient--cover {
+  opacity: 0.18;
+}
+
+:root[data-theme="dark"] .site-header__ambient--contain {
+  opacity: 0.42;
+}
+
+@media (max-width: 1100px) {
+  .home-hero.home-hero--ambient {
+    min-height: clamp(42rem, 92vh, 54rem);
+    grid-template-rows: minmax(0, 1fr);
+    align-content: center;
+  }
+
+  .home-hero--ambient::after {
+    background: linear-gradient(
+      180deg,
+      rgba(227, 230, 223, 0.92) 0%,
+      rgba(227, 230, 223, 0.82) 58%,
+      rgba(227, 230, 223, 0.38) 100%
+    );
+  }
+
+  :root[data-theme="dark"] .home-hero--ambient::after {
+    background: linear-gradient(
+      180deg,
+      rgba(27, 32, 30, 0.94) 0%,
+      rgba(27, 32, 30, 0.84) 58%,
+      rgba(27, 32, 30, 0.42) 100%
+    );
+  }
+
+  .home-hero--ambient .home-hero__copy {
+    align-self: center;
+    grid-row: 1;
+  }
+}
+
+@media (max-width: 620px) {
+  .home-hero.home-hero--ambient {
+    min-height: 46rem;
+  }
+
+  .site-header__ambient {
+    top: 0.35rem;
+    bottom: 0.35rem;
+  }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-brand-video video {
+    display: none;
+  }
+}

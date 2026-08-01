@@ -1,0 +1,51 @@
+:root {
+  color-scheme: light;
+  --color-porcelain: #f3f0ea;
+  --color-shell: #e3e6df;
+  --color-shell-light: #eeece6;
+  --color-graphite: #171918;
+  --color-graphite-soft: #262a28;
+  --color-jade: #79b8a6;
+  --color-jade-deep: #477f70;
+  --color-coral: #ff8a72;
+  --color-line: rgba(23, 25, 24, 0.18);
+  --color-line-strong: rgba(23, 25, 24, 0.34);
+  --color-white-line: rgba(255, 255, 255, 0.76);
+  --font-sans: "Onest", "Segoe UI", Arial, sans-serif;
+  --font-display: "Onest", "Segoe UI", Arial, sans-serif;
+  --text-xs: clamp(0.68rem, 0.62rem + 0.16vw, 0.78rem);
+  --text-sm: clamp(0.78rem, 0.72rem + 0.18vw, 0.92rem);
+  --text-base: clamp(0.96rem, 0.88rem + 0.22vw, 1.12rem);
+  --text-lg: clamp(1.15rem, 1.02rem + 0.36vw, 1.45rem);
+  --text-xl: clamp(1.6rem, 1.25rem + 1.05vw, 2.45rem);
+  --text-2xl: clamp(2.35rem, 1.6rem + 2.8vw, 5.15rem);
+  --text-hero: clamp(2.7rem, 1.55rem + 4.6vw, 7rem);
+  --radius-sm: 0.75rem;
+  --radius-md: 1.5rem;
+  --radius-lg: clamp(2rem, 4vw, 4.5rem);
+  --radius-shell: clamp(2.75rem, 7vw, 7.5rem);
+  --radius-round: 999px;
+  --shadow-shell:
+    inset 0 1px 1px rgba(255, 255, 255, 0.92),
+    inset 0 -1px 1px rgba(23, 25, 24, 0.12),
+    0 18px 40px rgba(28, 30, 28, 0.08);
+  --shadow-rim:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.9),
+    inset 0 0 0 5px rgba(23, 25, 24, 0.1),
+    0 10px 24px rgba(23, 25, 24, 0.2);
+  --space-1: 0.35rem;
+  --space-2: 0.65rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2rem;
+  --space-6: 3rem;
+  --space-7: 4.5rem;
+  --space-8: 7rem;
+  --container: 1440px;
+  --container-narrow: 1120px;
+  --header-height: 6rem;
+  --motion-fast: 180ms;
+  --motion-base: 260ms;
+  --motion-slow: 320ms;
+  --ease-shell: cubic-bezier(0.22, 1, 0.36, 1);
+}

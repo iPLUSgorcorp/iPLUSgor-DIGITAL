@@ -1,0 +1,28 @@
+{
+  "name": "iplusgor",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:pages": "vite build && node scripts/prepare-github-pages.mjs",
+    "clean:media": "node scripts/strip-media-metadata.mjs public",
+    "preview": "vite preview",
+    "test": "node --test tests/app-contract.test.mjs",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "@fontsource/onest": "5.2.8",
+    "@phosphor-icons/react": "2.1.10",
+    "@vitejs/plugin-react": "5.0.4",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "react-router-dom": "7.9.6",
+    "vite": "6.4.2"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.12.1",
+    "@playwright/test": "1.61.1"
+  }
+}

@@ -1,0 +1,149 @@
+/*
+ * Final Approach cascade guards.
+ *
+ * Keep process geometry circular at every breakpoint, place the indices below
+ * the nodes, and protect REMOVE copy from the diagnostic coral contour.
+ */
+
+.process-rail__nodes {
+  align-items: start;
+  grid-auto-columns: minmax(0, 1fr);
+}
+
+.process-rail__nodes::before {
+  top: calc(50% - 0.7rem);
+}
+
+.process-rail__nodes button {
+  display: grid;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  grid-template-rows: auto 1.4rem;
+  place-items: center;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.process-rail__nodes button.is-active {
+  color: var(--color-graphite);
+  background: transparent;
+}
+
+.process-rail__nodes button > .process-step__node {
+  position: relative;
+  top: auto;
+  left: auto;
+  z-index: 1;
+  display: flex;
+  width: min(100%, 10.5rem);
+  aspect-ratio: 1;
+  padding: 1rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  border: 1px solid var(--color-line);
+  border-radius: 50%;
+  background: var(--color-shell-light);
+  box-shadow: var(--shadow-shell);
+  transition:
+    color var(--motion-base),
+    background var(--motion-base),
+    box-shadow var(--motion-base);
+}
+
+.process-rail__nodes button.is-active .process-step__node {
+  color: var(--color-porcelain);
+  background: var(--color-graphite);
+}
+
+.process-rail__nodes button > .process-step__index {
+  position: static;
+  top: auto;
+  left: auto;
+  transform: none;
+  align-self: end;
+  justify-self: center;
+  padding-top: 0.35rem;
+  color: var(--color-graphite-soft);
+  font-size: var(--text-xs);
+  line-height: 1;
+  z-index: 3;
+}
+
+.process-rail__nodes button.is-active .process-step__index {
+  color: var(--color-jade-deep);
+}
+
+.process-step__node svg {
+  flex: 0 0 auto;
+}
+
+.process-step__node strong {
+  max-width: 100%;
+  text-align: center;
+}
+
+@media (min-width: 1440px) {
+  .process-rail__nodes button {
+    width: 10.5rem;
+    max-width: 100%;
+    justify-self: center;
+  }
+
+  .method-map__zone--remove h3 {
+    left: 6.8rem;
+  }
+
+  .method-map__zone--remove ul {
+    position: relative;
+    z-index: 3;
+    transform: translate(-0.15rem, -2.3rem);
+  }
+
+  .method-map__zone--remove li {
+    grid-template-columns: 0.85rem 0.5rem minmax(0, max-content);
+  }
+
+  .method-map__zone--remove li span {
+    position: relative;
+    z-index: 2;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+}
+
+@media (min-width: 1121px) and (max-width: 1439px) {
+  .process-step__node {
+    width: min(100%, 9.7rem);
+  }
+}
+
+@media (max-width: 1120px) {
+  .process-rail__nodes {
+    align-items: start;
+  }
+
+  .process-rail__nodes button {
+    width: 100%;
+  }
+
+  .process-step__node {
+    width: min(100%, 9rem);
+  }
+}
+
+@media (max-width: 620px) {
+  .process-rail__nodes button {
+    width: 8.5rem;
+    min-width: 8.5rem;
+  }
+
+  .process-step__node {
+    width: 7.65rem;
+  }
+}

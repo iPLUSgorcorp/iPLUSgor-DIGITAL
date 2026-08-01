@@ -1,0 +1,148 @@
+/*
+ * Compact Home geometry lock.
+ * Copy, industrial aperture and capability controls remain in normal grid rows
+ * so browser zoom cannot collapse one content corridor into another.
+ */
+
+@media (max-width: 1100px) {
+  .home-hero {
+    display: grid;
+    min-height: 0;
+    padding: 2rem 1.25rem 1.25rem;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+    gap: 1.65rem;
+  }
+
+  .home-hero__copy {
+    width: 100%;
+    grid-row: 1;
+  }
+
+  .home-hero__actions {
+    display: grid;
+    grid-template-columns: minmax(12rem, 18rem) minmax(0, 1fr);
+    align-items: start;
+    gap: 1rem;
+  }
+
+  .home-hero__actions > p {
+    min-width: 0;
+    padding-top: 0.35rem;
+  }
+
+  .home-hero__visual {
+    position: relative;
+    top: auto;
+    right: auto;
+    display: grid;
+    width: 100%;
+    height: auto;
+    min-height: clamp(29rem, 72vw, 38rem);
+    grid-row: 2;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    place-items: center;
+    row-gap: 0.8rem;
+  }
+
+  .home-hero__visual::before {
+    top: 50%;
+    left: 50%;
+    width: min(78%, 30rem);
+    aspect-ratio: 0.94;
+    transform: translate(-50%, -50%) rotate(4deg);
+  }
+
+  .home-hero__visual .aperture {
+    width: min(68%, 25rem);
+    aspect-ratio: 1;
+    grid-row: 2;
+    transform: rotate(-2deg);
+  }
+
+  .home-hero__visual .aperture__core,
+  .home-hero__visual .aperture__core img {
+    aspect-ratio: 1;
+  }
+
+  .home-hero__idea,
+  .home-hero__principle {
+    position: relative;
+    inset: auto;
+    width: auto;
+    max-width: calc(100% - 3rem);
+    transform: none;
+  }
+
+  .home-hero__idea {
+    justify-self: center;
+    grid-row: 1;
+    color: var(--color-graphite);
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  .home-hero__principle {
+    justify-self: start;
+    grid-row: 3;
+    margin-left: 0.5rem;
+    color: #356e60;
+    font-size: 0.82rem;
+    line-height: 1.35;
+  }
+
+  .home-hero__capabilities {
+    position: relative;
+    inset: auto;
+    display: grid;
+    width: 100%;
+    max-width: none;
+    grid-row: 3;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.55rem;
+  }
+}
+
+@media (max-width: 620px) {
+  .home-hero {
+    gap: 1.35rem;
+  }
+
+  .home-hero__actions {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.9rem;
+  }
+
+  .home-hero__actions > p {
+    max-width: 18rem;
+    padding-top: 0;
+  }
+
+  .home-hero__visual {
+    min-height: clamp(25rem, 112vw, 31rem);
+  }
+
+  .home-hero__visual::before {
+    width: min(86%, 25rem);
+  }
+
+  .home-hero__visual .aperture {
+    width: min(72%, 19rem);
+  }
+
+  .home-hero__principle {
+    margin-left: 0;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .home-hero__capabilities {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .home-hero__capabilities > div:nth-child(n + 3) {
+    display: none;
+  }
+}

@@ -1,0 +1,13 @@
+/*
+ * Ultra-wide lock.
+ *
+ * Browser zoom-out increases the CSS viewport dramatically. The approved
+ * 1536px composition must become a smaller centered artboard, not a stretched
+ * topology. Route-specific mobile/tablet rules still own narrow layouts.
+ */
+@media (min-width: 1921px) {
+  .page {
+    width: calc(100% - 2rem);
+    max-width: 118rem;
+  }
+}

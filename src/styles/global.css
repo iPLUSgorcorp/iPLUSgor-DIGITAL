@@ -1,0 +1,250 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-height) + 1rem);
+  background: var(--color-porcelain);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  /*
+   * `hidden` turns the body into a scroll container in some Chromium surfaces
+   * and can make the sticky site header scroll away. `clip` prevents horizontal
+   * paint overflow without changing the vertical sticky containing block.
+   */
+  overflow-x: clip;
+  color: var(--color-graphite);
+  background:
+    radial-gradient(circle at 40% -20%, rgba(255, 255, 255, 0.24), transparent 45%),
+    #f3ede8;
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: none;
+}
+
+/* Decorative interface copy stays fixed; genuinely useful content remains selectable. */
+body {
+  user-select: none;
+}
+
+input,
+textarea,
+select,
+option,
+.selectable,
+.contact-email,
+.team-hero .page-intro,
+.team-profile,
+.team-disciplines p,
+.site-footer p {
+  user-select: text;
+}
+
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+a,
+button,
+label,
+li,
+span {
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+}
+
+h1,
+h2 {
+  text-wrap: balance;
+}
+
+body.menu-open {
+  overflow: hidden;
+}
+
+button,
+input,
+select,
+textarea {
+  color: inherit;
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+}
+
+h1,
+h2 {
+  letter-spacing: -0.055em;
+  line-height: 0.98;
+}
+
+h1 {
+  margin-bottom: var(--space-4);
+  font-size: var(--text-2xl);
+}
+
+.page {
+  width: min(calc(100% - 2rem), var(--container));
+  margin: 0 auto;
+  padding-bottom: var(--space-6);
+  animation: page-in var(--motion-slow) var(--ease-shell) both;
+}
+
+.page-intro {
+  max-width: 52rem;
+  color: rgba(23, 25, 24, 0.84);
+  font-size: var(--text-lg);
+  line-height: 1.38;
+}
+
+.skip-link {
+  position: fixed;
+  z-index: 999;
+  top: 0.5rem;
+  left: 0.5rem;
+  padding: 0.8rem 1rem;
+  border-radius: var(--radius-sm);
+  color: var(--color-porcelain);
+  background: var(--color-graphite);
+  transform: translateY(-150%);
+  transition: transform var(--motion-fast);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-coral);
+  outline-offset: 4px;
+}
+
+::selection {
+  color: var(--color-graphite);
+  background: var(--color-jade);
+}
+
+@keyframes page-in {
+  from {
+    transform: translateY(10px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Lightweight route-wide entrance motion. Individual translate preserves the
+ * measured transforms used by the technical diagrams. */
+.motion-reveal {
+  opacity: 1;
+  translate: 0 0.65rem;
+  filter: blur(2px);
+  transition:
+    translate 300ms var(--ease-shell),
+    filter 240ms var(--ease-shell);
+  transition-delay: calc(var(--motion-order, 0) * 22ms);
+  will-change: opacity, translate;
+}
+
+.motion-reveal.is-motion-visible {
+  translate: 0 0;
+  filter: blur(0);
+}
+
+.motion-draw .motion-draw__stroke {
+  stroke-dasharray: var(--motion-path-length);
+  stroke-dashoffset: var(--motion-path-length);
+  transition: stroke-dashoffset 560ms var(--ease-shell);
+}
+
+.motion-draw.is-motion-visible .motion-draw__stroke {
+  stroke-dashoffset: 0;
+}
+
+@media (max-width: 700px) {
+  :root {
+    --header-height: 4.75rem;
+  }
+
+  .page {
+    width: min(calc(100% - 1rem), var(--container));
+    padding-bottom: var(--space-5);
+  }
+
+  h1 {
+    letter-spacing: -0.045em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-reveal,
+  .motion-reveal.is-motion-visible {
+    opacity: 1;
+    translate: none;
+    filter: none;
+  }
+
+  .motion-draw .motion-draw__stroke,
+  .motion-draw.is-motion-visible .motion-draw__stroke {
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}
