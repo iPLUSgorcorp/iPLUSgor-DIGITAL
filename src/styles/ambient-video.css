@@ -4,6 +4,7 @@
   inset: 0;
   overflow: hidden;
   border-radius: inherit;
+  contain: paint;
   pointer-events: none;
 }
 
@@ -23,7 +24,7 @@
   inset: 0;
   border-radius: 0;
   opacity: 0.008;
-  filter: grayscale(1) contrast(3.05);
+  filter: grayscale(1) contrast(3.45);
   mix-blend-mode: multiply;
 }
 
@@ -68,7 +69,7 @@
 
 .home-hero__ambient {
   opacity: 0.78;
-  filter: contrast(1.08);
+  filter: contrast(1.18);
 }
 
 /* Local films are their own material layer. Keeping the full 16:9 frame inside
@@ -81,6 +82,14 @@
 .site-footer__ambient img {
   object-fit: contain;
   object-position: 50% 50%;
+}
+
+/* The home hero is substantially taller than the 16:9 source. Fill its shell
+   edge-to-edge so the source frame never creates horizontal letterbox seams. */
+.home-hero__ambient video,
+.home-hero__ambient img {
+  object-fit: cover;
+  transform: scale(1.012);
 }
 
 .home-hero--ambient .home-hero__copy {
@@ -104,8 +113,8 @@
   background: rgba(243, 240, 234, 0.3);
   opacity: 0.74;
   transform: translate(-50%, 0) scaleX(1);
-  -webkit-backdrop-filter: blur(14px) saturate(1.08);
-  backdrop-filter: blur(14px) saturate(1.08);
+  -webkit-backdrop-filter: blur(8px) saturate(1.04) contrast(1.1);
+  backdrop-filter: blur(8px) saturate(1.04) contrast(1.1);
 }
 
 .site-header--ambient .desktop-nav,
@@ -131,7 +140,7 @@
 
 .site-header__ambient--cover {
   opacity: 0.19;
-  filter: blur(0.45px) contrast(1.32);
+  filter: blur(0.12px) contrast(1.52);
 }
 
 .site-header__ambient--cover video,
@@ -142,7 +151,7 @@
 
 .site-header__ambient--contain {
   opacity: 0.36;
-  filter: contrast(1.24) drop-shadow(0 0 0.85rem rgba(121, 184, 166, 0.18));
+  filter: contrast(1.42) drop-shadow(0 0 0.55rem rgba(121, 184, 166, 0.16));
   -webkit-mask-image: radial-gradient(ellipse 19% 115% at 50% 50%, #000 0 38%, rgba(0, 0, 0, 0.72) 62%, transparent 100%);
   mask-image: radial-gradient(ellipse 19% 115% at 50% 50%, #000 0 38%, rgba(0, 0, 0, 0.72) 62%, transparent 100%);
 }
@@ -170,7 +179,7 @@
 
 .site-footer__ambient {
   opacity: 0.52;
-  filter: contrast(1.14) saturate(0.82);
+  filter: contrast(1.28) saturate(0.82);
 }
 
 .site-footer > :not(.site-footer__ambient) {
@@ -181,23 +190,23 @@
 :root[data-theme="dark"] .home-hero--ambient::after {
   background: linear-gradient(
     90deg,
-    rgba(27, 32, 30, 0.98) 0%,
-    rgba(27, 32, 30, 0.93) 38%,
-    rgba(27, 32, 30, 0.66) 60%,
-    rgba(27, 32, 30, 0.18) 100%
+    rgba(15, 16, 17, 0.99) 0%,
+    rgba(15, 16, 17, 0.96) 38%,
+    rgba(15, 16, 17, 0.74) 60%,
+    rgba(15, 16, 17, 0.22) 100%
   );
 }
 
 :root[data-theme="dark"] .site-header--ambient::before,
 :root[data-theme="dark"] .site-header--ambient.is-scrolled::before {
   border-color: rgba(243, 240, 234, 0.14);
-  background: rgba(16, 19, 17, 0.34);
+  background: rgba(9, 10, 11, 0.48);
 }
 
 :root[data-theme="dark"] .site-header--ambient .desktop-nav,
 :root[data-theme="dark"] .site-header--ambient.is-scrolled .desktop-nav {
   border-color: rgba(243, 240, 234, 0.16);
-  background: rgba(16, 19, 17, 0.12);
+  background: rgba(9, 10, 11, 0.22);
 }
 
 :root[data-theme="dark"] .site-header__ambient {
@@ -231,9 +240,9 @@
   :root[data-theme="dark"] .home-hero--ambient::after {
     background: linear-gradient(
       180deg,
-      rgba(27, 32, 30, 0.94) 0%,
-      rgba(27, 32, 30, 0.84) 58%,
-      rgba(27, 32, 30, 0.42) 100%
+      rgba(15, 16, 17, 0.97) 0%,
+      rgba(15, 16, 17, 0.9) 58%,
+      rgba(15, 16, 17, 0.5) 100%
     );
   }
 
@@ -253,6 +262,42 @@
     bottom: 0.35rem;
   }
 
+}
+
+/* Phones and coarse-pointer devices use the lightweight poster treatment. This
+   avoids decoding several decorative MP4s and removes costly live backdrop
+   sampling while preserving the same shell geometry and brand composition. */
+@media (max-width: 760px), (hover: none) and (pointer: coarse) {
+  .site-header--ambient::before,
+  .site-header--ambient.is-scrolled::before,
+  .site-header.is-scrolled::before {
+    background: rgba(243, 240, 234, 0.9);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  :root[data-theme="dark"] .site-header--ambient::before,
+  :root[data-theme="dark"] .site-header--ambient.is-scrolled::before,
+  :root[data-theme="dark"] .site-header.is-scrolled::before {
+    background: rgba(9, 10, 11, 0.96);
+  }
+
+  .site-header--ambient .desktop-nav,
+  .site-header--ambient.is-scrolled .desktop-nav,
+  .desktop-nav {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  .site-header__ambient--cover,
+  .home-hero__ambient,
+  .site-footer__ambient {
+    filter: none;
+  }
+
+  .site-header__ambient--contain {
+    display: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
