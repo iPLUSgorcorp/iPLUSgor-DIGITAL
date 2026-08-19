@@ -1,15 +1,15 @@
 {
   "name": "iPLUSgor Digital",
   "short_name": "iPLUSgor Digital",
-  "description": "Industrial website architecture, catalogue UX and frontend modernization.",
-  "start_url": "/",
+  "description": "Clear, responsive websites for businesses from design to launch.",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#F3F0EA",
   "theme_color": "#171918",
   "icons": [
     {
-      "src": "/assets/brand/iplusgor-symbol.png",
-      "sizes": "640x645",
+      "src": "assets/brand/iplusgor-symbol-signal.png",
+      "sizes": "640x640",
       "type": "image/png"
     }
   ]

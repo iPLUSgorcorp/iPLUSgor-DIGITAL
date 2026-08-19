@@ -23,31 +23,31 @@ const baseSteps = [
     id: "01",
     title: "Evidence",
     icon: MagnifyingGlass,
-    text: "We inspect the current site, catalogue, user routes and technical constraints.",
+    text: "We inspect the current site, business goals, customer routes and practical constraints.",
   },
   {
     id: "02",
     title: "Architecture",
     icon: Blueprint,
-    text: "We rebuild the information structure around real product-selection decisions.",
+    text: "We shape the information structure around real customer decisions.",
   },
   {
     id: "03",
-    title: "Catalogue",
+    title: "Content",
     icon: Stack,
-    text: "We define categories, filters, comparison and technical document logic.",
+    text: "We define the content, pages and calls to action people need to move forward.",
   },
   {
     id: "04",
     title: "UX system",
     icon: Path,
-    text: "We turn the route into responsive flows for buyers, engineers and dealers.",
+    text: "We turn the route into responsive flows for people who need to understand and contact the business.",
   },
   {
     id: "05",
     title: "Interface",
     icon: Browsers,
-    text: "We create the soft-shell visual system around the manufacturer’s hard core.",
+    text: "We create a visual system that makes the business feel clear, coherent and recognisable.",
   },
   {
     id: "06",
@@ -59,10 +59,10 @@ const baseSteps = [
 
 const pageCopy = {
   en: {
-    label: "Approach / six-stage process",
+    label: "APPROACH — SIX STAGES",
     title: <>FROM EVIDENCE<br />TO A WORKING SYSTEM.</>,
-    intro: "We do not begin with a new home page. We begin with the structure behind product choice.",
-    methodLabel: "Method / keep · remove · rebuild",
+    intro: "We do not begin with a new home page. We begin with the business goal and the customer path behind it.",
+    methodLabel: "METHOD — KEEP, REMOVE, REBUILD",
     methodTitle: <>WE CHANGE THE SURFACE.<br />NOT THE CORE.</>,
     methodIntro: <>Reputation and technical expertise remain.<br />Digital barriers do not.</>,
     keep: "KEEP", remove: "REMOVE", rebuild: "REBUILD",
@@ -72,10 +72,10 @@ const pageCopy = {
     timeline: ["Symptom", "Evidence", "Intervention"],
   },
   ua: {
-    label: "Підхід / шість етапів",
+    label: "ПІДХІД — ШІСТЬ ЕТАПІВ",
     title: <>ВІД ДОКАЗІВ<br />ДО РОБОЧОЇ СИСТЕМИ.</>,
-    intro: "Ми починаємо не з нової головної сторінки, а зі структури, що стоїть за вибором продукту.",
-    methodLabel: "Метод / зберегти · прибрати · перебудувати",
+    intro: "Ми починаємо не з нової головної сторінки, а з бізнес-цілі й шляху клієнта за нею.",
+    methodLabel: "МЕТОД — ЗБЕРЕГТИ, ПРИБРАТИ, ПЕРЕБУДУВАТИ",
     methodTitle: <>МИ ЗМІНЮЄМО ОБОЛОНКУ.<br />НЕ ЯДРО.</>,
     methodIntro: <>Репутація і технічна експертиза залишаються.<br />Цифрові бар’єри — ні.</>,
     keep: "ЗБЕРЕГТИ", remove: "ПРИБРАТИ", rebuild: "ПЕРЕБУДУВАТИ",
@@ -85,10 +85,10 @@ const pageCopy = {
     timeline: ["Симптом", "Доказ", "Втручання"],
   },
   de: {
-    label: "Ansatz / sechs Phasen",
+    label: "ANSATZ — SECHS PHASEN",
     title: <>VON DER EVIDENZ<br />ZUM FUNKTIONIERENDEN SYSTEM.</>,
-    intro: "Wir beginnen nicht mit einer neuen Startseite, sondern mit der Struktur hinter der Produktauswahl.",
-    methodLabel: "Methode / behalten · entfernen · neu aufbauen",
+    intro: "Wir beginnen nicht mit einer neuen Startseite, sondern mit dem Geschäftsziel und dem Weg der Kunden dorthin.",
+    methodLabel: "METHODE — BEHALTEN, ENTFERNEN, NEU AUFBAUEN",
     methodTitle: <>WIR ÄNDERN DIE OBERFLÄCHE.<br />NICHT DEN KERN.</>,
     methodIntro: <>Ruf und technisches Know-how bleiben.<br />Digitale Barrieren nicht.</>,
     keep: "BEHALTEN", remove: "ENTFERNEN", rebuild: "NEU AUFBAUEN",
@@ -101,19 +101,19 @@ const pageCopy = {
 
 const stepTranslations = {
   ua: [
-    ["Докази", "Ми перевіряємо поточний сайт, каталог, маршрути користувачів і технічні обмеження."],
-    ["Архітектура", "Перебудовуємо інформаційну структуру навколо реальних рішень вибору продукту."],
-    ["Каталог", "Визначаємо категорії, фільтри, порівняння та логіку технічних документів."],
-    ["UX-система", "Перетворюємо маршрут на адаптивні сценарії для покупців, інженерів і дилерів."],
-    ["Інтерфейс", "Створюємо м’яку візуальну оболонку навколо технічного ядра виробника."],
+    ["Докази", "Перевіряємо поточний сайт, цілі бізнесу, маршрути користувачів і практичні обмеження."],
+    ["Архітектура", "Будуємо інформаційну структуру навколо реальних рішень клієнта."],
+    ["Контент", "Визначаємо зміст, сторінки й точки контакту, які допомагають рухатися далі."],
+    ["UX-система", "Перетворюємо маршрут на адаптивні сценарії для людей, які знайомляться з бізнесом."],
+    ["Інтерфейс", "Створюємо візуальну систему, яка робить бізнес зрозумілим, цілісним і впізнаваним."],
     ["Frontend", "Будуємо та перевіряємо адаптивний frontend, а не зупиняємося на статичних макетах."],
   ],
   de: [
-    ["Evidenz", "Wir prüfen die bestehende Website, den Katalog, Nutzerwege und technische Grenzen."],
-    ["Architektur", "Wir bauen die Informationsstruktur um echte Entscheidungen bei der Produktauswahl herum neu auf."],
-    ["Katalog", "Wir definieren Kategorien, Filter, Vergleiche und die Logik technischer Dokumente."],
-    ["UX-System", "Wir formen den Weg zu responsiven Abläufen für Käufer, Ingenieure und Händler."],
-    ["Interface", "Wir gestalten die weiche visuelle Hülle um den technischen Kern des Herstellers."],
+    ["Evidenz", "Wir prüfen die bestehende Website, Geschäftsziele, Nutzerwege und praktische Rahmenbedingungen."],
+    ["Architektur", "Wir bauen die Informationsstruktur rund um echte Entscheidungen der Kunden auf."],
+    ["Inhalte", "Wir definieren Inhalte, Seiten und Kontaktpunkte, die Menschen weiterbringen."],
+    ["UX-System", "Wir formen den Weg zu responsiven Abläufen für Menschen, die das Unternehmen verstehen und kontaktieren möchten."],
+    ["Interface", "Wir gestalten ein visuelles System, das das Unternehmen klar, stimmig und wiedererkennbar macht."],
     ["Frontend", "Wir bauen und prüfen das responsive Frontend, statt bei statischen Layouts aufzuhören."],
   ],
 };
@@ -151,7 +151,7 @@ function ProcessRail({ locale }) {
         })}
       </div>
       <div className="process-rail__detail" id="process-detail" role="tabpanel">
-        <span>{current.id} / 06</span>
+        <span>{locale === "ua" ? "ЕТАП" : locale === "de" ? "SCHRITT" : "STEP"} {current.id} {locale === "ua" ? "З" : locale === "de" ? "VON" : "OF"} 06</span>
         <div>
           <h3>{current.title}</h3>
           <p>{current.text}</p>
@@ -185,13 +185,15 @@ export function ApproachPage() {
           <MethodContour />
           <article className="method-map__zone method-map__zone--keep">
             <h3>{labels.keep}</h3>
-            <Aperture label="iPLUSgor Digital technical core symbol">
+            <Aperture className="method-map__brand-aperture" label="iPLUSgor Digital technical core symbol">
               <img
-                src={publicAsset("assets/brand/iplusgor-symbol.png")}
+                src={publicAsset("assets/brand/iplusgor-symbol-signal.png")}
                 alt=""
-                width="640"
-                height="645"
-                loading="lazy"
+                width="1254"
+                height="1254"
+                loading="eager"
+                decoding="async"
+                fetchPriority="low"
               />
             </Aperture>
             <ul>

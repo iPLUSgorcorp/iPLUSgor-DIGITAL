@@ -45,7 +45,7 @@ export function Aperture({ className = "", children, label }) {
 export function StatusBadge({ children, tone = "jade" }) {
   return (
     <span className={`status-badge status-badge--${tone}`}>
-      <span className="status-badge__dot" aria-hidden="true" />
+      <span className="status-badge__mark" aria-hidden="true" />
       {children}
     </span>
   );
@@ -59,10 +59,10 @@ export function CommercialFrame({
 }) {
   const { locale } = useLocale();
   const defaults = {
-    en: ["A strong manufacturer should not look weaker than its website.", "Get a preliminary review"],
-    ua: ["Сильний виробник не повинен виглядати слабшим за свій сайт.", "Отримати попередній розбір"],
-    de: ["Ein starker Hersteller sollte nicht schwächer wirken als seine Website.", "Vorprüfung anfragen"],
-  }[locale] || ["A strong manufacturer should not look weaker than its website.", "Get a preliminary review"];
+    en: ["A strong business deserves a website that makes its value clear.", "Start a conversation"],
+    ua: ["Сильний бізнес заслуговує на сайт, який зрозуміло пояснює його цінність.", "Почати розмову"],
+    de: ["Ein starkes Unternehmen verdient eine Website, die seinen Wert klar vermittelt.", "Gespräch beginnen"],
+  }[locale] || ["A strong business deserves a website that makes its value clear.", "Start a conversation"];
   return (
     <aside className="commercial-frame" aria-label="Commercial information">
       <div className="commercial-frame__mark" aria-hidden="true">

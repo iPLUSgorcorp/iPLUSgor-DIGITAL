@@ -1,6 +1,5 @@
 import {
   ArrowsLeftRight,
-  ArrowRight,
   Blueprint,
   ChartLineUp,
   CirclesThreePlus,
@@ -19,7 +18,6 @@ import {
 } from "../components/Primitives.jsx";
 import {
   PageFrameContour,
-  SolutionContour,
 } from "../components/ContourSystems.jsx";
 import { useLocale } from "../i18n.jsx";
 
@@ -27,32 +25,32 @@ const solutionNodes = [
   {
     title: "Architecture",
     icon: Blueprint,
-    text: "A structure built around equipment, applications and buyer decisions.",
+    text: "A structure built around the business, its offer and the next customer decision.",
   },
   {
-    title: "Catalogue",
+    title: "Content",
     icon: CirclesThreePlus,
-    text: "Clear categories, product families and scalable technical content.",
+    text: "Clear pages, service groups and content that helps people understand the offer.",
   },
   {
-    title: "Product finder",
+    title: "Customer path",
     icon: Sparkle,
-    text: "Match equipment to an application, not to menu depth.",
+    text: "Guide visitors to the right next step instead of making them search through a deep menu.",
   },
   {
     title: "Compare",
     icon: ArrowsLeftRight,
-    text: "Expose the differences that make an engineering choice possible.",
+    text: "Make the differences between services, offers or options easy to understand.",
   },
   {
     title: "Documentation",
     icon: FileText,
-    text: "Bring manuals, drawings and certifications into the buying route.",
+    text: "Bring useful information, answers and proof into the decision path.",
   },
   {
-    title: "Dealer routes",
+    title: "Contact routes",
     icon: Handshake,
-    text: "Connect local sales and dealer workflows to a single product system.",
+    text: "Connect messages, calls and request forms to a clear path for the business.",
   },
   {
     title: "Frontend",
@@ -67,58 +65,58 @@ const solutionNodes = [
   {
     title: "AI selection",
     icon: Path,
-    text: "Prepare guided selection without making unsupported product claims.",
+    text: "Prepare guided choices without making unsupported promises.",
   },
 ];
 
 const solutionCopy = {
   en: {
-    label: "Solutions / platform system",
-    title: <>ONE PLATFORM.<br />EVERY INDUSTRIAL ROUTE.</>,
-    intro: "From the first category to the final technical request.",
-    footer: "STRATEGY / UX / SYSTEM / BUILD",
+    label: "SOLUTIONS — WEBSITE SYSTEM",
+    title: <>ONE WEBSITE.<br />EVERY CUSTOMER ROUTE.</>,
+    intro: "From the first impression to a clear next step.",
+    footer: "STRATEGY — UX — SYSTEM — BUILD",
     explore: "Explore the solution",
-    frame: "A platform is strongest when product structure, interaction and frontend share one logic.",
-    discuss: "Discuss your platform",
+    frame: "A website is strongest when business context, structure, interaction and frontend share one logic.",
+    discuss: "Discuss your website",
   },
   ua: {
-    label: "Рішення / система платформи",
-    title: <>ОДНА ПЛАТФОРМА.<br />УСІ ПРОМИСЛОВІ МАРШРУТИ.</>,
-    intro: "Від першої категорії до фінального технічного запиту.",
-    footer: "СТРАТЕГІЯ / UX / СИСТЕМА / РЕАЛІЗАЦІЯ",
+    label: "РІШЕННЯ — СИСТЕМА САЙТУ",
+    title: <>ОДИН САЙТ.<br />УСІ ШЛЯХИ КЛІЄНТА.</>,
+    intro: "Від першого враження до зрозумілого наступного кроку.",
+    footer: "СТРАТЕГІЯ — UX — СИСТЕМА — РЕАЛІЗАЦІЯ",
     explore: "Дослідити рішення",
-    frame: "Платформа найсильніша, коли структура продукту, взаємодія і frontend мають спільну логіку.",
-    discuss: "Обговорити платформу",
+    frame: "Сайт найсильніший, коли контекст бізнесу, структура, взаємодія і frontend мають спільну логіку.",
+    discuss: "Обговорити сайт",
     nodes: [
-      ["Архітектура", "Структура навколо обладнання, застосувань і рішень покупця."],
-      ["Каталог", "Зрозумілі категорії, продуктові сімейства й масштабований технічний контент."],
-      ["Пошук продукту", "Підбирайте обладнання під застосування, а не під глибину меню."],
-      ["Порівняння", "Показуйте відмінності, необхідні для інженерного вибору."],
-      ["Документація", "Вбудовуйте інструкції, креслення й сертифікати у шлях покупки."],
-      ["Дилерські шляхи", "Об’єднуйте локальні продажі й дилерські процеси в одну продуктову систему."],
+      ["Архітектура", "Структура навколо бізнесу, його пропозиції й наступного рішення клієнта."],
+      ["Контент", "Зрозумілі сторінки, групи послуг і зміст, який допомагає розібратися в пропозиції."],
+      ["Шлях клієнта", "Ведіть відвідувачів до потрібної дії, а не змушуйте шукати в глибокому меню."],
+      ["Порівняння", "Показуйте відмінності між послугами, пропозиціями чи варіантами зрозуміло."],
+      ["Корисна інформація", "Додавайте відповіді й докази у шлях прийняття рішення."],
+      ["Шляхи контакту", "Об’єднуйте повідомлення, дзвінки й форми у зрозумілий шлях до бізнесу."],
       ["Frontend", "Адаптивна реалізація тією ж командою, яка проєктує UX."],
       ["Аналітика", "Готуйте змістовні точки взаємодії без вигаданих показників."],
-      ["AI-підбір", "Готуйте керований підбір без непідтверджених тверджень про продукт."],
+      ["Керований вибір", "Готуйте зрозумілий вибір без непідтверджених обіцянок."],
     ],
   },
   de: {
-    label: "Lösungen / Plattformsystem",
-    title: <>EINE PLATTFORM.<br />JEDER INDUSTRIELLE WEG.</>,
-    intro: "Von der ersten Kategorie bis zur finalen technischen Anfrage.",
-    footer: "STRATEGIE / UX / SYSTEM / UMSETZUNG",
+    label: "LÖSUNGEN — WEBSITE-SYSTEM",
+    title: <>EINE WEBSITE.<br />JEDER KUNDENWEG.</>,
+    intro: "Vom ersten Eindruck bis zum klaren nächsten Schritt.",
+    footer: "STRATEGIE — UX — SYSTEM — UMSETZUNG",
     explore: "Lösung erkunden",
-    frame: "Eine Plattform ist am stärksten, wenn Produktstruktur, Interaktion und Frontend einer Logik folgen.",
-    discuss: "Plattform besprechen",
+    frame: "Eine Website ist am stärksten, wenn Geschäftskontext, Struktur, Interaktion und Frontend einer Logik folgen.",
+    discuss: "Website besprechen",
     nodes: [
-      ["Architektur", "Eine Struktur rund um Anlagen, Anwendungen und Kaufentscheidungen."],
-      ["Katalog", "Klare Kategorien, Produktfamilien und skalierbare technische Inhalte."],
-      ["Produktfinder", "Anlagen nach Anwendung auswählen, nicht nach Menütiefe."],
-      ["Vergleich", "Unterschiede sichtbar machen, die eine technische Entscheidung ermöglichen."],
-      ["Dokumentation", "Handbücher, Zeichnungen und Zertifikate in den Kaufweg integrieren."],
-      ["Händlerwege", "Lokale Vertriebs- und Händlerabläufe in einem Produktsystem verbinden."],
+      ["Architektur", "Eine Struktur rund um das Unternehmen, sein Angebot und die nächste Entscheidung der Kunden."],
+      ["Inhalte", "Klare Seiten, Leistungsgruppen und Inhalte, die das Angebot verständlich machen."],
+      ["Kundenweg", "Besucher zum richtigen nächsten Schritt führen, statt sie durch tiefe Menüs suchen zu lassen."],
+      ["Vergleich", "Unterschiede zwischen Leistungen, Angeboten oder Optionen verständlich machen."],
+      ["Nützliche Informationen", "Antworten und Belege in den Entscheidungsweg integrieren."],
+      ["Kontaktwege", "Nachrichten, Anrufe und Formulare zu einem klaren Weg zum Unternehmen verbinden."],
       ["Frontend", "Responsive Umsetzung durch dasselbe Team, das die UX entwirft."],
       ["Analyse", "Sinnvolle Interaktionspunkte vorbereiten, ohne Leistungswerte zu erfinden."],
-      ["KI-Auswahl", "Geführte Auswahl vorbereiten, ohne unbelegte Produktversprechen."],
+      ["Geführte Auswahl", "Verständliche Auswahl vorbereiten, ohne unbelegte Versprechen."],
     ],
   },
 };
@@ -159,7 +157,6 @@ export function SolutionsPage() {
         <p className="page-intro">{labels.intro}</p>
 
         <div className="solution-manifold">
-          <SolutionContour />
           <div
             ref={railRef}
             className="solution-manifold__rail"
@@ -186,19 +183,11 @@ export function SolutionsPage() {
               );
             })}
           </div>
-          <div className="solution-manifold__arrows" aria-hidden="true">
-            <ArrowRight />
-            <ArrowRight />
-            <ArrowRight />
-            <ArrowRight />
-            <ArrowRight />
-            <ArrowRight />
-          </div>
           <div
             className={`solution-manifold__detail ${active >= 6 ? "is-lower-branch" : "is-upper-branch"}`}
             role="tabpanel"
           >
-            <span aria-hidden="true">0{active + 1} / 09</span>
+            <span aria-hidden="true">{locale === "ua" ? "ЕТАП" : locale === "de" ? "SCHRITT" : "STEP"} 0{active + 1} {locale === "ua" ? "З" : locale === "de" ? "VON" : "OF"} 09</span>
             <SelectedIcon aria-hidden="true" weight="thin" />
             <div>
               <p>{selected.title}</p>

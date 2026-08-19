@@ -11,6 +11,7 @@ import { PrimaryCTA } from "./Primitives.jsx";
 import { useLocale } from "../i18n.jsx";
 import { publicAsset } from "../lib/publicAsset.js";
 import { AmbientBrandVideo } from "./AmbientBrandVideo.jsx";
+import { ProgressiveAssetWarmup } from "./ProgressiveAssetWarmup.jsx";
 
 const useGlobalAmbientVideo = true;
 
@@ -30,8 +31,6 @@ const scrollRevealSelector = [
   ".process-rail",
   ".method-map__zone",
   ".method-timeline",
-  ".solution-manifold__rail > button",
-  ".solution-manifold__detail",
   ".catalogue-filter-control",
   ".catalogue-filters--interactive > .catalogue-toggle",
   ".catalogue-row",
@@ -211,13 +210,15 @@ export function SiteHeader({ theme, onThemeToggle, localAmbient = false }) {
       )}
       <Link className="brand" to="/" aria-label="iPLUSgor Digital home">
         <img
-          src={theme === "dark"
-            ? publicAsset("assets/brand/iplusgor-logo-light.png")
-            : publicAsset("assets/brand/iplusgor-logo-dark.png")}
-          width="960"
-          height="239"
-          alt="iPLUSgor Digital"
+          className="brand__symbol"
+          src={publicAsset("assets/brand/iplusgor-symbol-signal.png")}
+          width="1254"
+          height="1254"
+          alt=""
+          decoding="async"
+          fetchPriority="high"
         />
+        <span className="brand__wordmark">iPLUSgor</span>
         <span className="brand__division">Digital</span>
       </Link>
 
@@ -284,26 +285,21 @@ export function SiteFooter({ localAmbient = false }) {
       <div>
         <div className="site-footer__brand">
           <img
-            src={publicAsset("assets/brand/iplusgor-logo-light.png")}
-            width="960"
-            height="239"
-            alt="iPLUSgor Digital"
-            loading="lazy"
+            className="site-footer__symbol"
+            src={publicAsset("assets/brand/iplusgor-symbol-signal.png")}
+            width="1254"
+            height="1254"
+            alt=""
+            loading="eager"
+            decoding="async"
+            fetchPriority="low"
           />
+          <strong>iPLUSgor</strong>
           <span>Digital</span>
         </div>
         <p>
           {t("shared.practice")}
         </p>
-        <a
-          className="site-footer__creative"
-          href="https://www.instagram.com/iPLUSgor.creative"
-          target="_blank"
-          rel="noreferrer"
-        >
-          {t("shared.creative")}
-          <ArrowUpRight aria-hidden="true" />
-        </a>
       </div>
       <nav aria-label={t("navigation.footer")}>
         {navigation.map((item) => (
@@ -312,9 +308,10 @@ export function SiteFooter({ localAmbient = false }) {
           </Link>
         ))}
         <Link to="/start-project">{t("navigation.review")}</Link>
+        <a href="https://www.instagram.com/iplusgor/" target="_blank" rel="noreferrer">Instagram</a>
       </nav>
       <p className="site-footer__note">
-        SOFT SHELL / HARD CORE
+        SOFT SHELL — HARD CORE
         <br />
         {t("shared.premium")}
       </p>
@@ -339,8 +336,9 @@ export function SiteLayout() {
 
   return (
     <>
+      <ProgressiveAssetWarmup />
       {useGlobalAmbientVideo && (
-        <AmbientBrandVideo className="site-wide-ambient" priority />
+        <AmbientBrandVideo className="site-wide-ambient" priority hideWhenStatic />
       )}
       <a className="skip-link" href="#main-content">
         {t("navigation.skip")}

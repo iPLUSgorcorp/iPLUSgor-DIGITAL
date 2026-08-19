@@ -20,15 +20,15 @@ function detectLocale() {
 const messages = {
   en: {
     navigation: { approach: "Approach", solutions: "Solutions", work: "Work", team: "Team", start: "Start a project", review: "Preliminary review", menuOpen: "Open navigation menu", menuClose: "Close navigation menu", primary: "Primary navigation", mobile: "Mobile navigation", footer: "Footer navigation", skip: "Skip to main content" },
-    shared: { review: "Get a preliminary review", premium: "Selective industrial platform engagements", practice: "iPLUSgor Digital is the website and digital-platform division of the independent Ukrainian iPLUSgor design company.", creative: "iPLUSgor Creative on Instagram" },
+    shared: { review: "Get a preliminary review", premium: "Clear scope — client ownership — responsive delivery", practice: "iPLUSgor Digital is an independent Ukrainian team for websites and digital platforms." },
   },
   ua: {
     navigation: { approach: "Підхід", solutions: "Рішення", work: "Роботи", team: "Команда", start: "Почати проєкт", review: "Попередній розбір", menuOpen: "Відкрити меню навігації", menuClose: "Закрити меню навігації", primary: "Основна навігація", mobile: "Мобільна навігація", footer: "Навігація у футері", skip: "Перейти до основного вмісту" },
-    shared: { review: "Отримати попередній розбір", premium: "Вибіркові проєкти промислових платформ", practice: "iPLUSgor Digital — напрям сайтів і цифрових платформ незалежної української дизайн-компанії iPLUSgor.", creative: "iPLUSgor Creative в Instagram" },
+    shared: { review: "Отримати попередній розбір", premium: "Чіткий обсяг — власність клієнта — адаптивна реалізація", practice: "iPLUSgor Digital — незалежна українська команда сайтів і цифрових платформ." },
   },
   de: {
     navigation: { approach: "Ansatz", solutions: "Lösungen", work: "Arbeiten", team: "Team", start: "Projekt starten", review: "Vorprüfung", menuOpen: "Navigationsmenü öffnen", menuClose: "Navigationsmenü schließen", primary: "Hauptnavigation", mobile: "Mobile Navigation", footer: "Fußnavigation", skip: "Zum Hauptinhalt springen" },
-    shared: { review: "Vorprüfung anfragen", premium: "Ausgewählte Projekte für industrielle Plattformen", practice: "iPLUSgor Digital ist der Bereich für Websites und digitale Plattformen des unabhängigen ukrainischen Designunternehmens iPLUSgor.", creative: "iPLUSgor Creative auf Instagram" },
+    shared: { review: "Vorprüfung anfragen", premium: "Klarer Umfang — Kundeneigentum — responsive Umsetzung", practice: "iPLUSgor Digital ist ein unabhängiges ukrainisches Team für Websites und digitale Plattformen." },
   },
 };
 

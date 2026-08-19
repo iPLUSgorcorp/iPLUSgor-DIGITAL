@@ -1,7 +1,6 @@
 import {
   Check,
   FileText,
-  Funnel,
   GridFour,
   Lightning,
   SlidersHorizontal,
@@ -150,11 +149,6 @@ export function CatalogueFilterPanel({
       aria-label={labels.filters}
       onSubmit={(event) => event.preventDefault()}
     >
-      <div className="catalogue-filters__heading">
-        <Funnel aria-hidden="true" />
-        <h2>{labels.filters}</h2>
-      </div>
-
       <CatalogueSelect
         application
         icon={GridFour}
@@ -196,7 +190,6 @@ export function CatalogueFilterPanel({
       />
 
       <CatalogueToggle
-        active
         icon={FileText}
         label={labels.documentation}
         value={documentationOnly}

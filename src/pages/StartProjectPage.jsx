@@ -15,22 +15,22 @@ const CONTACT_EMAIL = "igorcorp.tech@gmail.com";
 
 const copy = {
   en: {
-    label: "Start project / preliminary review",
-    title: <>SHOW US WHERE<br />THE PLATFORM<br />GETS IN THE WAY.</>,
-    intro: "A preliminary review is a focused diagnosis of the current structure, catalogue and buyer path — not a redesign proposal.",
-    premium: "SELECTIVE / SCOPE-LED ENGAGEMENTS",
-    cadence: "DIRECT TEAM / CLEAR SCOPE / RESPONSIVE DELIVERY",
+    label: "START PROJECT — PRELIMINARY REVIEW",
+    title: <>SHOW US WHERE<br />THE WEBSITE<br />GETS IN THE WAY.</>,
+    intro: "A preliminary review is a focused look at the current website, business goal and customer path — not a redesign proposal.",
+    premium: "SELECTIVE, SCOPE-LED ENGAGEMENTS",
+    cadence: "DIRECT TEAM — CLEAR SCOPE — RESPONSIVE DELIVERY",
     email: "Contact directly",
     website: "Current website",
     market: "Primary market",
-    scale: "Catalogue scale",
-    scalePlaceholder: "Select approximate scale",
+    scale: "Website scope",
+    scalePlaceholder: "Select an approximate scope",
     barriers: "Current barriers",
-    pdf: "Optional catalogue or technical PDF",
-    drop: "Drop a PDF here or choose a file",
-    pdfLimit: "PDF / up to 10 MB",
-    fileType: "Only PDF files are accepted.",
-    fileSize: "The PDF must be 10 MB or smaller.",
+    pdf: "Optional brief or materials",
+    drop: "Drop a file here or choose a file",
+    pdfLimit: "UP TO 10 MB",
+    fileType: "Please choose a file up to 10 MB.",
+    fileSize: "The file must be 10 MB or smaller.",
     attachment: "Email links cannot attach files automatically. The filename is added to the draft as a reminder to attach it.",
     compose: "Open email draft",
     gmail: "Compose in Gmail",
@@ -39,22 +39,22 @@ const copy = {
     optional: "Every field is optional. Empty fields are omitted from the email.",
   },
   ua: {
-    label: "Почати проєкт / попередній розбір",
-    title: <>ПОКАЖІТЬ, ДЕ<br />ПЛАТФОРМА<br />ЗАВАЖАЄ.</>,
-    intro: "Попередній розбір — це сфокусована діагностика структури, каталогу та шляху покупця, а не безкоштовна пропозиція редизайну.",
-    premium: "ВИБІРКОВА РОБОТА / ОЦІНКА ЗА ОБСЯГОМ",
-    cadence: "ПРЯМИЙ КОНТАКТ / ЧІТКИЙ ОБСЯГ / АДАПТИВНА РЕАЛІЗАЦІЯ",
+    label: "ПОЧАТИ ПРОЄКТ — ПОПЕРЕДНІЙ РОЗБІР",
+    title: <>ПОКАЖІТЬ, ДЕ<br />САЙТ<br />ЗАВАЖАЄ.</>,
+    intro: "Попередній розбір — це сфокусований погляд на поточний сайт, ціль бізнесу й шлях клієнта, а не безкоштовна пропозиція редизайну.",
+    premium: "ВИБІРКОВА РОБОТА, ОЦІНКА ЗА ОБСЯГОМ",
+    cadence: "ПРЯМИЙ КОНТАКТ — ЧІТКИЙ ОБСЯГ — АДАПТИВНА РЕАЛІЗАЦІЯ",
     email: "Написати напряму",
     website: "Поточний сайт",
     market: "Основний ринок",
-    scale: "Розмір каталогу",
-    scalePlaceholder: "Оберіть приблизний масштаб",
+    scale: "Обсяг сайту",
+    scalePlaceholder: "Оберіть приблизний обсяг",
     barriers: "Поточні бар’єри",
-    pdf: "Необов’язковий каталог або технічний PDF",
-    drop: "Перетягніть PDF або оберіть файл",
-    pdfLimit: "PDF / до 10 МБ",
-    fileType: "Можна додати лише PDF.",
-    fileSize: "PDF має бути не більшим за 10 МБ.",
+    pdf: "Необов’язковий бриф або матеріали",
+    drop: "Перетягніть файл або оберіть його",
+    pdfLimit: "ДО 10 МБ",
+    fileType: "Оберіть файл до 10 МБ.",
+    fileSize: "Файл має бути не більшим за 10 МБ.",
     attachment: "Посилання на пошту не може прикріпити файл автоматично. Назва файлу буде додана в чернетку як нагадування.",
     compose: "Відкрити чернетку листа",
     gmail: "Написати у Gmail",
@@ -63,22 +63,22 @@ const copy = {
     optional: "Усі поля необов’язкові. Порожні поля не потрапляють у лист.",
   },
   de: {
-    label: "Projekt starten / Vorprüfung",
-    title: <>ZEIGEN SIE UNS,<br />WO DIE PLATTFORM<br />IM WEG STEHT.</>,
-    intro: "Eine Vorprüfung ist eine fokussierte Diagnose von Struktur, Katalog und Käuferpfad — kein kostenloser Redesign-Vorschlag.",
-    premium: "AUSGEWÄHLTE / UMFANGSBASIERTE PROJEKTE",
-    cadence: "DIREKTES TEAM / KLARER UMFANG / RESPONSIVE UMSETZUNG",
+    label: "PROJEKT STARTEN — VORPRÜFUNG",
+    title: <>ZEIGEN SIE UNS,<br />WO DIE WEBSITE<br />IM WEG STEHT.</>,
+    intro: "Eine Vorprüfung ist ein fokussierter Blick auf die aktuelle Website, das Geschäftsziel und den Kundenweg — kein kostenloser Redesign-Vorschlag.",
+    premium: "AUSGEWÄHLTE, UMFANGSBASIERTE PROJEKTE",
+    cadence: "DIREKTES TEAM — KLARER UMFANG — RESPONSIVE UMSETZUNG",
     email: "Direkt kontaktieren",
     website: "Aktuelle Website",
     market: "Hauptmarkt",
-    scale: "Katalogumfang",
+    scale: "Website-Umfang",
     scalePlaceholder: "Ungefähren Umfang wählen",
     barriers: "Aktuelle Hürden",
-    pdf: "Optionaler Katalog oder technisches PDF",
-    drop: "PDF hier ablegen oder Datei auswählen",
-    pdfLimit: "PDF / bis 10 MB",
-    fileType: "Nur PDF-Dateien werden akzeptiert.",
-    fileSize: "Das PDF darf maximal 10 MB groß sein.",
+    pdf: "Optionales Briefing oder Materialien",
+    drop: "Datei hier ablegen oder auswählen",
+    pdfLimit: "BIS 10 MB",
+    fileType: "Bitte eine Datei bis 10 MB auswählen.",
+    fileSize: "Die Datei darf maximal 10 MB groß sein.",
     attachment: "E-Mail-Links können Dateien nicht automatisch anhängen. Der Dateiname wird als Erinnerung in den Entwurf eingefügt.",
     compose: "E-Mail-Entwurf öffnen",
     gmail: "In Gmail verfassen",
@@ -89,9 +89,9 @@ const copy = {
 };
 
 const barrierOptions = {
-  en: ["Product finding", "Mobile UX", "Technical documents", "Languages", "Request flow"],
-  ua: ["Пошук продукту", "Мобільний UX", "Технічні документи", "Мови", "Шлях запиту"],
-  de: ["Produktsuche", "Mobile UX", "Technische Dokumente", "Sprachen", "Anfrageweg"],
+  en: ["Clear offer", "Mobile experience", "Content", "Languages", "Request flow"],
+  ua: ["Зрозуміла пропозиція", "Мобільний досвід", "Контент", "Мови", "Шлях запиту"],
+  de: ["Klares Angebot", "Mobile Nutzung", "Inhalte", "Sprachen", "Anfrageweg"],
 };
 
 const initialValues = { website: "", market: "", scale: "", barriers: [] };
@@ -121,10 +121,6 @@ export function StartProjectPage() {
 
   function acceptFile(nextFile) {
     if (!nextFile) return;
-    if (!(nextFile.type === "application/pdf" || nextFile.name.toLowerCase().endsWith(".pdf"))) {
-      setFileError(labels.fileType);
-      return;
-    }
     if (nextFile.size > 10 * 1024 * 1024) {
       setFileError(labels.fileSize);
       return;
@@ -185,22 +181,22 @@ export function StartProjectPage() {
 
           <div className="form-field">
             <label htmlFor="website">{labels.website}</label>
-            <input id="website" name="website" type="url" inputMode="url" placeholder="https://manufacturer.com" value={values.website} onChange={updateField} />
+            <input id="website" name="website" type="url" inputMode="url" placeholder="https://yourbusiness.com" value={values.website} onChange={updateField} />
           </div>
 
           <div className="form-field">
             <label htmlFor="market">{labels.market}</label>
-            <input id="market" name="market" type="text" placeholder="Market, region or dealer territory" value={values.market} onChange={updateField} />
+            <input id="market" name="market" type="text" placeholder="Business, service or region" value={values.market} onChange={updateField} />
           </div>
 
           <div className="form-field">
             <label htmlFor="scale">{labels.scale}</label>
             <select id="scale" name="scale" value={values.scale} onChange={updateField}>
               <option value="">{labels.scalePlaceholder}</option>
-              <option value="Under 50 models">Under 50 models</option>
-              <option value="50–200 models">50–200 models</option>
-              <option value="200–500 models">200–500 models</option>
-              <option value="500+ models">500+ models</option>
+              <option value="One-page website">One-page website</option>
+              <option value="Small multi-page website">Small multi-page website</option>
+              <option value="Website refresh">Website refresh</option>
+              <option value="Not sure yet">Not sure yet</option>
             </select>
           </div>
 
@@ -226,7 +222,7 @@ export function StartProjectPage() {
               onDragLeave={() => setDragging(false)}
               onDrop={(event) => { event.preventDefault(); setDragging(false); acceptFile(event.dataTransfer.files?.[0]); }}
             >
-              <input id="project-file" type="file" accept="application/pdf,.pdf" onChange={(event) => acceptFile(event.target.files?.[0])} />
+            <input id="project-file" type="file" accept=".pdf,.doc,.docx,.txt,image/*" onChange={(event) => acceptFile(event.target.files?.[0])} />
               <FileArrowUp aria-hidden="true" />
               <span>{file ? file.name : labels.drop}<small>{labels.pdfLimit}</small></span>
               {file && (

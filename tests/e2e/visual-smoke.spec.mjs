@@ -258,6 +258,40 @@ test("sticky optical header and motion remain lightweight and reduced-motion saf
   expect(reducedMotion.ctaTransition).toBe("0s");
 });
 
+test("mobile performance mode avoids decorative video decoding and live blur", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/", { waitUntil: "networkidle" });
+
+  expect(await page.locator("video").count()).toBe(0);
+  expect(await page.locator(".site-wide-ambient").count()).toBe(0);
+  const mobileMediaRequests = await page.evaluate(() => performance
+    .getEntriesByType("resource")
+    .map((entry) => entry.name)
+    .filter((name) => /\.mp4(?:\?|$)/i.test(name)));
+  expect(mobileMediaRequests).toEqual([]);
+  await page.evaluate(() => window.scrollTo(0, 500));
+  await expect(page.locator(".site-header")).toHaveClass(/is-scrolled/);
+
+  const mobileEffects = await page.evaluate(() => {
+    const header = getComputedStyle(document.querySelector(".site-header"), "::before");
+    const reveal = document.querySelector(".motion-reveal");
+    return {
+      backdropFilter: header.backdropFilter || header.webkitBackdropFilter,
+      revealFilter: reveal ? getComputedStyle(reveal).filter : "none",
+    };
+  });
+  expect(mobileEffects.backdropFilter).toBe("none");
+  expect(mobileEffects.revealFilter).toBe("none");
+
+  await page.goto("/team", { waitUntil: "networkidle" });
+  expect(await page.locator("video").count()).toBe(0);
+  await expect(page.locator(".brand-branch__poster").first()).toBeVisible();
+
+  await page.setViewportSize({ width: 1536, height: 1024 });
+  await page.goto("/", { waitUntil: "networkidle" });
+  expect(await page.locator("video").count()).toBeGreaterThan(0);
+});
+
 test("dark theme switches, persists and keeps the shell accessible", async ({ page }) => {
   await page.setViewportSize({ width: 1536, height: 1024 });
   await page.goto("/", { waitUntil: "networkidle" });
