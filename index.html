@@ -1,50 +1,92 @@
 <!doctype html>
-<html lang="en">
+<html lang="uk">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#F3F0EA" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
-    <link rel="icon" type="image/png" href="%BASE_URL%assets/brand/iplusgor-symbol.png" />
-    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="icon" type="image/png" href="%BASE_URL%assets/brand/iplusgor-symbol-signal.png" />
+    <link rel="manifest" href="%BASE_URL%site.webmanifest" />
+    <link
+      rel="preload"
+      as="image"
+      href="%BASE_URL%assets/brand/iplusgor-symbol-signal.png"
+      media="(prefers-color-scheme: light)"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="%BASE_URL%assets/brand/iplusgor-symbol-signal.png"
+      media="(prefers-color-scheme: dark)"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="%BASE_URL%assets/brand/iplusgor-ambient-forms-poster.webp"
+      fetchpriority="high"
+    />
     <meta
       name="description"
-      content="iPLUSgor Digital is the website and digital-platform division of iPLUSgor, modernizing industrial websites for product selection, sales and dealer workflows."
+      content="iPLUSgor Digital створює сучасні адаптивні сайти для локального бізнесу в Україні: структура, дизайн, frontend, домен і публікація."
     />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="iPLUSgor Digital" />
-    <meta property="og:title" content="iPLUSgor Digital — Industrial website modernization" />
+    <meta property="og:title" content="Створення сайтів для бізнесу | iPLUSgor Digital" />
     <meta
       property="og:description"
-      content="Clear digital platforms for complex equipment catalogues, product selection and dealer workflows."
+      content="Сучасні адаптивні сайти для локального бізнесу — від структури й дизайну до підключення домену та публікації."
     />
-    <meta property="og:url" content="/" />
-    <meta property="og:image" content="%BASE_URL%assets/brand/iplusgor-logo-dark.png" />
+    <meta property="og:url" content="https://iplusgor.com/" />
+    <meta property="og:locale" content="uk_UA" />
+    <meta property="og:image" content="https://iplusgor.com/assets/brand/iplusgor-ambient-forms-poster.webp" />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="720" />
+    <meta property="og:image:alt" content="iPLUSgor Digital — створення сайтів для бізнесу" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="iPLUSgor Digital — Industrial website modernization" />
+    <meta name="twitter:title" content="Створення сайтів для бізнесу | iPLUSgor Digital" />
     <meta
       name="twitter:description"
-      content="Clear digital platforms for complex equipment catalogues, product selection and dealer workflows."
+      content="Сучасні адаптивні сайти для локального бізнесу — від структури й дизайну до підключення домену та публікації."
     />
-    <meta name="twitter:image" content="%BASE_URL%assets/brand/iplusgor-logo-dark.png" />
-    <link rel="canonical" href="/" />
-    <title>iPLUSgor Digital — Industrial website modernization</title>
+    <meta name="twitter:image" content="https://iplusgor.com/assets/brand/iplusgor-ambient-forms-poster.webp" />
+    <link rel="canonical" href="https://iplusgor.com/" />
+    <title>Створення сайтів для бізнесу | iPLUSgor Digital</title>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": ["ProfessionalService", "Organization"],
-        "name": "iPLUSgor Digital",
-        "foundingDate": "2026",
-        "email": "igorcorp.tech@gmail.com",
-        "description": "The website and digital-platform division of the independent Ukrainian iPLUSgor design company.",
-        "parentOrganization": {
-          "@type": "Organization",
-          "name": "iPLUSgor"
-        },
-        "knowsAbout": [
-          "Industrial website architecture",
-          "Product catalogue UX",
-          "Frontend development"
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://iplusgor.com/#website",
+            "url": "https://iplusgor.com/",
+            "name": "iPLUSgor Digital",
+            "alternateName": ["iPLUSgor", "iPLUSgor Digital web studio"],
+            "inLanguage": ["uk", "en", "de"],
+            "publisher": { "@id": "https://iplusgor.com/#organization" }
+          },
+          {
+            "@type": "Organization",
+            "@id": "https://iplusgor.com/#organization",
+            "name": "iPLUSgor Digital",
+            "url": "https://iplusgor.com/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://iplusgor.com/assets/brand/iplusgor-symbol-signal.png",
+              "width": 1254,
+              "height": 1254
+            },
+            "foundingDate": "2026",
+            "email": "igorcorp.tech@gmail.com",
+            "description": "Незалежна українська команда, що створює зрозумілі адаптивні сайти для локального бізнесу.",
+            "sameAs": ["https://www.instagram.com/iplusgor/"],
+            "knowsAbout": [
+              "Website design",
+              "Responsive frontend development",
+              "Website launch and domain connection"
+            ]
+          }
         ]
       }
     </script>

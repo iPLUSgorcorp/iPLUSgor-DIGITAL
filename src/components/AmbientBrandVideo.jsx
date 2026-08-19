@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { publicAsset } from "../lib/publicAsset.js";
 
-const videoSource = "assets/brand/iplusgor-ambient-forms.mp4";
+const videoSource = "assets/brand/iplusgor-ambient-forms.mp4?v=20260820";
 const posterSource = "assets/brand/iplusgor-ambient-forms-poster.webp";
 const staticMediaQuery = [
   "(max-width: 760px)",
@@ -44,6 +44,7 @@ export function AmbientBrandVideo({
 }) {
   const videoRef = useRef(null);
   const staticMedia = useStaticMediaMode();
+  const [videoFailed, setVideoFailed] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -77,7 +78,7 @@ export function AmbientBrandVideo({
 
   return (
     <div className={`ambient-brand-video ${className}`.trim()} aria-hidden="true">
-      {staticMedia ? (
+      {staticMedia || videoFailed ? (
         <img
           src={publicAsset(posterSource)}
           alt=""
@@ -97,6 +98,7 @@ export function AmbientBrandVideo({
           loop
           playsInline
           preload={priority ? "metadata" : "none"}
+          onError={() => setVideoFailed(true)}
           disablePictureInPicture
           tabIndex="-1"
         />

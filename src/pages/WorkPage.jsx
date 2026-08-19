@@ -25,14 +25,14 @@ import { useLocale } from "../i18n.jsx";
 
 const copy = {
   en: {
-    label: "Work / concept library",
+    label: "WORK — CONCEPT LIBRARY",
     title: <>CLIENT TRUST<br />COMES FIRST.</>,
     intro: "Commercial work is published only with explicit client permission. When a project must remain private, we do not disclose it; this library contains only publishable material and clearly labelled independent concepts.",
     all: "All concepts",
     emptyTitle: "The concept library is ready.",
     emptyText: "New studies added through the local concept manager will appear here automatically.",
     emptyAction: "Add the first concept locally",
-    status: "INDEPENDENT CONCEPT / PUBLISHED AS CONCEPT",
+    status: "INDEPENDENT CONCEPT — SELF-INITIATED STUDY",
     view: "View concept",
     image: "Image",
     close: "Close image viewer",
@@ -46,14 +46,14 @@ const copy = {
     frameCta: "See how we work",
   },
   ua: {
-    label: "Роботи / бібліотека концептів",
+    label: "РОБОТИ — БІБЛІОТЕКА КОНЦЕПТІВ",
     title: <>ДОВІРА<br />ПЕРШ ЗА ВСЕ.</>,
     intro: "Ми публікуємо комерційні проєкти лише з прямого дозволу клієнта. Якщо робота має залишатися конфіденційною, ми її не розкриваємо; тому тут показані лише дозволені до публікації матеріали та чітко позначені незалежні концепти.",
     all: "Усі концепти",
     emptyTitle: "Бібліотека концептів готова.",
     emptyText: "Нові дослідження, додані через локальний менеджер, автоматично з’являться тут.",
     emptyAction: "Додати перший концепт локально",
-    status: "НЕЗАЛЕЖНИЙ КОНЦЕПТ / ОПУБЛІКОВАНО ЯК КОНЦЕПТ",
+    status: "НЕЗАЛЕЖНИЙ КОНЦЕПТ — САМОСТІЙНЕ ДОСЛІДЖЕННЯ",
     view: "Переглянути концепт",
     image: "Зображення",
     close: "Закрити перегляд",
@@ -67,14 +67,14 @@ const copy = {
     frameCta: "Як ми працюємо",
   },
   de: {
-    label: "Arbeiten / Konzeptbibliothek",
+    label: "ARBEITEN — KONZEPTBIBLIOTHEK",
     title: <>VERTRAUEN<br />HAT VORRANG.</>,
     intro: "Kommerzielle Projekte veröffentlichen wir nur mit ausdrücklicher Zustimmung des Kunden. Wenn eine Arbeit vertraulich bleiben soll, legen wir sie nicht offen; diese Bibliothek enthält daher nur freigegebene Materialien und klar gekennzeichnete unabhängige Konzepte.",
     all: "Alle Konzepte",
     emptyTitle: "Die Konzeptbibliothek ist bereit.",
     emptyText: "Neue Studien aus dem lokalen Konzeptmanager erscheinen hier automatisch.",
     emptyAction: "Erstes Konzept lokal hinzufügen",
-    status: "UNABHÄNGIGES KONZEPT / ALS KONZEPT VERÖFFENTLICHT",
+    status: "UNABHÄNGIGES KONZEPT — EIGENSTÄNDIGE STUDIE",
     view: "Konzept ansehen",
     image: "Bild",
     close: "Bildansicht schließen",
@@ -89,7 +89,13 @@ const copy = {
   },
 };
 
-function normalizeConcept(item, index) {
+function localizeField(value, locale, fallback = "") {
+  if (typeof value === "string") return value;
+  if (!value || typeof value !== "object") return fallback;
+  return value[locale] || value.en || value.ua || value.de || fallback;
+}
+
+function normalizeConcept(item, index, locale) {
   const legacyImages = [
     item.before ? { src: item.before, label: "Before" } : null,
     item.after ? { src: item.after, label: "After" } : null,
@@ -99,7 +105,7 @@ function normalizeConcept(item, index) {
       .filter((image) => image && typeof image.src === "string" && image.src)
       .map((image, imageIndex) => ({
         src: image.src,
-        label: image.label || `Image ${imageIndex + 1}`,
+        label: localizeField(image.label, locale, `Image ${imageIndex + 1}`),
       }))
     : legacyImages;
   const layout = ["before-after", "carousel", "single"].includes(item.layout)
@@ -108,9 +114,9 @@ function normalizeConcept(item, index) {
 
   return {
     id: item.id || `concept-${index + 1}`,
-    title: item.title || `Concept ${index + 1}`,
-    description: item.description || "",
-    tag: item.tag || "Concept",
+    title: localizeField(item.title, locale, `Concept ${index + 1}`),
+    description: localizeField(item.description, locale),
+    tag: localizeField(item.tag, locale, "Concept"),
     layout,
     images,
     projectUrl: item.projectUrl || item.githubUrl || item.externalUrl || "",
@@ -118,7 +124,7 @@ function normalizeConcept(item, index) {
   };
 }
 
-function ConceptViewer({ concepts, initialIndex, labels, onClose }) {
+function ConceptViewer({ concepts, initialIndex, labels, locale, onClose }) {
   const [index, setIndex] = useState(initialIndex);
   const [imageIndex, setImageIndex] = useState(
     concepts[initialIndex]?.layout === "before-after" ? 1 : 0,
@@ -315,7 +321,7 @@ function ConceptViewer({ concepts, initialIndex, labels, onClose }) {
             <button type="button" aria-label={labels.previous} onClick={() => moveConcept(-1)}>
               <ArrowLeft aria-hidden="true" />
             </button>
-            <span>{String(index + 1).padStart(2, "0")} / {String(concepts.length).padStart(2, "0")}</span>
+            <span>{String(index + 1).padStart(2, "0")} {locale === "ua" ? "З" : locale === "de" ? "VON" : "OF"} {String(concepts.length).padStart(2, "0")}</span>
             <button type="button" aria-label={labels.next} onClick={() => moveConcept(1)}>
               <ArrowRight aria-hidden="true" />
             </button>
@@ -336,16 +342,20 @@ export function WorkPage() {
 
   useEffect(() => {
     let active = true;
-    fetch(`${publicAsset("data/work-concepts.json")}?v=${Date.now()}`, { cache: "no-store" })
+    fetch(publicAsset("data/work-concepts.json"), { cache: "default" })
       .then((response) => response.ok ? response.json() : [])
       .then((items) => {
-        if (active) setConcepts(Array.isArray(items) ? items.map(normalizeConcept) : []);
+        if (active) {
+          setConcepts(Array.isArray(items)
+            ? items.map((item, index) => normalizeConcept(item, index, locale))
+            : []);
+        }
       })
       .catch(() => {
         if (active) setConcepts([]);
       });
     return () => { active = false; };
-  }, []);
+  }, [locale]);
 
   const filters = useMemo(
     () => ["all", ...new Set(concepts.map((item) => item.tag).filter(Boolean))],
@@ -412,7 +422,9 @@ export function WorkPage() {
                           src={publicAsset(previewImages[0].src)}
                           alt={`${item.title} — ${previewImages[0].label || `${labels.image} 1`}`}
                           draggable="false"
-                          loading="lazy"
+                          loading="eager"
+                          decoding="async"
+                          fetchPriority="low"
                         />
                         <figcaption>{previewImages[0].label || `${labels.image} 1`}</figcaption>
                       </figure>
@@ -424,7 +436,9 @@ export function WorkPage() {
                           src={publicAsset(previewImages[1].src)}
                           alt={`${item.title} — ${previewImages[1].label || `${labels.image} 2`}`}
                           draggable="false"
-                          loading="lazy"
+                          loading="eager"
+                          decoding="async"
+                          fetchPriority="low"
                         />
                         <figcaption>{previewImages[1].label || `${labels.image} 2`}</figcaption>
                       </figure>
@@ -481,6 +495,7 @@ export function WorkPage() {
           concepts={concepts}
           initialIndex={viewerIndex}
           labels={labels}
+          locale={locale}
           onClose={() => setViewerIndex(null)}
         />
       )}

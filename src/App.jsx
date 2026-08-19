@@ -9,44 +9,7 @@ import { TeamPage } from "./pages/TeamPage.jsx";
 import { StartProjectPage } from "./pages/StartProjectPage.jsx";
 import { useEffect, useLayoutEffect } from "react";
 import { LocaleProvider, useLocale } from "./i18n.jsx";
-
-const metadata = {
-  "/": {
-    title: "iPLUSgor Digital — Industrial website modernization",
-    description:
-      "iPLUSgor Digital is the website and digital-platform division of iPLUSgor, modernizing industrial websites for product selection, sales and dealer workflows.",
-  },
-  "/approach": {
-    title: "Approach — iPLUSgor Digital",
-    description:
-      "A six-stage modernization process for industrial platform structure, catalogue UX and frontend delivery.",
-  },
-  "/solutions": {
-    title: "Solutions — iPLUSgor Digital",
-    description:
-      "One connected platform system for architecture, catalogue, product finding, technical content and dealer routes.",
-  },
-  "/solutions/catalogue": {
-    title: "Catalogue demo — iPLUSgor Digital",
-    description:
-      "An interface example showing how clear filters, comparison and technical evidence can shorten industrial product selection.",
-  },
-  "/work": {
-    title: "Selected work and independent concepts — iPLUSgor Digital",
-    description:
-      "Client work is published only with explicit permission. Explore approved material and clearly labelled independent interface concepts by iPLUSgor Digital.",
-  },
-  "/team": {
-    title: "Team — iPLUSgor Digital",
-    description:
-      "Meet iPLUSgor Digital, the website and digital-platform division of the independent Ukrainian iPLUSgor design company.",
-  },
-  "/start-project": {
-    title: "Get a preliminary review — iPLUSgor Digital",
-    description:
-      "Share your current industrial website, catalogue scale and barriers for a focused preliminary diagnosis.",
-  },
-};
+import { getSeoMetadata, siteOrigin } from "./seo-metadata.js";
 
 function RouteMetadata() {
   const location = useLocation();
@@ -70,8 +33,8 @@ function RouteMetadata() {
   }, [location.pathname]);
 
   useEffect(() => {
-    const page = metadata[location.pathname] ?? metadata["/"];
-    const baseUrl = (import.meta.env.VITE_SITE_URL || window.location.origin).replace(/\/$/, "");
+    const page = getSeoMetadata(location.pathname, locale);
+    const baseUrl = (import.meta.env.VITE_SITE_URL || (window.location.hostname === "iplusgor.com" ? window.location.origin : siteOrigin)).replace(/\/$/, "");
     const canonicalUrl = `${baseUrl}${location.pathname === "/" ? "/" : location.pathname}`;
     document.title = page.title;
     document.documentElement.lang = locale === "ua" ? "uk" : locale;

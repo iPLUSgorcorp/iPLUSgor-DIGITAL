@@ -1,13 +1,77 @@
 [
   {
-    "id": "1785460153-atelier-objects",
-    "title": "Atelier objects",
-    "description": "Premium furniture e-commerce concept",
-    "tag": "Simple Web Design",
+    "id": "20260820-lypa-cafe-concept",
+    "title": {
+      "ua": "Липа — сайт локальної кав’ярні",
+      "en": "Lypa — local café website",
+      "de": "Lypa — Website für ein lokales Café"
+    },
+    "description": {
+      "ua": "Самостійний концепт, у якому меню, адреса, години роботи й бронювання формують короткий шлях від першого враження до візиту.",
+      "en": "A self-initiated concept where the menu, location, opening hours and reservation action create a short path from first impression to a visit.",
+      "de": "Ein eigenständiges Konzept, bei dem Speisekarte, Standort, Öffnungszeiten und Reservierung einen kurzen Weg vom ersten Eindruck zum Besuch bilden."
+    },
+    "tag": {
+      "ua": "Сайт локального бізнесу",
+      "en": "Local business website",
+      "de": "Website für lokales Geschäft"
+    },
     "layout": "single",
     "images": [
       {
-        "src": "/assets/work-concepts/1785460153-atelier-objects-01.png",
+        "src": "/assets/work-concepts/20260820-lypa-cafe-concept.webp",
+        "label": {
+          "ua": "Концепт сайту кав’ярні",
+          "en": "Café website concept",
+          "de": "Café-Website-Konzept"
+        }
+      }
+    ],
+    "createdAt": "2026-08-20T12:00:00Z"
+  },
+  {
+    "id": "20260820-personal-portfolio-concept",
+    "title": {
+      "ua": "Персональний сайт-резюме",
+      "en": "Personal résumé website",
+      "de": "Persönliche Lebenslauf-Website"
+    },
+    "description": {
+      "ua": "Самостійний концепт персонального сайту, що поєднує позиціонування, досвід, вибрані роботи й прямий контакт в одному зрозумілому сценарії.",
+      "en": "A self-initiated personal website concept combining positioning, experience, selected work and direct contact in one clear journey.",
+      "de": "Ein eigenständiges Konzept für eine persönliche Website, das Positionierung, Erfahrung, ausgewählte Arbeiten und direkten Kontakt in einem klaren Ablauf verbindet."
+    },
+    "tag": {
+      "ua": "Сайт-резюме",
+      "en": "Résumé website",
+      "de": "Lebenslauf-Website"
+    },
+    "layout": "single",
+    "images": [
+      {
+        "src": "/assets/work-concepts/20260820-personal-portfolio-concept.webp",
+        "label": {
+          "ua": "Концепт персонального сайту",
+          "en": "Personal website concept",
+          "de": "Persönliches Website-Konzept"
+        }
+      }
+    ],
+    "createdAt": "2026-08-20T12:10:00Z"
+  },
+  {
+    "id": "1785460153-atelier-objects",
+    "title": "Atelier objects",
+    "description": "Premium furniture e-commerce concept",
+    "tag": {
+      "ua": "Концепт e-commerce",
+      "en": "E-commerce concept",
+      "de": "E-Commerce-Konzept"
+    },
+    "layout": "single",
+    "images": [
+      {
+        "src": "/assets/work-concepts/1785460153-atelier-objects-01.webp",
         "label": "Изображение 1"
       }
     ],

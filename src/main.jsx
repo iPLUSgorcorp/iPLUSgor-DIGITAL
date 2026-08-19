@@ -16,6 +16,9 @@ import "./styles/work-responsive.css";
 import "./styles/geometry-lock.css";
 import "./styles/theme.css";
 import "./styles/ambient-video.css";
+import "./styles/surgical-fixes.css";
+import "./styles/catalogue-selected.css";
+import "./styles/business-value.css";
 
 try {
   const savedTheme = window.localStorage.getItem("iplusgor-theme");
