@@ -1,0 +1,335 @@
+/* Final, localised corrections for the current presentation pass.
+   This file intentionally wins the cascade without changing route markup. */
+
+/* The supplied signal is a high-resolution transparent PNG. Keep it on a
+   separate compositing layer so it stays smooth in the header and apertures. */
+.brand__symbol,
+.site-footer__symbol,
+.aperture__core > img {
+  image-rendering: auto;
+  object-fit: contain;
+  transform: translateZ(0);
+}
+
+.brand__symbol,
+.site-footer__symbol {
+  padding: 0;
+}
+
+/* The mark already contains its own circular construction. Removing the
+   second nested rim makes the Method symbol read as one precise object. */
+.method-map__brand-aperture .aperture__rim {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.method-map__brand-aperture .aperture__core {
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.method-map__brand-aperture .aperture__core img {
+  width: 100%;
+  height: 100%;
+  filter: none;
+}
+
+.team-hero__brand-aperture .aperture__rim {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.team-hero__brand-aperture .aperture__core {
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.team-hero__brand-aperture .aperture__core img {
+  width: 88%;
+  height: 88%;
+  margin: 6%;
+  filter: grayscale(1) contrast(1.2);
+}
+
+:root[data-theme="dark"] .method-map__brand-aperture .aperture__core img {
+  filter: invert(1) brightness(1.08) contrast(0.9);
+}
+
+:root[data-theme="dark"] .team-hero__brand-aperture .aperture__core img {
+  filter: invert(1) grayscale(1) contrast(1.08);
+}
+
+.team-hero > .team-hero__brand-aperture {
+  width: min(100%, 21rem);
+}
+
+/* Work previews keep the protective inset, but no longer look like a heavy
+   browser frame around the source artwork. */
+.concept-card__media {
+  padding: 2px;
+  border: 1px solid color-mix(in srgb, var(--color-line-strong) 76%, transparent);
+  border-radius: 0.48rem;
+}
+
+.concept-card__media figure,
+.concept-card__media--single figure {
+  border-radius: 0.28rem;
+}
+
+/* The process section has a separate dark hierarchy. Explicit light copy is
+   required because the cards can be displayed over the ambient film. */
+:root[data-theme="dark"] .how-we-work__header > p,
+:root[data-theme="dark"] .how-we-work__stage-copy small,
+:root[data-theme="dark"] .how-we-work__detail p,
+:root[data-theme="dark"] .how-we-work__contact p {
+  color: rgba(243, 240, 234, 0.8) !important;
+}
+
+:root[data-theme="dark"] .how-we-work__stage-copy strong,
+:root[data-theme="dark"] .how-we-work__detail h3,
+:root[data-theme="dark"] .how-we-work__detail li,
+:root[data-theme="dark"] .how-we-work__contact h3 {
+  color: #f3f0ea !important;
+}
+
+:root[data-theme="dark"] .how-we-work__stage button {
+  color: #f3f0ea !important;
+  background: #17191a !important;
+}
+
+/* One desktop system replaces the competing legacy topology modes. It stays
+   in normal document flow, so browser zoom can never crop or hide it. */
+@media (min-width: 861px) {
+  .solutions-hero {
+    min-height: 0 !important;
+    height: auto !important;
+    padding-bottom: clamp(2rem, 3vw, 2.8rem);
+    overflow: hidden;
+  }
+
+  .solutions-hero > .solution-manifold {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+  }
+
+  .solution-contour,
+  .solution-manifold__arrows {
+    display: none !important;
+  }
+
+  .solution-manifold {
+    position: relative !important;
+    inset: auto !important;
+    display: grid !important;
+    width: 100%;
+    height: auto !important;
+    min-height: 0 !important;
+    margin: clamp(1.8rem, 3.5vw, 3rem) 0 0;
+    gap: clamp(0.9rem, 1.5vw, 1.2rem);
+    visibility: visible !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .solution-manifold__rail {
+    display: grid !important;
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    padding: clamp(0.45rem, 0.8vw, 0.65rem);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(3, minmax(4.65rem, auto));
+    gap: clamp(0.3rem, 0.55vw, 0.48rem);
+    border: 1px solid var(--color-line);
+    border-radius: 1.25rem;
+    background: color-mix(in srgb, var(--color-polymer) 38%, transparent);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.42);
+    visibility: visible !important;
+    opacity: 1 !important;
+    translate: none !important;
+    filter: none !important;
+  }
+
+  .solution-manifold__rail::before,
+  .solution-manifold__rail::after {
+    display: none !important;
+  }
+
+  .solution-manifold__rail button:nth-child(n) {
+    display: grid !important;
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    min-width: 0;
+    min-height: 4.65rem !important;
+    height: auto !important;
+    padding: 0.72rem 0.82rem;
+    grid-column: auto !important;
+    grid-row: auto !important;
+    grid-template-columns: 2rem minmax(0, 1fr) 1.35rem;
+    grid-template-rows: 1fr;
+    align-items: center;
+    gap: 0.45rem;
+    border: 1px solid transparent;
+    border-radius: 0.82rem;
+    color: var(--color-graphite);
+    background: color-mix(in srgb, var(--color-porcelain) 40%, transparent);
+    box-shadow: none;
+    text-transform: none;
+    transform: none !important;
+    translate: none !important;
+    filter: none !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  .solution-manifold__rail button:hover {
+    border-color: color-mix(in srgb, var(--color-jade-deep) 42%, transparent);
+    background: color-mix(in srgb, var(--color-porcelain) 68%, transparent);
+    transform: none;
+  }
+
+  .solution-manifold__rail button.is-active {
+    border-color: var(--color-jade-deep);
+    outline: 0;
+    background: color-mix(in srgb, var(--color-porcelain) 88%, var(--color-jade) 12%);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-jade-deep) 26%, transparent);
+    transform: none;
+  }
+
+  .solution-manifold__rail button svg {
+    display: block;
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    width: 1.22rem;
+    height: 1.22rem;
+    grid-column: 3;
+    grid-row: 1;
+    color: var(--color-jade-deep);
+  }
+
+  .solution-manifold__rail button > span {
+    display: block;
+    position: relative !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+    grid-column: 2;
+    grid-row: 1;
+    font-size: clamp(0.78rem, 0.7rem + 0.18vw, 0.92rem);
+    font-weight: 500;
+    line-height: 1.2;
+    overflow-wrap: normal;
+    text-align: left;
+    text-wrap: pretty;
+    word-break: normal;
+  }
+
+  .solution-manifold__node-index {
+    display: block !important;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    grid-column: 1;
+    grid-row: 1;
+    color: var(--color-jade-deep);
+    font-size: 0.68rem;
+    font-variant-numeric: tabular-nums;
+    transform: none !important;
+  }
+
+  .solution-manifold__detail,
+  .solution-manifold__detail.is-upper-branch,
+  .solution-manifold__detail.is-lower-branch {
+    position: relative;
+    inset: auto;
+    display: grid;
+    width: min(100%, 52rem);
+    min-height: 7.4rem;
+    margin: 0 auto;
+    padding: clamp(1rem, 1.7vw, 1.35rem);
+    grid-template-columns: auto auto minmax(0, 1fr);
+    gap: clamp(0.8rem, 1.6vw, 1.2rem);
+    border-radius: 1.25rem;
+    background: color-mix(in srgb, var(--color-porcelain) 76%, var(--color-polymer));
+    box-shadow: none;
+    transform: none !important;
+    translate: none !important;
+    filter: none !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  .solutions-hero > .solutions-hero__footer {
+    position: relative;
+    inset: auto;
+    width: min(100%, 54rem);
+    min-height: 5.2rem;
+    margin: 1.5rem auto 0;
+    transform: none;
+  }
+
+  :root[data-theme="dark"] .solution-manifold__rail {
+    border-color: rgba(243, 240, 234, 0.2);
+    background: rgba(255, 255, 255, 0.025);
+  }
+
+  :root[data-theme="dark"] .solution-manifold__rail button {
+    color: #f3f0ea;
+    background: rgba(255, 255, 255, 0.025);
+    box-shadow: none;
+  }
+
+  :root[data-theme="dark"] .solution-manifold__rail button.is-active {
+    color: #f3f0ea;
+    background: #24272a;
+    box-shadow: inset 0 0 0 1px rgba(130, 152, 255, 0.86);
+  }
+
+  :root[data-theme="dark"] .solution-manifold__detail {
+    color: #f3f0ea;
+    border-color: rgba(243, 240, 234, 0.22);
+    background: #17191a;
+  }
+}
+
+/* The measured frame deliberately paints above the shell. At desktop widths
+   its own overflow must stay visible; otherwise the SVG shadow is cut on the
+   exact top edge of the section when the browser is zoomed out. */
+@media (min-width: 1440px) {
+  .page--solutions {
+    margin-top: 5.5rem;
+  }
+
+  .solutions-hero {
+    overflow: visible !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .concept-card__media {
+    padding: 2px;
+    border-radius: 0.55rem;
+  }
+
+  .concept-card__media figure,
+  .concept-card__media--single figure {
+    border-radius: 0.3rem;
+  }
+}

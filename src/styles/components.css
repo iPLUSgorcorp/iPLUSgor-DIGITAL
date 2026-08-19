@@ -49,7 +49,7 @@
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(121, 184, 166, 0.62) 22%,
+    rgba(130, 152, 255, 0.62) 22%,
     rgba(151, 171, 207, 0.42) 42%,
     rgba(203, 167, 200, 0.36) 62%,
     rgba(255, 138, 114, 0.48) 80%,
@@ -79,13 +79,13 @@
     rgba(243, 240, 234, 0.52);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.72),
-    inset 1px 0 0 rgba(121, 184, 166, 0.18),
+    inset 1px 0 0 rgba(130, 152, 255, 0.18),
     inset -1px 0 0 rgba(255, 138, 114, 0.14),
     0 12px 32px rgba(23, 25, 24, 0.075);
   opacity: 1;
   transform: translate(-50%, 0) scaleX(1);
-  -webkit-backdrop-filter: blur(16px) saturate(1.12);
-  backdrop-filter: blur(16px) saturate(1.12);
+  -webkit-backdrop-filter: blur(9px) saturate(1.04) contrast(1.08);
+  backdrop-filter: blur(9px) saturate(1.04) contrast(1.08);
 }
 
 .site-header.is-scrolled::after {
@@ -122,12 +122,36 @@
   position: relative;
   z-index: 2;
   display: block;
-  width: clamp(8.5rem, 14vw, 12rem);
-  height: auto;
+  width: 2.5rem;
+  height: 2.5rem;
+  object-fit: contain;
   -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
   filter: none !important;
   transform: translateZ(0);
+}
+
+.brand__symbol {
+  padding: 0.1rem;
+}
+
+:root[data-theme="dark"] .brand__symbol {
+  filter: invert(1) !important;
+}
+
+.brand__wordmark {
+  position: relative;
+  z-index: 2;
+  color: var(--color-graphite);
+  font-size: 1.52rem;
+  font-weight: 720;
+  letter-spacing: -0.075em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+:root[data-theme="dark"] .brand__wordmark {
+  color: var(--color-porcelain);
 }
 
 .brand__division {
@@ -154,7 +178,7 @@
   border-radius: var(--radius-round);
   background: rgba(245, 243, 238, 0.58);
   box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(14px);
+  backdrop-filter: blur(8px) contrast(1.06);
   transition:
     min-height var(--motion-base) var(--ease-shell),
     background var(--motion-base),
@@ -432,7 +456,7 @@
 
 .primary-cta--jade {
   color: var(--color-graphite);
-  background: linear-gradient(100deg, #a8cfc3, var(--color-jade));
+  background: linear-gradient(100deg, #afbeff, var(--color-jade));
 }
 
 .aperture {
@@ -485,23 +509,26 @@
   display: inline-flex;
   width: fit-content;
   min-height: 2.15rem;
-  padding: 0.35rem 0.8rem;
+  padding: 0.35rem 0.8rem 0.35rem 0.58rem;
   align-items: center;
-  gap: 0.65rem;
-  border: 1px solid currentColor;
-  border-radius: var(--radius-round);
+  gap: 0.55rem;
+  border: 1px solid color-mix(in srgb, currentColor 72%, transparent);
+  border-left-width: 0.22rem;
+  border-radius: 0.42rem;
+  background: color-mix(in srgb, currentColor 7%, transparent);
   color: var(--color-jade-deep);
   font-size: var(--text-xs);
   line-height: 1.15;
   text-transform: uppercase;
 }
 
-.status-badge__dot {
-  width: 0.6rem;
-  height: 0.6rem;
+.status-badge__mark {
+  width: 0.5rem;
+  height: 0.5rem;
   flex: 0 0 auto;
-  border-radius: 50%;
-  background: currentColor;
+  border: 1.5px solid currentColor;
+  border-radius: 0;
+  transform: rotate(45deg);
 }
 
 .status-badge--coral {
@@ -562,9 +589,19 @@
   gap: 0.7rem;
 }
 
-.site-footer__brand img {
-  width: 11rem;
-  height: auto;
+.site-footer__symbol {
+  width: 2.45rem;
+  height: 2.45rem;
+  filter: invert(1);
+  object-fit: contain;
+}
+
+.site-footer__brand strong {
+  color: var(--color-porcelain);
+  font-size: 1.52rem;
+  font-weight: 720;
+  letter-spacing: -0.075em;
+  line-height: 1;
 }
 
 .site-footer__brand span {
@@ -580,34 +617,6 @@
 .site-footer > div > p {
   max-width: 27rem;
   color: rgba(243, 240, 234, 0.7);
-}
-
-.site-footer__creative {
-  display: inline-flex;
-  min-height: 2.75rem;
-  margin-top: 1.25rem;
-  padding: 0.65rem 0.85rem;
-  align-items: center;
-  gap: 0.55rem;
-  border: 1px solid rgba(121, 184, 166, 0.34);
-  border-radius: var(--radius-round);
-  color: var(--color-jade);
-  font-size: var(--text-xs);
-  letter-spacing: 0.035em;
-  text-transform: uppercase;
-  transition: border-color var(--motion-fast), background var(--motion-fast), color var(--motion-fast);
-}
-
-.site-footer__creative:hover,
-.site-footer__creative:focus-visible {
-  border-color: var(--color-jade);
-  color: var(--color-porcelain);
-  background: rgba(121, 184, 166, 0.1);
-}
-
-.site-footer__creative svg {
-  width: 1rem;
-  height: 1rem;
 }
 
 .site-footer nav {
@@ -662,7 +671,8 @@
   }
 
   .brand img {
-    width: 8rem;
+    width: 2.2rem;
+    height: 2.2rem;
   }
 
   .brand__division {
@@ -704,7 +714,8 @@
   }
 
   .brand img {
-    width: 11.2rem;
+    width: 2.5rem;
+    height: 2.5rem;
   }
 
   .desktop-nav {

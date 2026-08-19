@@ -8,7 +8,10 @@ This archive contains only the production source files required for the current 
 - route-aware UA, EN and DE SEO metadata;
 - canonical, sitemap, social metadata and Organization/WebSite structured data;
 - ambient-video cache recovery and poster fallback;
+- the complete stylesheet dependency set imported by `src/main.jsx`, including the previously omitted `surgical-fixes.css` and `catalogue-selected.css`;
 - regression tests for the new content and SEO contract.
+
+This corrected archive supersedes the first `2026-08-20` patch. The earlier archive could fail on GitHub Actions because `src/main.jsx` referenced a stylesheet that was not included in the upload.
 
 ## Apply through GitHub
 

@@ -145,7 +145,7 @@
     outline: 0;
     background: rgba(237, 239, 234, 0.98);
     box-shadow:
-      inset 0 0 0 0.16rem rgba(121, 184, 166, 0.46),
+      inset 0 0 0 0.16rem rgba(130, 152, 255, 0.46),
       0 10px 22px rgba(23, 25, 24, 0.12);
   }
 
@@ -297,7 +297,7 @@
     outline: 0;
     background: rgba(237, 239, 234, 0.98);
     box-shadow:
-      inset 0 0 0 0.16rem rgba(121, 184, 166, 0.46),
+      inset 0 0 0 0.16rem rgba(130, 152, 255, 0.46),
       0 9px 20px rgba(23, 25, 24, 0.12);
   }
 

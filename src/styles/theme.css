@@ -56,32 +56,32 @@
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --color-shell: #1b201e;
-  --color-shell-light: #242a27;
-  --color-jade-deep: #8ac5b4;
-  --color-line: rgba(243, 240, 234, 0.17);
-  --color-line-strong: rgba(243, 240, 234, 0.32);
-  --color-white-line: rgba(255, 255, 255, 0.14);
+  --color-shell: #151617;
+  --color-shell-light: #202223;
+  --color-jade-deep: #b9c7ff;
+  --color-line: rgba(243, 240, 234, 0.21);
+  --color-line-strong: rgba(243, 240, 234, 0.4);
+  --color-white-line: rgba(255, 255, 255, 0.2);
   --shadow-shell:
     inset 0 1px 0 rgba(255, 255, 255, 0.08),
     inset 0 -1px 0 rgba(0, 0, 0, 0.42),
-    0 18px 40px rgba(0, 0, 0, 0.28);
+    0 18px 42px rgba(0, 0, 0, 0.42);
   --shadow-rim:
     inset 0 0 0 1px rgba(255, 255, 255, 0.12),
     inset 0 0 0 5px rgba(0, 0, 0, 0.28),
-    0 10px 24px rgba(0, 0, 0, 0.42);
+    0 10px 26px rgba(0, 0, 0, 0.56);
 }
 
 :root[data-theme="dark"],
 :root[data-theme="dark"] body {
-  background: #101311;
+  background: #090a0b;
 }
 
 :root[data-theme="dark"] body {
   color: #f3f0ea;
   background:
-    radial-gradient(circle at 40% -20%, rgba(121, 184, 166, 0.11), transparent 42%),
-    #101311;
+    radial-gradient(circle at 40% -20%, rgba(255, 255, 255, 0.035), transparent 38%),
+    #090a0b;
 }
 
 :root[data-theme="dark"] .page-intro,
@@ -111,7 +111,7 @@
 :root[data-theme="dark"] .concept-card__index {
   border-color: rgba(243, 240, 234, 0.34);
   color: #f3f0ea;
-  background: rgba(16, 19, 17, 0.28);
+  background: rgba(9, 10, 11, 0.52);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
@@ -151,15 +151,15 @@
 }
 
 :root[data-theme="dark"] .team-profile {
-  border-color: rgba(243, 240, 234, 0.16);
+  border-color: rgba(243, 240, 234, 0.22);
   background:
-    radial-gradient(circle at 18% 0%, rgba(255, 255, 255, 0.07), transparent 34%),
-    rgba(27, 32, 30, 0.94);
+    radial-gradient(circle at 18% 0%, rgba(255, 255, 255, 0.065), transparent 30%),
+    rgba(20, 21, 22, 0.98);
 }
 
 :root[data-theme="dark"] .team-profile__details {
   border-color: rgba(243, 240, 234, 0.18);
-  background: rgba(16, 19, 17, 0.52);
+  background: rgba(10, 11, 12, 0.78);
 }
 
 :root[data-theme="dark"] .team-profile__summary p,
@@ -191,7 +191,7 @@
 
 :root[data-theme="dark"] .brand-architecture {
   border-color: rgba(243, 240, 234, 0.16);
-  background: rgba(20, 24, 22, 0.82);
+  background: rgba(13, 14, 15, 0.94);
 }
 
 :root[data-theme="dark"] .brand-architecture__intro > p,
@@ -201,12 +201,12 @@
 
 :root[data-theme="dark"] .brand-branch {
   border-color: rgba(243, 240, 234, 0.18);
-  background: #151817;
+  background: #111213;
 }
 
 :root[data-theme="dark"] .brand-branch--digital {
-  border-color: rgba(121, 184, 166, 0.72);
-  background: #151817;
+  border-color: rgba(130, 152, 255, 0.72);
+  background: #111213;
 }
 
 :root[data-theme="dark"] .brand-branch__index,
@@ -231,28 +231,28 @@
 }
 
 :root[data-theme="dark"] .soft-shell {
-  border-color: rgba(243, 240, 234, 0.15);
+  border-color: rgba(243, 240, 234, 0.22);
   background:
-    radial-gradient(circle at 35% 5%, rgba(255, 255, 255, 0.075), transparent 34%),
-    linear-gradient(135deg, rgba(35, 41, 38, 0.98), rgba(23, 28, 26, 0.96));
+    radial-gradient(circle at 35% 5%, rgba(255, 255, 255, 0.06), transparent 30%),
+    linear-gradient(135deg, rgba(24, 25, 26, 0.99), rgba(13, 14, 15, 0.99));
 }
 
 :root[data-theme="dark"] .site-header::before {
-  background: rgba(16, 19, 17, 0.72);
+  background: rgba(9, 10, 11, 0.86);
 }
 
 :root[data-theme="dark"] .site-header.is-scrolled::before {
-  border-color: rgba(255, 255, 255, 0.13);
+  border-color: rgba(255, 255, 255, 0.2);
   background:
     linear-gradient(
       108deg,
-      rgba(255, 255, 255, 0.075),
-      rgba(61, 90, 81, 0.13) 34%,
-      rgba(78, 59, 78, 0.11) 62%,
-      rgba(91, 58, 51, 0.1) 80%,
-      rgba(255, 255, 255, 0.055)
+      rgba(255, 255, 255, 0.095),
+      rgba(255, 255, 255, 0.035) 34%,
+      rgba(143, 143, 146, 0.045) 62%,
+      rgba(255, 255, 255, 0.025) 80%,
+      rgba(255, 255, 255, 0.075)
     ),
-    rgba(16, 19, 17, 0.7);
+    rgba(9, 10, 11, 0.86);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.1),
     0 12px 32px rgba(0, 0, 0, 0.24);
@@ -262,7 +262,7 @@
 :root[data-theme="dark"] .site-header.is-scrolled .desktop-nav {
   border-color: rgba(243, 240, 234, 0.16);
   color: #f3f0ea;
-  background: rgba(21, 25, 23, 0.66);
+  background: rgba(17, 18, 19, 0.88);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
 }
 
@@ -282,13 +282,13 @@
 }
 
 :root[data-theme="dark"] .locale-switcher button.is-active {
-  color: #101311;
+  color: #090a0b;
   background: var(--color-jade);
 }
 
 :root[data-theme="dark"] .mobile-menu {
   color: #f3f0ea;
-  background: #181d1b;
+  background: #101112;
 }
 
 :root[data-theme="dark"] :where(
@@ -307,9 +307,9 @@
   .project-form select,
   .barrier-fieldset span
 ) {
-  border-color: rgba(243, 240, 234, 0.16);
+  border-color: rgba(243, 240, 234, 0.22);
   color: #f3f0ea;
-  background-color: rgba(25, 30, 28, 0.94);
+  background-color: rgba(19, 20, 21, 0.98);
 }
 
 :root[data-theme="dark"] :where(
@@ -317,14 +317,14 @@
   .solution-manifold__rail button,
   .catalogue-row
 ) {
-  border-color: rgba(243, 240, 234, 0.17);
+  border-color: rgba(243, 240, 234, 0.23);
   color: #f3f0ea;
-  background: #242a27;
+  background: #202223;
 }
 
 :root[data-theme="dark"] .catalogue-filter-row--active {
-  color: #101311;
-  background: rgba(121, 184, 166, 0.9);
+  color: #090a0b;
+  background: rgba(130, 152, 255, 0.9);
 }
 
 :root[data-theme="dark"] .catalogue-filter-row__value {
@@ -344,14 +344,14 @@
 :root[data-theme="dark"] .catalogue-filter-menu [role="option"]:hover,
 :root[data-theme="dark"] .catalogue-filter-menu [role="option"]:focus-visible,
 :root[data-theme="dark"] .catalogue-filter-menu [role="option"][aria-selected="true"] {
-  color: #101311;
+  color: #090a0b;
   background: var(--color-jade);
 }
 
 :root[data-theme="dark"] .home-hero__capabilities > div,
 :root[data-theme="dark"] .process-rail__nodes,
 :root[data-theme="dark"] .commercial-frame {
-  background: rgba(24, 29, 27, 0.78);
+  background: rgba(14, 15, 16, 0.92);
 }
 
 :root[data-theme="dark"] .primary-cta--dark,
@@ -363,7 +363,7 @@
 :root[data-theme="dark"] .project-form__submit,
 :root[data-theme="dark"] .site-footer {
   color: #f3f0ea;
-  background: #0b0e0d;
+  background: #070809;
 }
 
 :root[data-theme="dark"] .process-rail__nodes button {
@@ -383,19 +383,19 @@
 :root[data-theme="dark"] .contour-surface,
 :root[data-theme="dark"] .catalogue-contour__surface,
 :root[data-theme="dark"] .work-contour__surface {
-  fill: #1b201e;
+  fill: #1b1d1e;
   stroke: rgba(243, 240, 234, 0.2);
 }
 
 /* Method keeps the exact light-theme anatomy in dark mode. The SVG shell is
    the material; the semantic zones must never become opaque overlays. */
 :root[data-theme="dark"] .method-contour .contour-surface {
-  fill: #242a27;
+  fill: #252728;
   stroke: rgba(243, 240, 234, 0.34);
 }
 
 :root[data-theme="dark"] .contour-surface--remove {
-  fill: rgba(43, 49, 46, 0.72);
+  fill: rgba(45, 46, 47, 0.72);
   stroke: transparent;
 }
 
@@ -426,7 +426,7 @@
 }
 
 :root[data-theme="dark"] .manifold-tube--surface {
-  stroke: #252b28;
+  stroke: #292a2b;
 }
 
 :root[data-theme="dark"] .manifold-tube--highlight {
@@ -434,16 +434,16 @@
 }
 
 :root[data-theme="dark"] .manifold-bridge--short {
-  stroke: #1b201e;
+  stroke: #1b1d1e;
 }
 
 :root[data-theme="dark"] .solution-manifold__rail button.is-active {
   border-color: var(--color-jade-deep);
-  outline-color: rgba(121, 184, 166, 0.58);
+  outline-color: rgba(130, 152, 255, 0.58);
   color: #f3f0ea;
-  background: #1c2421;
+  background: #202122;
   box-shadow:
-    0 0 0 0.85rem rgba(16, 19, 17, 0.92),
+    0 0 0 0.85rem rgba(17, 18, 19, 0.92),
     var(--shadow-rim);
 }
 
@@ -452,7 +452,7 @@
     outline: 0;
     transform: none;
     box-shadow:
-      inset 0 0 0 0.16rem rgba(121, 184, 166, 0.72),
+      inset 0 0 0 0.16rem rgba(130, 152, 255, 0.72),
       0 10px 22px rgba(0, 0, 0, 0.24);
   }
 }
@@ -470,14 +470,14 @@
 :root[data-theme="dark"] .catalogue-filters--interactive > .catalogue-toggle.catalogue-filter-row {
   border-color: rgba(243, 240, 234, 0.18);
   color: #f3f0ea;
-  background: rgba(25, 30, 28, 0.96);
+  background: rgba(27, 28, 29, 0.96);
 }
 
 :root[data-theme="dark"] .catalogue-filter-control > .catalogue-filter-row--active,
 :root[data-theme="dark"] .catalogue-filters--interactive > .catalogue-filter-row--active {
-  border-color: rgba(121, 184, 166, 0.68);
-  color: #101311;
-  background: rgba(121, 184, 166, 0.9);
+  border-color: rgba(130, 152, 255, 0.68);
+  color: #111213;
+  background: rgba(130, 152, 255, 0.9);
 }
 
 :root[data-theme="dark"] .catalogue-purpose,
@@ -488,9 +488,41 @@
 }
 
 :root[data-theme="dark"] .catalogue-row > button.is-active {
-  border-color: rgba(121, 184, 166, 0.78);
-  color: #101311;
+  border-color: rgba(130, 152, 255, 0.78);
+  color: #111213;
   background: var(--color-jade);
+}
+
+:root[data-theme="dark"] .how-we-work__header > p,
+:root[data-theme="dark"] .how-we-work__stage-copy small,
+:root[data-theme="dark"] .how-we-work__detail p,
+:root[data-theme="dark"] .how-we-work__contact p {
+  color: rgba(243, 240, 234, 0.76);
+}
+
+:root[data-theme="dark"] .how-we-work__stage button {
+  color: var(--color-porcelain);
+  border-color: rgba(243, 240, 234, 0.22);
+  background: #17191a;
+}
+
+:root[data-theme="dark"] .how-we-work__stage button:hover,
+:root[data-theme="dark"] .how-we-work__stage button:focus-visible,
+:root[data-theme="dark"] .how-we-work__stage.is-active button {
+  color: var(--color-porcelain);
+  border-color: var(--color-jade-deep);
+  background: #202327;
+}
+
+:root[data-theme="dark"] .how-we-work__detail,
+:root[data-theme="dark"] .how-we-work__contact {
+  color: var(--color-porcelain);
+  border-color: rgba(243, 240, 234, 0.26);
+  background: radial-gradient(circle at 88% 12%, rgba(130, 152, 255, 0.16), transparent 28%), #151718;
+}
+
+:root[data-theme="dark"] .how-we-work__detail li {
+  border-bottom-color: rgba(243, 240, 234, 0.16);
 }
 
 :root[data-theme="dark"] .catalogue-row > button.is-active svg {
@@ -520,7 +552,7 @@
 :root[data-theme="dark"] .project-form {
   border-color: rgba(243, 240, 234, 0.17);
   color: #f3f0ea;
-  background: rgba(24, 29, 27, 0.96);
+  background: rgba(25, 26, 27, 0.96);
 }
 
 :root[data-theme="dark"] .form-field > input,
@@ -537,18 +569,18 @@
 :root[data-theme="dark"] .barrier-fieldset label span {
   border-color: rgba(243, 240, 234, 0.2);
   color: #f3f0ea;
-  background: #202623;
+  background: #232425;
 }
 
 :root[data-theme="dark"] .barrier-fieldset input:checked + span {
-  color: #101311;
+  color: #111213;
   background: var(--color-jade);
 }
 
 :root[data-theme="dark"] .file-drop {
   border-color: rgba(243, 240, 234, 0.24);
   color: #f3f0ea;
-  background: #202623;
+  background: #232425;
 }
 
 :root[data-theme="dark"] .file-drop small {
@@ -577,12 +609,12 @@
 
 :root[data-theme="dark"] .primary-cta--jade,
 :root[data-theme="dark"] .primary-cta--dark:hover {
-  color: #101311;
+  color: #111213;
 }
 
 :root[data-theme="dark"] .desktop-nav__cta:hover,
 :root[data-theme="dark"] .desktop-nav__cta:focus-visible {
-  color: #101311;
+  color: #111213;
   background: var(--color-jade);
 }
 
@@ -598,7 +630,7 @@
 }
 
 :root[data-theme="dark"] ::selection {
-  color: #101311;
+  color: #111213;
   background: var(--color-jade);
 }
 

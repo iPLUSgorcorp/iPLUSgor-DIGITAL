@@ -160,6 +160,18 @@ h1 {
   transition: transform var(--motion-fast);
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .skip-link:focus {
   transform: translateY(0);
 }
@@ -223,6 +235,22 @@ h1 {
 
   h1 {
     letter-spacing: -0.045em;
+  }
+
+  .motion-reveal {
+    translate: 0 0.35rem;
+    filter: none;
+    transition: translate 180ms var(--ease-shell);
+    transition-delay: calc(var(--motion-order, 0) * 12ms);
+    will-change: auto;
+  }
+
+  .motion-reveal.is-motion-visible {
+    filter: none;
+  }
+
+  .motion-draw .motion-draw__stroke {
+    transition-duration: 280ms;
   }
 }
 

@@ -151,7 +151,7 @@
 
 .site-header__ambient--contain {
   opacity: 0.36;
-  filter: contrast(1.42) drop-shadow(0 0 0.55rem rgba(121, 184, 166, 0.16));
+  filter: contrast(1.42) drop-shadow(0 0 0.55rem rgba(130, 152, 255, 0.16));
   -webkit-mask-image: radial-gradient(ellipse 19% 115% at 50% 50%, #000 0 38%, rgba(0, 0, 0, 0.72) 62%, transparent 100%);
   mask-image: radial-gradient(ellipse 19% 115% at 50% 50%, #000 0 38%, rgba(0, 0, 0, 0.72) 62%, transparent 100%);
 }
