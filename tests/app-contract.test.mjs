@@ -16,6 +16,8 @@ const seo = await readFile(new URL("../src/seo-metadata.js", import.meta.url), "
 const indexDocument = await readFile(new URL("../index.html", import.meta.url), "utf8");
 const robots = await readFile(new URL("../public/robots.txt", import.meta.url), "utf8");
 const sitemap = await readFile(new URL("../public/sitemap.xml", import.meta.url), "utf8");
+const pagesWorkflow = await readFile(new URL("../.github/workflows/deploy-pages.yml", import.meta.url), "utf8");
+const cname = (await readFile(new URL("../public/CNAME", import.meta.url), "utf8")).trim();
 
 test("declares every required public route", () => {
   for (const route of [
@@ -89,4 +91,11 @@ test("publishes consistent crawlable SEO metadata for the production domain", ()
   }
   assert.match(robots, /Sitemap: https:\/\/iplusgor\.com\/sitemap\.xml/);
   assert.doesNotMatch(`${seo}${indexDocument}`, /Creative|industrial|manufactur|dealer|equipment/i);
+});
+
+test("builds GitHub Pages at the custom-domain root", () => {
+  assert.match(pagesWorkflow, /VITE_BASE_PATH:\s*\//);
+  assert.match(pagesWorkflow, /VITE_SITE_URL:\s*https:\/\/iplusgor\.com/);
+  assert.doesNotMatch(pagesWorkflow, /BASE_PATH="\/\$REPO_NAME\/"/);
+  assert.equal(cname, "iplusgor.com");
 });
