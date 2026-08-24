@@ -21,104 +21,107 @@ import { publicAsset } from "../lib/publicAsset.js";
 const baseSteps = [
   {
     id: "01",
-    title: "Evidence",
+    title: "Review",
     icon: MagnifyingGlass,
-    text: "We inspect the current site, business goals, customer routes and practical constraints.",
+    text: "We inspect the current website, traffic sources, offer, primary action and practical constraints.",
   },
   {
     id: "02",
-    title: "Architecture",
+    title: "Strategy",
     icon: Blueprint,
-    text: "We shape the information structure around real customer decisions.",
+    text: "We define the sprint scope, conversion path and decisions the page needs to support.",
   },
   {
     id: "03",
-    title: "Content",
+    title: "Structure",
     icon: Stack,
-    text: "We define the content, pages and calls to action people need to move forward.",
+    text: "We organize the offer, proof, objections and calls to action in a commercial sequence.",
   },
   {
     id: "04",
-    title: "UX system",
+    title: "Design",
     icon: Path,
-    text: "We turn the route into responsive flows for people who need to understand and contact the business.",
+    text: "We create the high-fidelity mobile-first interface and review it inside the agreed scope.",
   },
   {
     id: "05",
-    title: "Interface",
+    title: "Build",
     icon: Browsers,
-    text: "We create a visual system that makes the business feel clear, coherent and recognisable.",
+    text: "We build the frontend, forms, simple integrations and analytics-ready events.",
   },
   {
     id: "06",
-    title: "Frontend",
+    title: "Launch",
     icon: Code,
-    text: "We build and verify the adaptive frontend instead of stopping at static layouts.",
+    text: "We verify the website, connect the agreed domain and publish the production build.",
   },
 ];
 
 const pageCopy = {
   en: {
-    label: "APPROACH — SIX STAGES",
-    title: <>FROM EVIDENCE<br />TO A WORKING SYSTEM.</>,
-    intro: "We do not begin with a new home page. We begin with the business goal and the customer path behind it.",
+    label: "APPROACH — CONVERSION SPRINT",
+    title: <>FROM PAID CLICK<br />TO A LIVE WEBSITE.</>,
+    intro: "A short timeline works only when traffic, offer, decisions and implementation are handled as one connected sprint.",
     methodLabel: "METHOD — KEEP, REMOVE, REBUILD",
     methodTitle: <>WE CHANGE THE SURFACE.<br />NOT THE CORE.</>,
-    methodIntro: <>Reputation and technical expertise remain.<br />Digital barriers do not.</>,
+    methodIntro: <>Your market knowledge and real proof remain.<br />Mixed messages and weak actions do not.</>,
     keep: "KEEP", remove: "REMOVE", rebuild: "REBUILD",
-    keepItems: ["Brand expertise", "Documents + 3D", "Recognition"],
-    removeItems: ["Dead ends", "Broken mobile paths", "Hidden specifications"],
-    rebuildItems: ["Architecture", "Product choice", "Frontend"],
-    timeline: ["Symptom", "Evidence", "Intervention"],
+    keepItems: ["Market knowledge", "Real reputation", "Existing demand"],
+    removeItems: ["Mixed messages", "Weak mobile actions", "Unnecessary friction"],
+    rebuildItems: ["Offer structure", "Trust path", "Lead capture"],
+    timeline: ["Traffic", "Decision", "Inquiry"],
+    processLabel: "Six-stage process", timelineLabel: "Intervention timeline", coreSymbol: "iPLUSgor Digital core symbol",
   },
   ua: {
-    label: "ПІДХІД — ШІСТЬ ЕТАПІВ",
-    title: <>ВІД ДОКАЗІВ<br />ДО РОБОЧОЇ СИСТЕМИ.</>,
-    intro: "Ми починаємо не з нової головної сторінки, а з бізнес-цілі й шляху клієнта за нею.",
+    label: "ПІДХІД — CONVERSION SPRINT",
+    title: <>ВІД ПЛАТНОГО КЛІКУ<br />ДО ЗАПУЩЕНОГО САЙТУ.</>,
+    intro: "Короткий строк можливий, коли трафік, пропозиція, рішення та реалізація зібрані в один зв’язний спринт.",
     methodLabel: "МЕТОД — ЗБЕРЕГТИ, ПРИБРАТИ, ПЕРЕБУДУВАТИ",
     methodTitle: <>МИ ЗМІНЮЄМО ОБОЛОНКУ.<br />НЕ ЯДРО.</>,
-    methodIntro: <>Репутація і технічна експертиза залишаються.<br />Цифрові бар’єри — ні.</>,
+    methodIntro: <>Ваше знання ринку й реальні докази залишаються.<br />Змішані повідомлення та слабкі дії — ні.</>,
     keep: "ЗБЕРЕГТИ", remove: "ПРИБРАТИ", rebuild: "ПЕРЕБУДУВАТИ",
-    keepItems: ["Експертиза бренду", "Документи + 3D", "Впізнаваність"],
-    removeItems: ["Глухі кути", "Зламані мобільні шляхи", "Приховані характеристики"],
-    rebuildItems: ["Архітектура", "Вибір продукту", "Frontend"],
-    timeline: ["Симптом", "Доказ", "Втручання"],
+    keepItems: ["Знання ринку", "Реальна репутація", "Наявний попит"],
+    removeItems: ["Змішані повідомлення", "Слабкі mobile CTA", "Зайве тертя"],
+    rebuildItems: ["Структура оферу", "Шлях довіри", "Збір звернень"],
+    timeline: ["Трафік", "Рішення", "Звернення"],
+    processLabel: "Процес із шести етапів", timelineLabel: "Послідовність втручання", coreSymbol: "Символ ядра iPLUSgor Digital",
   },
   de: {
-    label: "ANSATZ — SECHS PHASEN",
-    title: <>VON DER EVIDENZ<br />ZUM FUNKTIONIERENDEN SYSTEM.</>,
-    intro: "Wir beginnen nicht mit einer neuen Startseite, sondern mit dem Geschäftsziel und dem Weg der Kunden dorthin.",
+    label: "ANSATZ — CONVERSION SPRINT",
+    title: <>VOM BEZAHLTEN KLICK<br />ZUR LIVE-WEBSITE.</>,
+    intro: "Ein kurzer Zeitplan funktioniert, wenn Traffic, Angebot, Entscheidungen und Umsetzung in einem verbundenen Sprint liegen.",
     methodLabel: "METHODE — BEHALTEN, ENTFERNEN, NEU AUFBAUEN",
     methodTitle: <>WIR ÄNDERN DIE OBERFLÄCHE.<br />NICHT DEN KERN.</>,
-    methodIntro: <>Ruf und technisches Know-how bleiben.<br />Digitale Barrieren nicht.</>,
+    methodIntro: <>Marktwissen und echte Belege bleiben.<br />Unklare Botschaften und schwache Aktionen nicht.</>,
     keep: "BEHALTEN", remove: "ENTFERNEN", rebuild: "NEU AUFBAUEN",
-    keepItems: ["Markenkompetenz", "Dokumente + 3D", "Wiedererkennung"],
-    removeItems: ["Sackgassen", "Defekte mobile Wege", "Verborgene Spezifikationen"],
-    rebuildItems: ["Architektur", "Produktauswahl", "Frontend"],
-    timeline: ["Symptom", "Evidenz", "Intervention"],
+    keepItems: ["Marktwissen", "Echte Reputation", "Bestehende Nachfrage"],
+    removeItems: ["Unklare Botschaften", "Schwache mobile CTAs", "Unnötige Reibung"],
+    rebuildItems: ["Angebotsstruktur", "Vertrauensweg", "Lead-Erfassung"],
+    timeline: ["Traffic", "Entscheidung", "Anfrage"],
+    processLabel: "Prozess in sechs Phasen", timelineLabel: "Ablauf der Intervention", coreSymbol: "Kernsymbol von iPLUSgor Digital",
   },
 };
 
 const stepTranslations = {
   ua: [
-    ["Докази", "Перевіряємо поточний сайт, цілі бізнесу, маршрути користувачів і практичні обмеження."],
-    ["Архітектура", "Будуємо інформаційну структуру навколо реальних рішень клієнта."],
-    ["Контент", "Визначаємо зміст, сторінки й точки контакту, які допомагають рухатися далі."],
-    ["UX-система", "Перетворюємо маршрут на адаптивні сценарії для людей, які знайомляться з бізнесом."],
-    ["Інтерфейс", "Створюємо візуальну систему, яка робить бізнес зрозумілим, цілісним і впізнаваним."],
-    ["Frontend", "Будуємо та перевіряємо адаптивний frontend, а не зупиняємося на статичних макетах."],
+    ["Розбір", "Перевіряємо поточний сайт, джерела трафіку, офер, головну дію й практичні обмеження."],
+    ["Стратегія", "Визначаємо обсяг спринту, шлях конверсії й рішення, які має підтримати сторінка."],
+    ["Структура", "Збираємо офер, докази, заперечення та CTA в комерційну послідовність."],
+    ["Дизайн", "Створюємо деталізований mobile-first інтерфейс і переглядаємо його в погодженому обсязі."],
+    ["Розробка", "Будуємо frontend, форми, прості інтеграції та події для аналітики."],
+    ["Запуск", "Перевіряємо сайт, підключаємо погоджений домен і публікуємо production build."],
   ],
   de: [
-    ["Evidenz", "Wir prüfen die bestehende Website, Geschäftsziele, Nutzerwege und praktische Rahmenbedingungen."],
-    ["Architektur", "Wir bauen die Informationsstruktur rund um echte Entscheidungen der Kunden auf."],
-    ["Inhalte", "Wir definieren Inhalte, Seiten und Kontaktpunkte, die Menschen weiterbringen."],
-    ["UX-System", "Wir formen den Weg zu responsiven Abläufen für Menschen, die das Unternehmen verstehen und kontaktieren möchten."],
-    ["Interface", "Wir gestalten ein visuelles System, das das Unternehmen klar, stimmig und wiedererkennbar macht."],
-    ["Frontend", "Wir bauen und prüfen das responsive Frontend, statt bei statischen Layouts aufzuhören."],
+    ["Review", "Wir prüfen Website, Traffic-Quellen, Angebot, Hauptaktion und praktische Rahmenbedingungen."],
+    ["Strategie", "Wir definieren Sprint-Umfang, Conversion-Weg und die Entscheidungen der Seite."],
+    ["Struktur", "Wir ordnen Angebot, Belege, Einwände und CTAs zu einer kommerziellen Sequenz."],
+    ["Design", "Wir gestalten das detaillierte Mobile-first Interface im vereinbarten Umfang."],
+    ["Umsetzung", "Wir bauen Frontend, Formulare, einfache Integrationen und Analytics-Events."],
+    ["Launch", "Wir prüfen die Website, verbinden die vereinbarte Domain und veröffentlichen den Production-Build."],
   ],
 };
 
-function ProcessRail({ locale }) {
+function ProcessRail({ locale, processLabel }) {
   const [active, setActive] = useState(0);
   const steps = baseSteps.map((step, index) => {
     const translated = stepTranslations[locale]?.[index];
@@ -128,7 +131,7 @@ function ProcessRail({ locale }) {
 
   return (
     <div className="process-rail">
-      <div className="process-rail__nodes" role="tablist" aria-label="Six-stage process">
+      <div className="process-rail__nodes" role="tablist" aria-label={processLabel}>
         {steps.map((step, index) => {
           const Icon = step.icon;
           return (
@@ -173,7 +176,7 @@ export function ApproachPage() {
         <p className="page-intro">
           {labels.intro}
         </p>
-        <ProcessRail locale={locale} />
+        <ProcessRail locale={locale} processLabel={labels.processLabel} />
       </SoftShell>
 
       <section className="method-shell" aria-labelledby="method-title">
@@ -185,9 +188,9 @@ export function ApproachPage() {
           <MethodContour />
           <article className="method-map__zone method-map__zone--keep">
             <h3>{labels.keep}</h3>
-            <Aperture className="method-map__brand-aperture" label="iPLUSgor Digital technical core symbol">
+            <Aperture className="method-map__brand-aperture" label={labels.coreSymbol}>
               <img
-                src={publicAsset("assets/brand/iplusgor-symbol-signal.png")}
+                src={publicAsset("assets/brand/iplusgor-symbol-signal.webp")}
                 alt=""
                 width="1254"
                 height="1254"
@@ -213,7 +216,7 @@ export function ApproachPage() {
             </ul>
           </article>
         </div>
-        <div className="method-timeline" aria-label="Intervention timeline">
+        <div className="method-timeline" aria-label={labels.timelineLabel}>
           {labels.timeline.map((item) => <span key={item}>{item}</span>)}
         </div>
       </section>

@@ -1,57 +1,76 @@
-# iPLUSgor Digital
+# iPLUSgor frontend
 
-Responsive frontend for the iPLUSgor Digital website.
+Production-oriented responsive frontend for iPLUSgor Digital conversion-focused
+website and landing-page sprints for service businesses.
 
 ## Stack
 
 - React 19
 - Vite 6
 - React Router 7
-- Onest
+- Onest (self-hosted through `@fontsource/onest`)
 - Phosphor Icons
-- npm with a committed lockfile
+- JavaScript/JSX (TypeScript is not configured in the source scaffold)
 
-Node.js 20 is recommended.
+Node 18+ is required. The repository uses npm and the committed
+`package-lock.json`.
 
-## Local development
+## Commands
 
 ```powershell
-npm.cmd ci
+npm.cmd install
 npm.cmd run dev
-```
-
-## Verification
-
-```powershell
 npm.cmd test
-npm.cmd run test:e2e
+npm.cmd run build:pages
+npm.cmd run verify:pages
 npm.cmd run build
 ```
 
-## GitHub Pages
+The Vite dev server accepts `--host`, `--port` and `--strictPort` for local
+browser verification.
 
-The included workflow automatically detects whether the repository is a root
-`*.github.io` site or a project site, applies the correct base path and creates
-an SPA fallback for direct links.
+## Theme
 
-1. Upload the contents of this archive to the repository root.
-2. In GitHub, open **Settings → Pages**.
-3. Select **GitHub Actions** under **Build and deployment**.
-4. Push to `main` or run the Pages workflow manually from the Actions tab.
+The header includes a light/dark theme control. The initial theme follows the
+browser preference and an explicit choice is stored locally in the browser.
+Both themes use the same responsive geometry and support reduced motion.
 
-If GitHub's browser uploader omits the hidden `.github` directory, follow the
-instructions in `GITHUB-PAGES-SETUP.md`.
+## GitHub publication
+
+The repository is source-complete and builds with the committed lockfile. The
+Pages workflow detects whether the repository is a root `*.github.io` site or a
+project site and applies the correct base path automatically. It also emits a
+`404.html` SPA fallback so direct links to every public route keep working.
+
+Local verification for a project repository named `iPLUSgor`:
+
+```powershell
+npm.cmd ci
+$env:VITE_BASE_PATH = "/iPLUSgor/"
+npm.cmd run build:pages
+Remove-Item Env:\VITE_BASE_PATH
+```
+
+The generated `dist/client` directory contains the static browser build and is
+the directory uploaded by `.github/workflows/deploy-pages.yml`.
+
+In GitHub, select **Settings → Pages → Build and deployment → Source: GitHub
+Actions**. A push to `main`, or a manual run from the Actions tab, then deploys
+the site.
 
 ## Media privacy
 
-Publishable media can be cleaned without re-encoding image pixels or video
-streams:
+Publishable PNG, JPEG, WebP and MP4 assets can be cleaned with:
 
 ```powershell
 npm.cmd run clean:media
 ```
 
-## Public routes
+The cleaner removes EXIF/XMP, textual comments, timestamps and container
+metadata without re-encoding image pixels or video streams. ICC/sRGB data is
+retained because it controls accurate colour rendering.
+
+## Routes
 
 - `/`
 - `/approach`
@@ -61,6 +80,31 @@ npm.cmd run clean:media
 - `/team`
 - `/start-project`
 
-The contact form creates a prepared email draft for
-`igorcorp.tech@gmail.com`; it does not claim or require a server-side form
-endpoint.
+The legacy `/work/aton` URL redirects to `/work`; it is not a published case.
+The Pages build emits route documents and a `404.html` fallback so direct
+navigation works on the custom domain.
+
+## Contact handoff
+
+`ProjectIntakeForm` has no backend. Optional fields are assembled into a
+prefilled `mailto:` or Gmail compose draft for `igorcorp.tech@gmail.com`.
+Browsers cannot attach a local PDF through either URL, so the filename is added
+to the draft as an explicit reminder to attach it manually.
+
+## Local concept manager
+
+The ignored `.local-tools/work-concept-manager.py` utility runs only on the
+owner's machine. It writes concept metadata to
+`public/data/work-concepts.json` and before/after images to
+`public/assets/work-concepts`. The tool itself is excluded from Git; the
+published JSON and concept images can be reviewed and committed separately.
+
+## Brand assets
+
+Optimized transparent WebP assets used by the interface are in
+`public/assets/brand`. Archival PNG sources are not required by the production
+runtime. Brand assets can be reproduced from the supplied chroma-key sources with:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\prepare-brand-assets.ps1
+```

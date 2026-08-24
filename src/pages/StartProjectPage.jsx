@@ -7,24 +7,34 @@ import {
   Sparkle,
   X,
 } from "@phosphor-icons/react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { SectionLabel, SoftShell, StatusBadge } from "../components/Primitives.jsx";
 import { useLocale } from "../i18n.jsx";
+import { trackEvent } from "../lib/analytics.js";
 
 const CONTACT_EMAIL = "igorcorp.tech@gmail.com";
 
 const copy = {
   en: {
-    label: "START PROJECT — PRELIMINARY REVIEW",
-    title: <>SHOW US WHERE<br />THE WEBSITE<br />GETS IN THE WAY.</>,
-    intro: "A preliminary review is a focused look at the current website, business goal and customer path — not a redesign proposal.",
-    premium: "SELECTIVE, SCOPE-LED ENGAGEMENTS",
-    cadence: "DIRECT TEAM — CLEAR SCOPE — RESPONSIVE DELIVERY",
+    label: "REQUEST — CONVERSION REVIEW",
+    title: <>SHOW US WHERE<br />THE CLICK<br />LOSES MOMENTUM.</>,
+    intro: "Share the current website, primary service and traffic source. We will identify the most useful next conversation and recommend a scope — without promising a lead count.",
+    premium: "LANDING SPRINT $4,000 — WEBSITE SPRINT $8,500",
+    cadence: "CLEAR SCOPE — FIXED SPRINT — RESPONSIVE DELIVERY",
     email: "Contact directly",
     website: "Current website",
-    market: "Primary market",
-    scale: "Website scope",
-    scalePlaceholder: "Select an approximate scope",
+    market: "Business and primary service",
+    marketPlaceholder: "Example: HVAC installation in Austin",
+    traffic: "Current traffic source",
+    trafficPlaceholder: "Google Ads, Meta Ads, organic, referrals or not running yet",
+    scale: "Likely sprint",
+    scalePlaceholder: "Choose what seems closest",
+    scaleOptions: {
+      onePage: "Conversion Landing Sprint — $4,000",
+      multiPage: "Conversion Website Sprint — $8,500",
+      refresh: "Custom Growth Website — from $10,000",
+      unsure: "Not sure yet",
+    },
     barriers: "Current barriers",
     pdf: "Optional brief or materials",
     drop: "Drop a file here or choose a file",
@@ -34,21 +44,31 @@ const copy = {
     attachment: "Email links cannot attach files automatically. The filename is added to the draft as a reminder to attach it.",
     compose: "Open email draft",
     gmail: "Compose in Gmail",
-    mailSubject: "Preliminary review request",
+    mailSubject: "Conversion review request",
     fileReminder: "Please attach this file manually",
+    removeFile: "Remove file",
     optional: "Every field is optional. Empty fields are omitted from the email.",
   },
   ua: {
-    label: "ПОЧАТИ ПРОЄКТ — ПОПЕРЕДНІЙ РОЗБІР",
-    title: <>ПОКАЖІТЬ, ДЕ<br />САЙТ<br />ЗАВАЖАЄ.</>,
-    intro: "Попередній розбір — це сфокусований погляд на поточний сайт, ціль бізнесу й шлях клієнта, а не безкоштовна пропозиція редизайну.",
-    premium: "ВИБІРКОВА РОБОТА, ОЦІНКА ЗА ОБСЯГОМ",
-    cadence: "ПРЯМИЙ КОНТАКТ — ЧІТКИЙ ОБСЯГ — АДАПТИВНА РЕАЛІЗАЦІЯ",
+    label: "ЗАПИТ — КОНВЕРСІЙНИЙ РОЗБІР",
+    title: <>ПОКАЖІТЬ, ДЕ<br />КЛІК ВТРАЧАЄ<br />ІМПУЛЬС.</>,
+    intro: "Вкажіть поточний сайт, головну послугу й джерело трафіку. Ми визначимо корисний наступний крок і порадимо обсяг роботи — без обіцянок щодо кількості лідів.",
+    premium: "ЛЕНДИНГ-СПРИНТ $4,000 — WEBSITE-СПРИНТ $8,500",
+    cadence: "ЧІТКИЙ ОБСЯГ — ФІКСОВАНИЙ СПРИНТ — АДАПТИВНА РЕАЛІЗАЦІЯ",
     email: "Написати напряму",
     website: "Поточний сайт",
-    market: "Основний ринок",
-    scale: "Обсяг сайту",
-    scalePlaceholder: "Оберіть приблизний обсяг",
+    market: "Бізнес і головна послуга",
+    marketPlaceholder: "Наприклад: монтаж HVAC в Остіні",
+    traffic: "Поточне джерело трафіку",
+    trafficPlaceholder: "Google Ads, Meta Ads, органіка, рекомендації або ще не запущено",
+    scale: "Імовірний спринт",
+    scalePlaceholder: "Оберіть найближчий варіант",
+    scaleOptions: {
+      onePage: "Conversion Landing Sprint — $4,000",
+      multiPage: "Conversion Website Sprint — $8,500",
+      refresh: "Custom Growth Website — від $10,000",
+      unsure: "Поки не впевнені",
+    },
     barriers: "Поточні бар’єри",
     pdf: "Необов’язковий бриф або матеріали",
     drop: "Перетягніть файл або оберіть його",
@@ -58,21 +78,31 @@ const copy = {
     attachment: "Посилання на пошту не може прикріпити файл автоматично. Назва файлу буде додана в чернетку як нагадування.",
     compose: "Відкрити чернетку листа",
     gmail: "Написати у Gmail",
-    mailSubject: "Запит на попередній розбір",
+    mailSubject: "Запит на конверсійний розбір",
     fileReminder: "Будь ласка, прикріпіть файл вручну",
+    removeFile: "Видалити файл",
     optional: "Усі поля необов’язкові. Порожні поля не потрапляють у лист.",
   },
   de: {
-    label: "PROJEKT STARTEN — VORPRÜFUNG",
-    title: <>ZEIGEN SIE UNS,<br />WO DIE WEBSITE<br />IM WEG STEHT.</>,
-    intro: "Eine Vorprüfung ist ein fokussierter Blick auf die aktuelle Website, das Geschäftsziel und den Kundenweg — kein kostenloser Redesign-Vorschlag.",
-    premium: "AUSGEWÄHLTE, UMFANGSBASIERTE PROJEKTE",
-    cadence: "DIREKTES TEAM — KLARER UMFANG — RESPONSIVE UMSETZUNG",
+    label: "ANFRAGE — CONVERSION-REVIEW",
+    title: <>ZEIGEN SIE UNS,<br />WO DER KLICK<br />AN WIRKUNG VERLIERT.</>,
+    intro: "Nennen Sie die aktuelle Website, die wichtigste Leistung und die Traffic-Quelle. Wir bestimmen den sinnvollsten nächsten Schritt und empfehlen einen Umfang — ohne eine Lead-Zahl zu versprechen.",
+    premium: "LANDING-SPRINT $4,000 — WEBSITE-SPRINT $8,500",
+    cadence: "KLARER UMFANG — FESTER SPRINT — RESPONSIVE UMSETZUNG",
     email: "Direkt kontaktieren",
     website: "Aktuelle Website",
-    market: "Hauptmarkt",
-    scale: "Website-Umfang",
-    scalePlaceholder: "Ungefähren Umfang wählen",
+    market: "Unternehmen und wichtigste Leistung",
+    marketPlaceholder: "Beispiel: HVAC-Installation in Austin",
+    traffic: "Aktuelle Traffic-Quelle",
+    trafficPlaceholder: "Google Ads, Meta Ads, organisch, Empfehlungen oder noch nicht aktiv",
+    scale: "Voraussichtlicher Sprint",
+    scalePlaceholder: "Passendste Option wählen",
+    scaleOptions: {
+      onePage: "Conversion Landing Sprint — $4,000",
+      multiPage: "Conversion Website Sprint — $8,500",
+      refresh: "Custom Growth Website — ab $10,000",
+      unsure: "Noch nicht sicher",
+    },
     barriers: "Aktuelle Hürden",
     pdf: "Optionales Briefing oder Materialien",
     drop: "Datei hier ablegen oder auswählen",
@@ -82,19 +112,20 @@ const copy = {
     attachment: "E-Mail-Links können Dateien nicht automatisch anhängen. Der Dateiname wird als Erinnerung in den Entwurf eingefügt.",
     compose: "E-Mail-Entwurf öffnen",
     gmail: "In Gmail verfassen",
-    mailSubject: "Anfrage zur Vorprüfung",
+    mailSubject: "Anfrage für ein Conversion-Review",
     fileReminder: "Bitte diese Datei manuell anhängen",
+    removeFile: "Datei entfernen",
     optional: "Alle Felder sind optional. Leere Felder werden nicht in die E-Mail übernommen.",
   },
 };
 
 const barrierOptions = {
-  en: ["Clear offer", "Mobile experience", "Content", "Languages", "Request flow"],
-  ua: ["Зрозуміла пропозиція", "Мобільний досвід", "Контент", "Мови", "Шлях запиту"],
-  de: ["Klares Angebot", "Mobile Nutzung", "Inhalte", "Sprachen", "Anfrageweg"],
+  en: ["Offer clarity", "Trust and proof", "Mobile path", "CTA hierarchy", "Lead capture", "Speed or tracking"],
+  ua: ["Ясність пропозиції", "Довіра й докази", "Мобільний шлях", "Ієрархія CTA", "Збір звернень", "Швидкість або аналітика"],
+  de: ["Klares Angebot", "Vertrauen und Belege", "Mobiler Weg", "CTA-Hierarchie", "Lead-Erfassung", "Tempo oder Analyse"],
 };
 
-const initialValues = { website: "", market: "", scale: "", barriers: [] };
+const initialValues = { website: "", market: "", traffic: "", scale: "", barriers: [] };
 
 export function StartProjectPage() {
   const { locale } = useLocale();
@@ -104,13 +135,22 @@ export function StartProjectPage() {
   const [file, setFile] = useState(null);
   const [fileError, setFileError] = useState("");
   const [dragging, setDragging] = useState(false);
+  const startedRef = useRef(false);
+
+  function markStarted() {
+    if (startedRef.current) return;
+    startedRef.current = true;
+    trackEvent("form_started", { locale, form: "conversion_review" });
+  }
 
   function updateField(event) {
+    markStarted();
     const { name, value } = event.target;
     setValues((current) => ({ ...current, [name]: value }));
   }
 
   function toggleBarrier(barrier) {
+    markStarted();
     setValues((current) => ({
       ...current,
       barriers: current.barriers.includes(barrier)
@@ -121,6 +161,7 @@ export function StartProjectPage() {
 
   function acceptFile(nextFile) {
     if (!nextFile) return;
+    markStarted();
     if (nextFile.size > 10 * 1024 * 1024) {
       setFileError(labels.fileSize);
       return;
@@ -133,7 +174,8 @@ export function StartProjectPage() {
     const lines = [];
     if (values.website.trim()) lines.push(`${labels.website}: ${values.website.trim()}`);
     if (values.market.trim()) lines.push(`${labels.market}: ${values.market.trim()}`);
-    if (values.scale) lines.push(`${labels.scale}: ${values.scale}`);
+    if (values.traffic.trim()) lines.push(`${labels.traffic}: ${values.traffic.trim()}`);
+    if (values.scale) lines.push(`${labels.scale}: ${labels.scaleOptions[values.scale] || values.scale}`);
     if (values.barriers.length) lines.push(`${labels.barriers}: ${values.barriers.join(", ")}`);
     if (file) lines.push(`${labels.fileReminder}: ${file.name}`);
     return {
@@ -145,6 +187,7 @@ export function StartProjectPage() {
   function openMail(event) {
     event.preventDefault();
     const { subject, body } = buildDraft();
+    trackEvent("form_handoff", { locale, channel: "mailto", hasDetails: Boolean(body) });
     const query = new URLSearchParams();
     if (subject) query.set("subject", subject);
     if (body) query.set("body", body);
@@ -153,6 +196,7 @@ export function StartProjectPage() {
 
   function openGmail() {
     const { subject, body } = buildDraft();
+    trackEvent("form_handoff", { locale, channel: "gmail", hasDetails: Boolean(body) });
     const query = new URLSearchParams({ view: "cm", fs: "1", to: CONTACT_EMAIL });
     if (subject) query.set("su", subject);
     if (body) query.set("body", body);
@@ -186,17 +230,21 @@ export function StartProjectPage() {
 
           <div className="form-field">
             <label htmlFor="market">{labels.market}</label>
-            <input id="market" name="market" type="text" placeholder="Business, service or region" value={values.market} onChange={updateField} />
+            <input id="market" name="market" type="text" placeholder={labels.marketPlaceholder} value={values.market} onChange={updateField} />
+          </div>
+
+          <div className="form-field">
+            <label htmlFor="traffic">{labels.traffic}</label>
+            <input id="traffic" name="traffic" type="text" placeholder={labels.trafficPlaceholder} value={values.traffic} onChange={updateField} />
           </div>
 
           <div className="form-field">
             <label htmlFor="scale">{labels.scale}</label>
             <select id="scale" name="scale" value={values.scale} onChange={updateField}>
               <option value="">{labels.scalePlaceholder}</option>
-              <option value="One-page website">One-page website</option>
-              <option value="Small multi-page website">Small multi-page website</option>
-              <option value="Website refresh">Website refresh</option>
-              <option value="Not sure yet">Not sure yet</option>
+              {Object.entries(labels.scaleOptions).map(([value, label]) => (
+                <option key={value} value={value}>{label}</option>
+              ))}
             </select>
           </div>
 
@@ -226,7 +274,7 @@ export function StartProjectPage() {
               <FileArrowUp aria-hidden="true" />
               <span>{file ? file.name : labels.drop}<small>{labels.pdfLimit}</small></span>
               {file && (
-                <button type="button" aria-label={`Remove ${file.name}`} onClick={(event) => { event.preventDefault(); setFile(null); }}>
+                <button type="button" aria-label={`${labels.removeFile}: ${file.name}`} onClick={(event) => { event.preventDefault(); setFile(null); }}>
                   <X aria-hidden="true" />
                 </button>
               )}

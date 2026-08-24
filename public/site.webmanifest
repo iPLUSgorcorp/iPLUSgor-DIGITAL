@@ -8,7 +8,7 @@
   "theme_color": "#171918",
   "icons": [
     {
-      "src": "assets/brand/iplusgor-symbol-signal.png",
+      "src": "assets/brand/iplusgor-symbol-signal.webp",
       "sizes": "640x640",
       "type": "image/png"
     }

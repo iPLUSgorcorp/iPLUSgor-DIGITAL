@@ -9,7 +9,7 @@ export default defineConfig({
     timeout: 8_000,
   },
   use: {
-    baseURL: "http://127.0.0.1:4173",
+    baseURL: "http://127.0.0.1:4175",
     browserName: "chromium",
     reducedMotion: "reduce",
     launchOptions: {
@@ -18,9 +18,9 @@ export default defineConfig({
     trace: "retain-on-failure",
   },
   webServer: {
-    command: "npm.cmd run dev -- --host 127.0.0.1 --port 4173 --strictPort",
-    url: "http://127.0.0.1:4173",
-    reuseExistingServer: true,
+    command: "npm.cmd run dev -- --host 127.0.0.1 --port 4175 --strictPort",
+    url: "http://127.0.0.1:4175",
+    reuseExistingServer: false,
     timeout: 30_000,
   },
 });

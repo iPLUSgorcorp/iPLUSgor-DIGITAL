@@ -841,7 +841,10 @@
   }
 
   .catalogue-filter-control {
+    display: grid;
     height: auto;
+    grid-template-rows: auto 0fr;
+    transition: grid-template-rows 210ms var(--ease-shell);
   }
 
   .catalogue-filter-control > .catalogue-filter-row,
@@ -853,7 +856,25 @@
   .catalogue-filter-menu {
     position: relative;
     top: auto;
+    max-height: none;
+    margin-top: 0;
+    grid-template-rows: 0fr;
+    transition:
+      grid-template-rows 210ms var(--ease-shell),
+      margin-top 210ms var(--ease-shell),
+      opacity 180ms ease,
+      transform 210ms var(--ease-shell),
+      visibility 0s linear 210ms;
+  }
+
+  .catalogue-filter-control.is-open {
+    grid-template-rows: auto 1fr;
+  }
+
+  .catalogue-filter-control.is-open .catalogue-filter-menu {
+    max-height: none;
     margin-top: 0.4rem;
+    grid-template-rows: 1fr;
   }
 }
 

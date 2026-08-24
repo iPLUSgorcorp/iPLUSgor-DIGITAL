@@ -57,6 +57,9 @@ const catalogueCopy = {
     filters: "Product filters", application: "Application", allApplications: "All",
     spaceHeating: "Space heating", waterHeating: "Water heating", processHeat: "Process heat",
     power: "Power range", installation: "Installation",
+    wallMounted: "Wall-mounted", floorStanding: "Floor-standing",
+    compactFootprint: "Compact footprint", highEfficiency: "High efficiency", serviceAccess: "Service access",
+    documentationAvailable: "Technical documentation available", productAvailable: "Available",
     documentation: "Documentation", technical: "Technical data", availability: "Availability", stock: "In stock",
     reset: "Reset filters", model: "Model", feature: "Key feature", added: "Added", compare: "Compare",
     selectedShort: "Selected",
@@ -74,6 +77,9 @@ const catalogueCopy = {
     filters: "Фільтри продукту", application: "Застосування", allApplications: "Усі",
     spaceHeating: "Опалення приміщень", waterHeating: "Нагрів води", processHeat: "Промислове тепло",
     power: "Діапазон потужності", installation: "Монтаж",
+    wallMounted: "Настінний", floorStanding: "Підлоговий",
+    compactFootprint: "Компактний корпус", highEfficiency: "Висока ефективність", serviceAccess: "Зручне обслуговування",
+    documentationAvailable: "Технічна документація доступна", productAvailable: "Є в наявності",
     documentation: "Документація", technical: "Технічні дані", availability: "Наявність", stock: "В наявності",
     reset: "Скинути фільтри", model: "Модель", feature: "Ключова властивість", added: "Додано", compare: "Порівняти",
     selectedShort: "Обрано",
@@ -91,6 +97,9 @@ const catalogueCopy = {
     filters: "Produktfilter", application: "Anwendung", allApplications: "Alle",
     spaceHeating: "Raumheizung", waterHeating: "Warmwasser", processHeat: "Prozesswärme",
     power: "Leistungsbereich", installation: "Installation",
+    wallMounted: "Wandmontage", floorStanding: "Bodenaufstellung",
+    compactFootprint: "Kompakte Bauform", highEfficiency: "Hohe Effizienz", serviceAccess: "Guter Wartungszugang",
+    documentationAvailable: "Technische Dokumentation verfügbar", productAvailable: "Verfügbar",
     documentation: "Dokumentation", technical: "Technische Daten", availability: "Verfügbarkeit", stock: "Auf Lager",
     reset: "Filter zurücksetzen", model: "Modell", feature: "Hauptmerkmal", added: "Hinzugefügt", compare: "Vergleichen",
     selectedShort: "Ausgewählt",
@@ -130,6 +139,15 @@ export function CataloguePage() {
   const [compared, setCompared] = useState(["a", "b", "c"]);
   const [comparisonRequested, setComparisonRequested] = useState(false);
   const [labelLead, labelTail] = labels.label.split("—").map((part) => part.trim());
+  const installationLabels = {
+    "Wall-mounted": labels.wallMounted,
+    "Floor-standing": labels.floorStanding,
+  };
+  const featureLabels = {
+    "Compact footprint": labels.compactFootprint,
+    "High efficiency": labels.highEfficiency,
+    "Service access": labels.serviceAccess,
+  };
 
   const filtered = useMemo(
     () =>
@@ -209,13 +227,13 @@ export function CataloguePage() {
                       <h2>{product.model}</h2>
                       <div className="catalogue-row__specs">
                         <p>{product.range}</p>
-                        <p>{product.installation}</p>
-                        <p>{product.feature}</p>
+                        <p>{installationLabels[product.installation] || product.installation}</p>
+                        <p>{featureLabels[product.feature] || product.feature}</p>
                       </div>
-                      <span className="catalogue-row__document" aria-label="Technical documentation available">
+                      <span className="catalogue-row__document" role="img" aria-label={labels.documentationAvailable}>
                         <FileText aria-hidden="true" />
                       </span>
-                      <span className="catalogue-row__availability" aria-label="Available">
+                      <span className="catalogue-row__availability" role="img" aria-label={labels.productAvailable}>
                         <Check aria-hidden="true" />
                       </span>
                       <button

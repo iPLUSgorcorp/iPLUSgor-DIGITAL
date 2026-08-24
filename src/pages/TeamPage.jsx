@@ -23,6 +23,7 @@ import { useLocale } from "../i18n.jsx";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { publicAsset } from "../lib/publicAsset.js";
+import { getLocalizedPath } from "../seo-metadata.js";
 
 const disciplines = [
   {
@@ -52,26 +53,26 @@ const processIcons = [AirplaneTilt, Blueprint, Monitor, GlobeHemisphereWest, Roc
 const howWeWorkCopy = {
   ua: {
     label: "ПРОЦЕС — БЕЗ ПРИХОВАНИХ ЕТАПІВ",
-    title: <>ЯК МИ ПРАЦЮЄМО<br />ВІД ПЕРШОГО ПОВІДОМЛЕННЯ<br />ДО САЙТУ В ІНТЕРНЕТІ.</>,
-    intro: "Зрозумілий маршрут із фіксованими точками рішення: ви бачите обсяг, наступний крок і результат на кожному етапі.",
+    title: <>ЯК МИ ПРАЦЮЄМО<br />ВІД РОЗБОРУ ТРАФІКУ<br />ДО ЗАПУСКУ.</>,
+    intro: "Фіксований sprint-маршрут для сервісного бізнесу: трафік, офер, довіра, CTA, збір звернень і запуск.",
     openStep: "Відкрити етап",
     steps: [
       {
         title: "Зв’язуємось",
-        summary: "Починаємо з короткої розмови про бізнес і задачу.",
-        body: "Залиште заявку на сайті або напишіть нам. Ми також можемо першими вийти на зв’язок, якщо бачимо, що наша робота може бути корисною вашому бізнесу.",
+        summary: "Починаємо з короткої розмови про бізнес і завдання.",
+        body: "Надішліть поточний сайт, головну послугу та джерело трафіку. Ми перевіримо, чи відповідає запит нашому формату, без продажу повного аудиту в першому листі.",
       },
       {
         title: "Обговорюємо проєкт",
         summary: "Визначаємо реальний обсяг до початку розробки.",
         body: "Керівник проєкту уточнює основну інформацію про бізнес і разом із вами формує чітку рамку роботи.",
-        list: ["потрібний тип сайту", "структуру та функції", "дизайн і матеріали", "терміни розробки", "остаточну вартість"],
-        note: "До початку розробки ви знаєте ціну й обсяг роботи.",
+        list: ["Landing Sprint — $4,000", "Website Sprint — $8,500", "Custom scope — від $10,000", "потрібні матеріали та інтеграції", "чіткий критерій запуску"],
+        note: "До старту ви знаєте рекомендований формат, ціну, обсяг і припущення щодо терміну.",
       },
       {
         title: "Створюємо сайт",
         summary: "Перетворюємо погоджену логіку на адаптивний інтерфейс.",
-        body: "Проєктуємо дизайн, адаптуємо сайт для смартфонів і комп’ютерів, додаємо погоджені тексти, зображення, контакти та потрібні функціональні блоки. Перед публікацією ви переглядаєте результат.",
+        body: "Проєктуємо офер, структуру довіри й mobile-first інтерфейс, а потім самі реалізуємо responsive frontend. Типовий орієнтир — 2–3 робочі дні для лендингу та 5–7 для основного website sprint за готових матеріалів і швидких рішень.",
       },
       {
         title: "Допомагаємо з доменом",
@@ -80,46 +81,46 @@ const howWeWorkCopy = {
         note: "Наприклад: yourbusiness.com.ua",
       },
       {
-        title: "Публікуємо сайт",
-        summary: "Налаштовуємо запуск і підключаємо ваш домен.",
-        body: "Після завершення розробки самостійно готуємо публікацію. Для стандартного односторінкового сайту вам не потрібно окремо розбиратися з серверами, хостингом або технічними налаштуваннями — ми беремо це на себе.",
+        title: "Перевіряємо шлях",
+        summary: "QA охоплює mobile, CTA, форми, швидкість і події аналітики.",
+        body: "Перед запуском перевіряємо основний комерційний сценарій, responsive-стани, контакти, форми й базові measurement events. Ми не прогнозуємо кількість лідів — готуємо шлях, який можна вимірювати.",
       },
       {
-        title: "Ваш сайт працює",
-        summary: "Готовий сайт доступний на будь-якому пристрої.",
-        body: "У результаті ви отримуєте готову вебсторінку бізнесу за власним доменом — з телефону, комп’ютера або іншого пристрою.",
-        note: "Ви займаєтесь бізнесом. Ми займаємось сайтом.",
+        title: "Запускаємо сайт",
+        summary: "Підключаємо домен і передаємо контроль клієнту.",
+        body: "Публікуємо погоджену версію, перевіряємо її за власним доменом і передаємо доступи та код за умовами проєкту. Після запуску коротка підтримка входить в основний sprint; подальша робота узгоджується окремо.",
+        note: "Сайт запущено. Наступні рішення спираються на реальні дані, а не обіцянки.",
       },
     ],
     contact: {
       title: "Зв’язатися з нами",
-      text: "Хочете дізнатися, яким може бути сайт саме для вашого бізнесу? Розкажіть кілька слів про задачу — сформуємо зрозумілий наступний крок.",
-      primary: "Розрахувати сайт",
+      text: "Уже отримуєте трафік? Надішліть сайт, головну послугу й джерело переходів — визначимо найбільш корисний наступний крок.",
+      primary: "Запросити розбір",
       secondary: "Написати нам",
     },
   },
   en: {
     label: "PROCESS — NO HIDDEN STEPS",
-    title: <>HOW WE WORK<br />FROM THE FIRST MESSAGE<br />TO A LIVE WEBSITE.</>,
-    intro: "A clear route with visible decision points: you see the scope, next step and outcome at every stage.",
+    title: <>HOW WE WORK<br />FROM TRAFFIC REVIEW<br />TO LAUNCH.</>,
+    intro: "A fixed sprint route for service businesses: traffic, offer, trust, CTA, lead capture and launch.",
     openStep: "Open step",
     steps: [
       {
         title: "We connect",
         summary: "We begin with a short conversation about your business and task.",
-        body: "Leave a request on the site or write to us. We may also reach out first when we see a clear way our work could help your business.",
+        body: "Send the current website, primary service and traffic source. We determine whether the task fits our format without pushing a full audit in the first message.",
       },
       {
         title: "We define the project",
         summary: "We establish the real scope before development begins.",
         body: "A project lead gathers the core information about the business and shapes a clear working frame with you.",
-        list: ["the website you need", "its structure and functions", "design and materials", "development timeline", "final project cost"],
-        note: "Before build begins, you know the price and scope of work.",
+        list: ["Landing Sprint — $4,000", "Website Sprint — $8,500", "Custom scope — from $10,000", "required materials and integrations", "a clear launch criterion"],
+        note: "Before work begins, you know the recommended engagement, price, scope and timeline assumptions.",
       },
       {
         title: "We build the site",
         summary: "We turn the agreed logic into a responsive interface.",
-        body: "We design the interface, adapt the site for phones and computers, add approved copy, imagery, contacts and required functional blocks. You see and review the result before it goes live.",
+        body: "We shape the offer, trust structure and mobile-first interface, then implement the responsive frontend ourselves. Typical delivery is 2–3 business days for a landing sprint and 5–7 for the core website sprint when materials and decisions are available.",
       },
       {
         title: "We help with the domain",
@@ -128,46 +129,46 @@ const howWeWorkCopy = {
         note: "For example: yourbusiness.com.ua",
       },
       {
-        title: "We publish the site",
-        summary: "We prepare the launch and connect your domain.",
-        body: "After development, we prepare publishing ourselves. For a standard one-page site, you do not need to separately learn servers, hosting or technical settings — we handle that work.",
+        title: "We verify the path",
+        summary: "QA covers mobile, CTAs, forms, speed and analytics events.",
+        body: "Before launch, we verify the primary commercial journey, responsive states, contacts, forms and basic measurement events. We do not forecast a lead count; we prepare a path the business can measure.",
       },
       {
-        title: "Your site is live",
-        summary: "The finished site works on every device.",
-        body: "You receive a finished business website under your own domain, available from a phone, computer or any other device.",
-        note: "You run the business. We take care of the website.",
+        title: "We launch the site",
+        summary: "We connect the domain and transfer control to the client.",
+        body: "We publish the approved version, verify it under the client domain, and hand over access and code under the project terms. Short post-launch support is included in the core sprint; continued work is scoped separately.",
+        note: "The site is live. Further decisions can use real data instead of promises.",
       },
     ],
     contact: {
       title: "Contact us",
-      text: "Want to understand what a website for your business could involve? Tell us a little about the task and we will define a clear next step.",
-      primary: "Estimate my website",
+      text: "Already receiving traffic? Share the site, primary service and traffic source so we can define the most useful next step.",
+      primary: "Request a review",
       secondary: "Write to us",
     },
   },
   de: {
     label: "ABLAUF — OHNE VERSTECKTE SCHRITTE",
-    title: <>SO ARBEITEN WIR<br />VON DER ERSTEN NACHRICHT<br />BIS ZUR LIVE-WEBSITE.</>,
-    intro: "Ein klarer Ablauf mit sichtbaren Entscheidungspunkten: Umfang, nächster Schritt und Ergebnis sind in jeder Phase nachvollziehbar.",
+    title: <>SO ARBEITEN WIR<br />VOM TRAFFIC-REVIEW<br />BIS ZUM LAUNCH.</>,
+    intro: "Ein fester Sprint-Ablauf für Dienstleister: Traffic, Angebot, Vertrauen, CTA, Lead-Erfassung und Launch.",
     openStep: "Schritt öffnen",
     steps: [
       {
         title: "Wir nehmen Kontakt auf",
         summary: "Wir beginnen mit einem kurzen Gespräch über Ihr Unternehmen und Ihre Aufgabe.",
-        body: "Hinterlassen Sie eine Anfrage auf der Website oder schreiben Sie uns. Wir können auch selbst Kontakt aufnehmen, wenn wir einen klaren Nutzen für Ihr Unternehmen sehen.",
+        body: "Senden Sie aktuelle Website, wichtigste Leistung und Traffic-Quelle. Wir prüfen, ob die Aufgabe zu unserem Format passt, ohne im ersten Kontakt ein volles Audit zu verkaufen.",
       },
       {
         title: "Wir klären das Projekt",
         summary: "Wir bestimmen den tatsächlichen Umfang vor Beginn der Entwicklung.",
         body: "Eine Projektleitung sammelt die wichtigsten Informationen zum Unternehmen und entwickelt gemeinsam mit Ihnen einen klaren Arbeitsrahmen.",
-        list: ["die benötigte Website", "Struktur und Funktionen", "Design und Materialien", "Entwicklungszeitraum", "endgültige Projektkosten"],
-        note: "Vor Beginn der Umsetzung kennen Sie Preis und Umfang der Arbeit.",
+        list: ["Landing Sprint — $4,000", "Website Sprint — $8,500", "Custom Scope — ab $10,000", "notwendige Materialien und Integrationen", "ein klares Launch-Kriterium"],
+        note: "Vor dem Start kennen Sie empfohlenes Format, Preis, Umfang und Annahmen zum Zeitplan.",
       },
       {
         title: "Wir entwickeln die Website",
         summary: "Wir machen aus der abgestimmten Logik ein responsives Interface.",
-        body: "Wir gestalten das Interface, passen die Website für Smartphones und Computer an und ergänzen abgestimmte Texte, Bilder, Kontakte und Funktionsblöcke. Vor der Veröffentlichung sehen und prüfen Sie das Ergebnis.",
+        body: "Wir gestalten Angebot, Vertrauensstruktur und Mobile-first-Interface und implementieren das responsive Frontend selbst. Typisch sind 2–3 Werktage für den Landing Sprint und 5–7 für den Kern-Sprint, wenn Material und Entscheidungen verfügbar sind.",
       },
       {
         title: "Wir helfen mit der Domain",
@@ -176,21 +177,21 @@ const howWeWorkCopy = {
         note: "Zum Beispiel: yourbusiness.com.ua",
       },
       {
-        title: "Wir veröffentlichen die Website",
-        summary: "Wir bereiten den Launch vor und verbinden Ihre Domain.",
-        body: "Nach der Entwicklung bereiten wir die Veröffentlichung selbst vor. Bei einer Standard-One-Page-Website müssen Sie sich nicht separat mit Servern, Hosting oder technischen Einstellungen beschäftigen — das übernehmen wir.",
+        title: "Wir prüfen den Weg",
+        summary: "QA umfasst Mobile, CTAs, Formulare, Tempo und Analyse-Events.",
+        body: "Vor dem Launch prüfen wir den kommerziellen Hauptweg, responsive Zustände, Kontakte, Formulare und grundlegende Messereignisse. Wir prognostizieren keine Lead-Zahl, sondern bereiten einen messbaren Weg vor.",
       },
       {
-        title: "Ihre Website ist live",
-        summary: "Die fertige Website funktioniert auf jedem Gerät.",
-        body: "Sie erhalten eine fertige Business-Website unter Ihrer eigenen Domain, erreichbar per Smartphone, Computer oder anderem Gerät.",
-        note: "Sie kümmern sich um Ihr Geschäft. Wir kümmern uns um die Website.",
+        title: "Wir starten die Website",
+        summary: "Wir verbinden die Domain und übertragen die Kontrolle.",
+        body: "Wir veröffentlichen die freigegebene Version, prüfen sie unter der Kundendomain und übergeben Zugänge und Code gemäß Projektumfang. Kurzer Support nach Launch gehört zum Kern-Sprint; weitere Arbeit wird separat definiert.",
+        note: "Die Website ist live. Weitere Entscheidungen können auf echten Daten statt Versprechen beruhen.",
       },
     ],
     contact: {
       title: "Kontakt aufnehmen",
-      text: "Möchten Sie verstehen, wie eine Website für Ihr Unternehmen aussehen kann? Erzählen Sie uns kurz von der Aufgabe — wir definieren einen klaren nächsten Schritt.",
-      primary: "Website anfragen",
+      text: "Sie erhalten bereits Traffic? Teilen Sie Website, wichtigste Leistung und Quelle, damit wir den sinnvollsten nächsten Schritt bestimmen.",
+      primary: "Review anfragen",
       secondary: "Uns schreiben",
     },
   },
@@ -200,48 +201,48 @@ const teamCopy = {
   en: {
     label: "TEAM — INDEPENDENT UKRAINIAN PRACTICE",
     title: <>SMALL ENOUGH<br />TO THINK TOGETHER.<br />TECHNICAL ENOUGH<br />TO BUILD IT.</>,
-    intro: "iPLUSgor Digital is an independent Ukrainian web design and frontend team. We take business websites from initial analysis and structure through design, development and launch.",
+    intro: "iPLUSgor Digital is an independent Ukrainian strategy, UX/UI and frontend team building conversion-focused websites for service businesses with existing traffic.",
     note: "No relay race between strategy, interface and build.",
     practice: "One connected practice",
     practiceTitle: <>THE SAME TEAM FOLLOWS<br />THE LOGIC INTO THE BROWSER.</>,
-    frame: "Bring the current website, business goals and the problems it needs to solve.",
-    cta: "Start with a preliminary review",
+    frame: "Bring the current website, primary service and traffic source. We will identify the most useful next conversation.",
+    cta: "Request a conversion review",
     profile: {
       label: "About iPLUSgor Digital",
-      title: "Websites from business review to launch",
+      title: "Conversion websites from review to launch",
       detailsLabel: "More about the studio",
       fullLabel: "Full profile",
     },
     brand: {
       label: "iPLUSgor Digital — web practice",
-      title: "ONE FOCUSED TEAM. WEBSITES THAT WORK.",
-      intro: "Founded in Ukraine in 2026, iPLUSgor Digital is a young independent team building trust through focused web work, transparent communication and responsible delivery.",
-      digitalEyebrow: "Websites + digital platforms",
-      digitalText: "Business review, structure, UX and UI design, responsive frontend and launch in one connected website practice.",
+      title: "ONE FOCUSED TEAM. ONE COMMERCIAL PATH.",
+      intro: "Founded in Ukraine in 2026, iPLUSgor Digital is a young independent team earning trust through honest scope, clear communication and accountable delivery.",
+      digitalEyebrow: "Conversion websites for service businesses",
+      digitalText: "Traffic review, offer structure, UX/UI, responsive frontend, lead capture and launch in one connected practice.",
       current: "Start a collaboration",
     },
   },
   ua: {
     label: "КОМАНДА — НЕЗАЛЕЖНА УКРАЇНСЬКА ПРАКТИКА",
     title: <>ДОСИТЬ МАЛІ,<br />ЩОБ ДУМАТИ РАЗОМ.<br />ДОСИТЬ ТЕХНІЧНІ,<br />ЩОБ ЦЕ ПОБУДУВАТИ.</>,
-    intro: "iPLUSgor Digital — незалежна українська команда вебдизайну та frontend-розробки. Ми проводимо бізнес-сайт від первинного аналізу й структури до дизайну, розробки та запуску.",
+    intro: "iPLUSgor Digital — незалежна українська команда стратегії, UX/UI та frontend, яка створює конверсійні сайти для сервісного бізнесу з наявним трафіком.",
     note: "Без естафети між стратегією, інтерфейсом і розробкою.",
     practice: "Одна зв’язна практика",
     practiceTitle: <>ТА САМА КОМАНДА<br />ПРОВОДИТЬ ЛОГІКУ У БРАУЗЕР.</>,
-    frame: "Покажіть поточний сайт, бізнес-цілі та проблеми, які він має вирішити.",
-    cta: "Почати з попереднього розбору",
+    frame: "Покажіть поточний сайт, головну послугу й джерело трафіку. Визначимо корисний наступний крок.",
+    cta: "Запросити конверсійний розбір",
     profile: {
       label: "Коротко про iPLUSgor Digital",
-      title: "Сайти від розбору бізнесу до запуску",
+      title: "Конверсійні сайти від розбору до запуску",
       detailsLabel: "Докладніше про студію",
       fullLabel: "Повна версія",
     },
     brand: {
       label: "iPLUSgor Digital — вебпрактика",
-      title: "ОДНА СФОКУСОВАНА КОМАНДА. САЙТИ, ЯКІ ПРАЦЮЮТЬ.",
-      intro: "iPLUSgor Digital заснована в Україні у 2026 році. Це молода незалежна команда, яка завойовує довіру сфокусованою роботою над сайтами, прозорою комунікацією та відповідальною реалізацією.",
-      digitalEyebrow: "Сайти + цифрові платформи",
-      digitalText: "Розбір бізнесу, структура, UX та UI-дизайн, адаптивний frontend і запуск — одна зв’язна вебпрактика.",
+      title: "ОДНА СФОКУСОВАНА КОМАНДА. ОДИН КОМЕРЦІЙНИЙ ШЛЯХ.",
+      intro: "iPLUSgor Digital заснована в Україні у 2026 році. Ми молода незалежна команда, яка будує довіру чесним обсягом, прозорою комунікацією та відповідальною реалізацією.",
+      digitalEyebrow: "Конверсійні сайти для сервісного бізнесу",
+      digitalText: "Розбір трафіку, структура оферу, UX/UI, адаптивний frontend, збір звернень і запуск — одна зв’язна практика.",
       current: "Перейти до співпраці",
     },
     disciplines: [
@@ -254,24 +255,24 @@ const teamCopy = {
   de: {
     label: "TEAM — UNABHÄNGIGE UKRAINISCHE PRAXIS",
     title: <>KLEIN GENUG,<br />UM GEMEINSAM ZU DENKEN.<br />TECHNISCH GENUG,<br />UM ES ZU BAUEN.</>,
-    intro: "iPLUSgor Digital ist ein unabhängiges ukrainisches Team für Webdesign und Frontend-Entwicklung. Wir begleiten Business-Websites von Analyse und Struktur über Design und Entwicklung bis zum Launch.",
+    intro: "iPLUSgor Digital ist ein unabhängiges ukrainisches Team für Strategie, UX/UI und Frontend. Wir bauen Conversion-Websites für Dienstleister mit vorhandenem Traffic.",
     note: "Kein Staffellauf zwischen Strategie, Interface und Entwicklung.",
     practice: "Eine verbundene Praxis",
     practiceTitle: <>DASSELBE TEAM FÜHRT<br />DIE LOGIK BIS IN DEN BROWSER.</>,
-    frame: "Bringen Sie Ihre aktuelle Website, Geschäftsziele und die Probleme mit, die sie lösen soll.",
-    cta: "Mit einer Vorprüfung beginnen",
+    frame: "Bringen Sie aktuelle Website, wichtigste Leistung und Traffic-Quelle mit. Wir bestimmen den sinnvollen nächsten Schritt.",
+    cta: "Conversion-Review anfragen",
     profile: {
       label: "Kurz über iPLUSgor Digital",
-      title: "Websites von der Geschäftsanalyse bis zum Launch",
+      title: "Conversion-Websites vom Review bis zum Launch",
       detailsLabel: "Mehr über das Studio",
       fullLabel: "Vollständiges Profil",
     },
     brand: {
       label: "iPLUSgor Digital — Webpraxis",
-      title: "EIN FOKUSSIERTES TEAM. WEBSITES, DIE FUNKTIONIEREN.",
-      intro: "iPLUSgor Digital wurde 2026 in der Ukraine gegründet. Als junges unabhängiges Team gewinnen wir Vertrauen durch fokussierte Webarbeit, transparente Kommunikation und verantwortungsvolle Umsetzung.",
-      digitalEyebrow: "Websites + digitale Plattformen",
-      digitalText: "Geschäftsanalyse, Struktur, UX- und UI-Design, responsives Frontend und Launch in einer verbundenen Webpraxis.",
+      title: "EIN FOKUSSIERTES TEAM. EIN KOMMERZIELLER WEG.",
+      intro: "iPLUSgor Digital wurde 2026 in der Ukraine gegründet. Als junges unabhängiges Team gewinnen wir Vertrauen durch ehrlichen Umfang, klare Kommunikation und verantwortliche Umsetzung.",
+      digitalEyebrow: "Conversion-Websites für Dienstleister",
+      digitalText: "Traffic-Review, Angebotsstruktur, UX/UI, responsives Frontend, Lead-Erfassung und Launch in einer verbundenen Praxis.",
       current: "Zusammenarbeit starten",
     },
     disciplines: [
@@ -447,13 +448,13 @@ export function TeamPage() {
         </div>
         <Aperture className="team-hero__brand-aperture" label="iPLUSgor Digital symbol">
           <img
-            src={publicAsset("assets/brand/iplusgor-symbol.png")}
+            src={publicAsset("assets/brand/iplusgor-symbol.webp")}
             width="640"
             height="645"
             alt=""
             loading="eager"
             decoding="async"
-            fetchPriority="low"
+            fetchPriority="high"
           />
         </Aperture>
         <p className="team-hero__note">
@@ -497,9 +498,9 @@ export function TeamPage() {
           <article className="brand-branch brand-branch--digital">
             <img
               className="brand-branch__poster"
-              src={publicAsset("assets/brand/iplusgor-digital-poster.webp")}
+              src={publicAsset("assets/brand/iplusgor-digital-workspace.webp")}
               alt=""
-              loading="eager"
+              loading="lazy"
               decoding="async"
               fetchPriority="low"
               draggable="false"
@@ -508,7 +509,7 @@ export function TeamPage() {
             <small>{labels.brand.digitalEyebrow}</small>
             <h3>iPLUSgor Digital</h3>
             <p>{labels.brand.digitalText}</p>
-            <Link className="brand-branch__current" to="/start-project">
+            <Link className="brand-branch__current" to={getLocalizedPath("/start-project", locale)}>
               <span>{labels.brand.current}</span>
               <ArrowUpRight aria-hidden="true" />
             </Link>
@@ -518,7 +519,12 @@ export function TeamPage() {
 
       <section className="team-disciplines" aria-labelledby="team-disciplines-title">
         <SectionLabel>{labels.practice}</SectionLabel>
-        <h2 id="team-disciplines-title">{labels.practiceTitle}</h2>
+        <h2
+          id="team-disciplines-title"
+          style={locale === "de" ? { fontSize: "clamp(2rem, 3.2vw, 3.5rem)" } : undefined}
+        >
+          {labels.practiceTitle}
+        </h2>
         <div>
           {localizedDisciplines.map(({ icon: Icon, title, text }, index) => (
             <article key={title}>
@@ -594,7 +600,7 @@ export function TeamPage() {
             <p>{process.contact.text}</p>
           </div>
           <div className="how-we-work__contact-actions">
-            <Link className="primary-cta primary-cta--dark" to="/start-project">
+            <Link className="primary-cta primary-cta--dark" to={getLocalizedPath("/start-project", locale)}>
               <span>{process.contact.primary}</span>
               <ArrowUpRight aria-hidden="true" />
             </Link>

@@ -1,6 +1,8 @@
 import { ArrowUpRight, Sparkle } from "@phosphor-icons/react";
 import { Link } from "react-router-dom";
 import { useLocale } from "../i18n.jsx";
+import { getLocalizedPath } from "../seo-metadata.js";
+import { trackEvent } from "../lib/analytics.js";
 
 export function SectionLabel({ children, tone = "jade" }) {
   return <p className={`section-label section-label--${tone}`}>{children}</p>;
@@ -12,8 +14,18 @@ export function PrimaryCTA({
   tone = "dark",
   className = "",
 }) {
+  const { locale } = useLocale();
+  const localizedTo = getLocalizedPath(to, locale);
   return (
-    <Link className={`primary-cta primary-cta--${tone} ${className}`} to={to}>
+    <Link
+      className={`primary-cta primary-cta--${tone} ${className}`}
+      to={localizedTo}
+      onClick={() => trackEvent("primary_cta_click", {
+        destination: localizedTo,
+        label: typeof children === "string" ? children : "primary_cta",
+        locale,
+      })}
+    >
       <span>{children}</span>
       <ArrowUpRight aria-hidden="true" weight="regular" />
     </Link>
@@ -59,12 +71,12 @@ export function CommercialFrame({
 }) {
   const { locale } = useLocale();
   const defaults = {
-    en: ["A strong business deserves a website that makes its value clear.", "Start a conversation"],
-    ua: ["Сильний бізнес заслуговує на сайт, який зрозуміло пояснює його цінність.", "Почати розмову"],
-    de: ["Ein starkes Unternehmen verdient eine Website, die seinen Wert klar vermittelt.", "Gespräch beginnen"],
-  }[locale] || ["A strong business deserves a website that makes its value clear.", "Start a conversation"];
+    en: ["A strong business deserves a website that makes its value clear.", "Start a conversation", "Commercial information"],
+    ua: ["Сильний бізнес заслуговує на сайт, який зрозуміло пояснює його цінність.", "Почати розмову", "Комерційна інформація"],
+    de: ["Ein starkes Unternehmen verdient eine Website, die seinen Wert klar vermittelt.", "Gespräch beginnen", "Kommerzielle Informationen"],
+  }[locale] || ["A strong business deserves a website that makes its value clear.", "Start a conversation", "Commercial information"];
   return (
-    <aside className="commercial-frame" aria-label="Commercial information">
+    <aside className="commercial-frame" aria-label={defaults[2]}>
       <div className="commercial-frame__mark" aria-hidden="true">
         {mark === "arrow" ? <ArrowUpRight weight="regular" /> : <Sparkle weight="regular" />}
       </div>

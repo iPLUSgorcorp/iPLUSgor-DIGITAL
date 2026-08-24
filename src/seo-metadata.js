@@ -1,100 +1,126 @@
 export const siteOrigin = "https://iplusgor.com";
 export const siteName = "iPLUSgor Digital";
+export const localePathPrefixes = { ua: "", en: "/en", de: "/de" };
+export const localeHtmlCodes = { ua: "uk", en: "en", de: "de" };
+export const localeOpenGraphCodes = { ua: "uk_UA", en: "en_US", de: "de_DE" };
+
+export function getLocaleFromPath(pathname = "/") {
+  const normalized = `/${String(pathname).replace(/^\/+|\/+$/g, "")}`;
+  if (normalized === "/en" || normalized.startsWith("/en/")) return "en";
+  if (normalized === "/de" || normalized.startsWith("/de/")) return "de";
+  return "ua";
+}
+
+export function getBaseRoute(pathname = "/") {
+  const normalized = `/${String(pathname).replace(/^\/+|\/+$/g, "")}`;
+  const withoutLocale = normalized.replace(/^\/(?:en|de)(?=\/|$)/, "");
+  return withoutLocale || "/";
+}
+
+export function getLocalizedPath(pathname = "/", locale = "ua") {
+  const route = getBaseRoute(pathname);
+  const prefix = localePathPrefixes[locale] ?? "";
+  if (route === "/") return prefix ? `${prefix}/` : "/";
+  return `${prefix}${route}/`;
+}
 
 export const seoMetadata = {
   ua: {
     "/": {
-      title: "Створення сайтів для бізнесу | iPLUSgor Digital",
-      description: "iPLUSgor Digital створює сучасні адаптивні сайти для локального бізнесу в Україні: структура, дизайн, frontend, домен і публікація.",
+      title: "Розробка сайтів і лендингів для бізнесу | iPLUSgor",
+      description: "Створення конверсійних сайтів і лендингів для сервісного бізнесу з Google Ads або Meta Ads: офер, довіра, CTA, форми та швидкий frontend.",
     },
     "/approach": {
-      title: "Як ми створюємо сайти | iPLUSgor Digital",
-      description: "Шість зрозумілих етапів створення сайту: від першої розмови й структури до адаптивної розробки, домену та публікації.",
+      title: "Conversion Website Sprint: процес роботи | iPLUSgor",
+      description: "Від розбору трафіку й оферу до дизайну, frontend, аналітики та запуску. Фіксований процес без зайвих передач між підрядниками.",
     },
     "/solutions": {
-      title: "Рішення для бізнес-сайтів | iPLUSgor Digital",
-      description: "Структура сайту, контент, шлях клієнта, корисна інформація, аналітика та frontend у єдиній системі для локального бізнесу.",
+      title: "Рішення для конверсії платного трафіку | iPLUSgor",
+      description: "Система сайту для сервісного бізнесу: контекст реклами, ясний офер, докази, мобільний UX, CTA, збір звернень і аналітика.",
     },
     "/solutions/catalogue": {
-      title: "Приклад каталогу товарів | iPLUSgor Digital",
-      description: "Інтерактивний приклад того, як категорії, фільтри, порівняння та технічна інформація допомагають клієнту вибрати товар.",
+      title: "Демонстрація складного інтерфейсу | iPLUSgor",
+      description: "Другорядний демонстраційний приклад фільтрів, порівняння та технічної інформації. Дані не належать реальному клієнту.",
+      robots: "noindex, follow",
     },
     "/work": {
-      title: "Концепти сайтів і вибрані роботи | iPLUSgor Digital",
-      description: "Самостійні концепти сайтів iPLUSgor Digital для локального бізнесу, e-commerce та персональних сторінок. Кожен концепт позначений чесно.",
+      title: "Концепти сайтів і дизайн-докази | iPLUSgor",
+      description: "Самостійні концепти iPLUSgor Digital, що показують структуру, UX і responsive frontend. Концепти не видаються за клієнтські результати.",
     },
     "/team": {
-      title: "Команда вебдизайну та frontend | iPLUSgor Digital",
-      description: "Незалежна українська команда iPLUSgor Digital створює зрозумілі адаптивні сайти й супроводжує проєкт від задачі до запуску.",
+      title: "Команда conversion web design | iPLUSgor Digital",
+      description: "Незалежна українська команда стратегії, UX/UI та frontend. Створюємо конверсійні сайти для сервісних компаній із наявним трафіком.",
     },
     "/start-project": {
-      title: "Розрахувати сайт для бізнесу | iPLUSgor Digital",
-      description: "Розкажіть про бізнес і задачу. iPLUSgor Digital допоможе визначити структуру, обсяг, термін і наступний крок створення сайту.",
+      title: "Запросити конверсійний розбір сайту | iPLUSgor",
+      description: "Покажіть сайт, головну послугу й джерело трафіку. Отримайте предметну розмову про Landing Sprint, Website Sprint або custom scope.",
     },
   },
   en: {
     "/": {
-      title: "Business website design and development | iPLUSgor Digital",
-      description: "iPLUSgor Digital creates clear, responsive websites for local businesses: structure, design, frontend, domain connection and launch.",
+      title: "Conversion website design for service businesses | iPLUSgor",
+      description: "Conversion landing pages and commercial websites for service businesses running Google Ads or Meta Ads: clear offers, trust, CTA, forms and fast frontend.",
     },
     "/approach": {
-      title: "How we build business websites | iPLUSgor Digital",
-      description: "A clear six-stage website process from the first conversation and structure to responsive development, domain connection and launch.",
+      title: "Conversion Website Sprint process | iPLUSgor Digital",
+      description: "From traffic and offer review to design, frontend, analytics and launch. One fixed sprint process without unnecessary agency handoffs.",
     },
     "/solutions": {
-      title: "Business website solutions | iPLUSgor Digital",
-      description: "Website structure, content, customer journeys, useful information, analytics and frontend delivered as one connected system.",
+      title: "Paid traffic conversion website system | iPLUSgor",
+      description: "A service-business website system connecting campaign intent, offer clarity, proof, mobile UX, CTA hierarchy, lead capture and analytics.",
     },
     "/solutions/catalogue": {
-      title: "Product catalogue interface example | iPLUSgor Digital",
-      description: "An interactive example of how categories, filters, comparison and technical information can make product selection easier.",
+      title: "Complex interface demonstration | iPLUSgor Digital",
+      description: "A secondary interface example showing filters, comparison and technical information. All visible product data is demonstrative, not client data.",
+      robots: "noindex, follow",
     },
     "/work": {
-      title: "Website concepts and selected work | iPLUSgor Digital",
-      description: "Self-initiated website concepts for local business, e-commerce and personal pages, clearly labelled and presented by iPLUSgor Digital.",
+      title: "Website concepts and design evidence | iPLUSgor Digital",
+      description: "Self-initiated concepts showing structure, UX and responsive frontend execution. Concepts are labelled honestly and are not presented as client results.",
     },
     "/team": {
-      title: "Web design and frontend team | iPLUSgor Digital",
-      description: "Meet the independent Ukrainian iPLUSgor Digital team and see how a business website moves from the first task to launch.",
+      title: "Conversion web design team | iPLUSgor Digital",
+      description: "An independent Ukrainian strategy, UX/UI and frontend team building conversion-focused websites for service businesses with existing traffic.",
     },
     "/start-project": {
-      title: "Estimate a business website | iPLUSgor Digital",
-      description: "Tell us about your business and goal. iPLUSgor Digital will help define the website scope, timeline and practical next step.",
+      title: "Request a website conversion review | iPLUSgor Digital",
+      description: "Share your website, primary service and traffic source. Start a focused conversation about a Landing Sprint, Website Sprint or custom scope.",
     },
   },
   de: {
     "/": {
-      title: "Websites für lokale Unternehmen | iPLUSgor Digital",
-      description: "iPLUSgor Digital entwickelt klare responsive Websites für lokale Unternehmen: Struktur, Design, Frontend, Domain-Anbindung und Veröffentlichung.",
+      title: "Webdesign und Landingpages für Dienstleister | iPLUSgor",
+      description: "Conversion-Websites und Landingpages für Dienstleister mit Google Ads oder Meta Ads: klares Angebot, Vertrauen, CTA, Formulare und schnelles Frontend.",
     },
     "/approach": {
-      title: "So entwickeln wir Websites | iPLUSgor Digital",
-      description: "Sechs klare Schritte von der ersten Besprechung und Struktur bis zur responsiven Entwicklung, Domain-Anbindung und Veröffentlichung.",
+      title: "Conversion Website Sprint: Ablauf | iPLUSgor Digital",
+      description: "Von Traffic- und Angebotsprüfung bis Design, Frontend, Analyse und Launch. Ein fester Sprint ohne unnötige Übergaben zwischen Dienstleistern.",
     },
     "/solutions": {
-      title: "Website-Lösungen für Unternehmen | iPLUSgor Digital",
-      description: "Website-Struktur, Inhalte, Kundenwege, nützliche Informationen, Analyse und Frontend als ein zusammenhängendes System.",
+      title: "Website-System für Paid-Traffic-Conversion | iPLUSgor",
+      description: "Ein System für Dienstleister: Kampagnenkontext, klares Angebot, Belege, Mobile UX, CTA-Hierarchie, Lead-Erfassung und Analyse.",
     },
     "/solutions/catalogue": {
-      title: "Beispiel für einen Produktkatalog | iPLUSgor Digital",
-      description: "Ein interaktives Beispiel dafür, wie Kategorien, Filter, Vergleiche und technische Informationen die Produktauswahl erleichtern.",
+      title: "Demonstration einer komplexen Oberfläche | iPLUSgor",
+      description: "Ein sekundäres Interface-Beispiel mit Filtern, Vergleich und technischen Informationen. Alle Produktdaten sind Demo-, keine Kundendaten.",
+      robots: "noindex, follow",
     },
     "/work": {
-      title: "Website-Konzepte und ausgewählte Arbeiten | iPLUSgor Digital",
-      description: "Eigenständige Website-Konzepte für lokale Unternehmen, E-Commerce und persönliche Seiten, klar gekennzeichnet von iPLUSgor Digital.",
+      title: "Website-Konzepte und Design-Nachweise | iPLUSgor",
+      description: "Eigenständige Konzepte für Struktur, UX und responsives Frontend. Sie sind klar gekennzeichnet und werden nicht als Kundenergebnisse dargestellt.",
     },
     "/team": {
-      title: "Webdesign- und Frontend-Team | iPLUSgor Digital",
-      description: "Lernen Sie das unabhängige ukrainische Team von iPLUSgor Digital und den Weg einer Website von der Aufgabe bis zum Start kennen.",
+      title: "Team für Conversion-Webdesign | iPLUSgor Digital",
+      description: "Ein unabhängiges ukrainisches Team für Strategie, UX/UI und Frontend baut Conversion-Websites für Dienstleister mit vorhandenem Traffic.",
     },
     "/start-project": {
-      title: "Business-Website kalkulieren | iPLUSgor Digital",
-      description: "Beschreiben Sie Ihr Unternehmen und Ihr Ziel. iPLUSgor Digital hilft, Umfang, Zeitplan und den nächsten Schritt festzulegen.",
+      title: "Website-Conversion-Review anfragen | iPLUSgor Digital",
+      description: "Teilen Sie Website, wichtigste Leistung und Traffic-Quelle. Starten Sie ein fokussiertes Gespräch über Landing-, Website- oder Custom-Scope.",
     },
   },
 };
 
 export function getSeoMetadata(pathname, locale = "ua") {
   const localized = seoMetadata[locale] || seoMetadata.ua;
-  return localized[pathname] || localized["/"];
+  return localized[getBaseRoute(pathname)] || localized["/"];
 }

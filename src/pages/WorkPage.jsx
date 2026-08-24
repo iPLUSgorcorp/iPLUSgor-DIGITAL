@@ -41,6 +41,15 @@ const copy = {
     zoomIn: "Zoom in",
     zoomOut: "Zoom out",
     resetZoom: "Reset zoom",
+    openFullscreen: "Open full screen",
+    exitFullscreen: "Exit full screen",
+    zoomControls: "Image zoom controls",
+    imageState: "Image state",
+    viewerNavigation: "Concept viewer navigation",
+    filters: "Filter concepts",
+    before: "Before",
+    after: "After",
+    concept: "Concept",
     openLink: "Open project link",
     frame: "Client work is shared only with permission; independent concepts are labelled separately.",
     frameCta: "See how we work",
@@ -62,6 +71,15 @@ const copy = {
     zoomIn: "Збільшити",
     zoomOut: "Зменшити",
     resetZoom: "Скинути масштаб",
+    openFullscreen: "Відкрити на весь екран",
+    exitFullscreen: "Вийти з повноекранного режиму",
+    zoomControls: "Керування масштабом зображення",
+    imageState: "Варіанти зображення",
+    viewerNavigation: "Навігація перегляду концептів",
+    filters: "Фільтрування концептів",
+    before: "До",
+    after: "Після",
+    concept: "Концепт",
     openLink: "Відкрити посилання",
     frame: "Клієнтська робота публікується лише з дозволу; незалежні концепти позначаються окремо.",
     frameCta: "Як ми працюємо",
@@ -83,6 +101,15 @@ const copy = {
     zoomIn: "Vergrößern",
     zoomOut: "Verkleinern",
     resetZoom: "Zoom zurücksetzen",
+    openFullscreen: "Vollbild öffnen",
+    exitFullscreen: "Vollbild schließen",
+    zoomControls: "Bildzoom steuern",
+    imageState: "Bildvarianten",
+    viewerNavigation: "Navigation der Konzeptansicht",
+    filters: "Konzepte filtern",
+    before: "Vorher",
+    after: "Nachher",
+    concept: "Konzept",
     openLink: "Projektlink öffnen",
     frame: "Kundenarbeit wird nur mit Zustimmung gezeigt; unabhängige Konzepte werden separat gekennzeichnet.",
     frameCta: "Unsere Arbeitsweise",
@@ -95,17 +122,17 @@ function localizeField(value, locale, fallback = "") {
   return value[locale] || value.en || value.ua || value.de || fallback;
 }
 
-function normalizeConcept(item, index, locale) {
+function normalizeConcept(item, index, locale, labels) {
   const legacyImages = [
-    item.before ? { src: item.before, label: "Before" } : null,
-    item.after ? { src: item.after, label: "After" } : null,
+    item.before ? { src: item.before, label: labels.before } : null,
+    item.after ? { src: item.after, label: labels.after } : null,
   ].filter(Boolean);
   const images = Array.isArray(item.images)
     ? item.images
       .filter((image) => image && typeof image.src === "string" && image.src)
       .map((image, imageIndex) => ({
         src: image.src,
-        label: localizeField(image.label, locale, `Image ${imageIndex + 1}`),
+        label: localizeField(image.label, locale, `${labels.image} ${imageIndex + 1}`),
       }))
     : legacyImages;
   const layout = ["before-after", "carousel", "single"].includes(item.layout)
@@ -114,9 +141,9 @@ function normalizeConcept(item, index, locale) {
 
   return {
     id: item.id || `concept-${index + 1}`,
-    title: localizeField(item.title, locale, `Concept ${index + 1}`),
+    title: localizeField(item.title, locale, `${labels.concept} ${index + 1}`),
     description: localizeField(item.description, locale),
-    tag: localizeField(item.tag, locale, "Concept"),
+    tag: localizeField(item.tag, locale, labels.concept),
     layout,
     images,
     projectUrl: item.projectUrl || item.githubUrl || item.externalUrl || "",
@@ -243,7 +270,7 @@ function ConceptViewer({ concepts, initialIndex, labels, locale, onClose }) {
             <h2 id="concept-viewer-title">{concept.title}</h2>
           </div>
           <div className="concept-viewer__header-actions">
-            <div className="concept-viewer__zoom" aria-label="Image zoom controls">
+            <div className="concept-viewer__zoom" aria-label={labels.zoomControls}>
               <button
                 type="button"
                 onClick={() => changeZoom(-0.25)}
@@ -272,7 +299,7 @@ function ConceptViewer({ concepts, initialIndex, labels, locale, onClose }) {
               <button
                 type="button"
                 onClick={toggleFullscreen}
-                aria-label={isFullscreen ? "Exit full screen" : "Open full screen"}
+                aria-label={isFullscreen ? labels.exitFullscreen : labels.openFullscreen}
               >
                 {isFullscreen ? <ArrowsIn aria-hidden="true" /> : <ArrowsOut aria-hidden="true" />}
               </button>
@@ -283,7 +310,7 @@ function ConceptViewer({ concepts, initialIndex, labels, locale, onClose }) {
           </div>
         </header>
         {concept.images.length > 1 && (
-          <div className="concept-viewer__tabs" role="tablist" aria-label="Image state">
+          <div className="concept-viewer__tabs" role="tablist" aria-label={labels.imageState}>
             {concept.images.map((image, value) => (
               <button
                 key={`${image.src}-${value}`}
@@ -317,7 +344,7 @@ function ConceptViewer({ concepts, initialIndex, labels, locale, onClose }) {
           {concept.description && <figcaption className="selectable">{concept.description}</figcaption>}
         </figure>
         {concepts.length > 1 && (
-          <nav aria-label="Concept viewer">
+          <nav aria-label={labels.viewerNavigation}>
             <button type="button" aria-label={labels.previous} onClick={() => moveConcept(-1)}>
               <ArrowLeft aria-hidden="true" />
             </button>
@@ -347,7 +374,7 @@ export function WorkPage() {
       .then((items) => {
         if (active) {
           setConcepts(Array.isArray(items)
-            ? items.map((item, index) => normalizeConcept(item, index, locale))
+            ? items.map((item, index) => normalizeConcept(item, index, locale, labels))
             : []);
         }
       })
@@ -379,7 +406,7 @@ export function WorkPage() {
           <p className="page-intro selectable">{labels.intro}</p>
         </div>
 
-        <div className="work-filters" role="group" aria-label="Filter concepts">
+        <div className="work-filters" role="group" aria-label={labels.filters}>
           {filters.map((item) => (
             <button
               key={item}
@@ -422,9 +449,9 @@ export function WorkPage() {
                           src={publicAsset(previewImages[0].src)}
                           alt={`${item.title} — ${previewImages[0].label || `${labels.image} 1`}`}
                           draggable="false"
-                          loading="eager"
+                          loading={index === 0 ? "eager" : "lazy"}
                           decoding="async"
-                          fetchPriority="low"
+                          fetchPriority={index === 0 ? "high" : "low"}
                         />
                         <figcaption>{previewImages[0].label || `${labels.image} 1`}</figcaption>
                       </figure>
@@ -436,7 +463,7 @@ export function WorkPage() {
                           src={publicAsset(previewImages[1].src)}
                           alt={`${item.title} — ${previewImages[1].label || `${labels.image} 2`}`}
                           draggable="false"
-                          loading="eager"
+                          loading="lazy"
                           decoding="async"
                           fetchPriority="low"
                         />

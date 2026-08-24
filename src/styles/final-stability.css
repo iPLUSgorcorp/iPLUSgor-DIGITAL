@@ -1,0 +1,74 @@
+/* Final geometry and contrast locks. Keep this file last in the cascade. */
+
+@media (min-width: 861px) {
+  .solution-manifold__rail button.is-active svg {
+    display: block !important;
+  }
+}
+
+@media (max-width: 720px) {
+  .catalogue-filters {
+    grid-auto-flow: row !important;
+    grid-template-rows: none !important;
+  }
+
+  .catalogue-filter-control {
+    display: grid !important;
+    height: auto !important;
+    min-height: 4.25rem;
+    grid-template-rows: auto 0fr;
+    overflow: visible;
+    transition: grid-template-rows 210ms var(--ease-shell);
+  }
+
+  .catalogue-filter-control.is-open {
+    grid-template-rows: auto 1fr;
+  }
+
+  .catalogue-filter-menu {
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    max-height: 0 !important;
+    margin: 0 !important;
+    overflow: hidden;
+    grid-template-rows: 0fr !important;
+    transform: none !important;
+  }
+
+  .catalogue-filter-control.is-open .catalogue-filter-menu {
+    max-height: 20rem !important;
+    margin-top: 0.38rem !important;
+    grid-template-rows: 1fr !important;
+  }
+}
+
+.catalogue-filter-row__chevron--caret {
+  transform: rotate(45deg) !important;
+}
+
+.catalogue-filter-control.is-open .catalogue-filter-row__chevron--caret {
+  transform: rotate(225deg) !important;
+}
+
+:root[data-theme="dark"] .catalogue-filter-menu [role="listbox"] {
+  border-color: rgba(243, 240, 234, 0.24) !important;
+  background: #202224 !important;
+}
+
+:root[data-theme="dark"] .catalogue-filter-menu [role="option"] {
+  color: #f3f0ea !important;
+}
+
+:root[data-theme="dark"] .catalogue-filter-menu [role="option"]:hover,
+:root[data-theme="dark"] .catalogue-filter-menu [role="option"]:focus-visible,
+:root[data-theme="dark"] .catalogue-filter-menu [role="option"][aria-selected="true"] {
+  color: #0b0c0e !important;
+  background: #9faefb !important;
+}
+
+:root[data-theme="dark"] .catalogue-filter-control > .catalogue-filter-row--active,
+:root[data-theme="dark"] .catalogue-filters--interactive > .catalogue-filter-row--active {
+  color: #0b0c0e !important;
+  background: #9faefb !important;
+}

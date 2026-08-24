@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { publicAsset } from "../lib/publicAsset.js";
 
-const videoSource = "assets/brand/iplusgor-ambient-forms.mp4?v=20260820";
+const videoSource = "assets/brand/iplusgor-ambient-forms.mp4";
 const posterSource = "assets/brand/iplusgor-ambient-forms-poster.webp";
 const staticMediaQuery = [
   "(max-width: 760px)",
@@ -41,9 +41,11 @@ export function AmbientBrandVideo({
   className = "",
   priority = false,
   hideWhenStatic = false,
+  forceStatic = false,
 }) {
   const videoRef = useRef(null);
-  const staticMedia = useStaticMediaMode();
+  const prefersStaticMedia = useStaticMediaMode();
+  const staticMedia = forceStatic || prefersStaticMedia;
   const [videoFailed, setVideoFailed] = useState(false);
 
   useEffect(() => {
@@ -74,7 +76,7 @@ export function AmbientBrandVideo({
     };
   }, [staticMedia]);
 
-  if (staticMedia && hideWhenStatic) return null;
+  if (prefersStaticMedia && hideWhenStatic) return null;
 
   return (
     <div className={`ambient-brand-video ${className}`.trim()} aria-hidden="true">
@@ -84,7 +86,7 @@ export function AmbientBrandVideo({
           alt=""
           width="1280"
           height="720"
-          loading="eager"
+          loading={priority ? "eager" : "lazy"}
           decoding="async"
           fetchPriority={priority ? "high" : "low"}
           draggable="false"
@@ -97,7 +99,7 @@ export function AmbientBrandVideo({
           muted
           loop
           playsInline
-          preload={priority ? "metadata" : "none"}
+          preload="none"
           onError={() => setVideoFailed(true)}
           disablePictureInPicture
           tabIndex="-1"

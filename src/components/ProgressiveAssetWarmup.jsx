@@ -1,13 +1,17 @@
 import { useEffect } from "react";
 import { publicAsset } from "../lib/publicAsset.js";
 
-const routeAssets = [
-  "assets/brand/iplusgor-symbol-signal.png",
-  "assets/brand/iplusgor-digital-poster.webp",
-  "assets/reference/catalogue-model-a.webp",
-  "assets/reference/catalogue-model-b.webp",
-  "assets/reference/catalogue-model-c.webp",
-];
+function getRouteAssets(pathname) {
+  if (pathname.includes("/solutions/catalogue")) {
+    return [
+      "assets/reference/catalogue-model-a.webp",
+      "assets/reference/catalogue-model-b.webp",
+      "assets/reference/catalogue-model-c.webp",
+    ];
+  }
+  if (pathname.includes("/team")) return ["assets/brand/iplusgor-digital-workspace.webp"];
+  return [];
+}
 
 function loadImage(path, isCancelled) {
   return new Promise((resolve) => {
@@ -34,19 +38,6 @@ function loadImage(path, isCancelled) {
   });
 }
 
-async function getConceptAssets() {
-  try {
-    const response = await fetch(publicAsset("data/work-concepts.json"), { cache: "default" });
-    if (!response.ok) return [];
-    const concepts = await response.json();
-    return Array.isArray(concepts)
-      ? concepts.flatMap((concept) => concept.images || []).map((image) => image.src).filter(Boolean)
-      : [];
-  } catch {
-    return [];
-  }
-}
-
 export function ProgressiveAssetWarmup() {
   useEffect(() => {
     const connection = window.navigator.connection;
@@ -59,8 +50,7 @@ export function ProgressiveAssetWarmup() {
     const isCancelled = () => cancelled;
 
     const warm = async () => {
-      const conceptAssets = await getConceptAssets();
-      const assets = [...new Set([...routeAssets, ...conceptAssets])];
+      const assets = getRouteAssets(window.location.pathname);
       for (const asset of assets) {
         if (cancelled) break;
         await loadImage(asset, isCancelled);

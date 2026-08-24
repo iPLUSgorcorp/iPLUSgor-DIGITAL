@@ -1,4 +1,3 @@
-import React from "react";
 import { createRoot } from "react-dom/client";
 import "@fontsource/onest/400.css";
 import "@fontsource/onest/500.css";
@@ -19,6 +18,8 @@ import "./styles/ambient-video.css";
 import "./styles/surgical-fixes.css";
 import "./styles/catalogue-selected.css";
 import "./styles/business-value.css";
+import "./styles/conversion-offer.css";
+import "./styles/final-stability.css";
 
 try {
   const savedTheme = window.localStorage.getItem("iplusgor-theme");
@@ -30,7 +31,5 @@ try {
 }
 
 createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <App />,
 );

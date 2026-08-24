@@ -38,17 +38,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: 20
+          node-version: 24
           cache: npm
 
       - name: Configure GitHub Pages
         id: pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
 
       - name: Install dependencies
         run: npm ci
@@ -67,7 +67,7 @@ jobs:
           npm run build:pages
 
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: dist/client
 
@@ -80,7 +80,7 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
 ```
 
 ## Enable Pages

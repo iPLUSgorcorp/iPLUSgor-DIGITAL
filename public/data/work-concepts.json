@@ -1,4 +1,31 @@
-[
+[ 
+  {
+    "id": "1785460153-atelier-objects",
+    "title": "Atelier objects",
+    "description": {
+      "ua": "Самостійний концепт e-commerce для преміальних меблів.",
+      "en": "Self-initiated premium furniture e-commerce concept.",
+      "de": "Eigenständiges E-Commerce-Konzept für hochwertige Möbel."
+    },
+    "tag": {
+      "ua": "Концепт e-commerce",
+      "en": "E-commerce concept",
+      "de": "E-Commerce-Konzept"
+    },
+    "layout": "single",
+    "images": [
+      {
+        "src": "/assets/work-concepts/1785460153-atelier-objects-01.webp",
+        "label": {
+          "ua": "Концепт магазину меблів",
+          "en": "Furniture shop concept",
+          "de": "Konzept für einen Möbelshop"
+        }
+      }
+    ],
+    "projectUrl": "https://iplusgorcorp.github.io/atelier-objects/",
+    "createdAt": "2026-07-31T12:00:00Z"
+  },
   {
     "id": "20260820-lypa-cafe-concept",
     "title": {
@@ -58,24 +85,5 @@
       }
     ],
     "createdAt": "2026-08-20T12:10:00Z"
-  },
-  {
-    "id": "1785460153-atelier-objects",
-    "title": "Atelier objects",
-    "description": "Premium furniture e-commerce concept",
-    "tag": {
-      "ua": "Концепт e-commerce",
-      "en": "E-commerce concept",
-      "de": "E-Commerce-Konzept"
-    },
-    "layout": "single",
-    "images": [
-      {
-        "src": "/assets/work-concepts/1785460153-atelier-objects-01.webp",
-        "label": "Изображение 1"
-      }
-    ],
-    "projectUrl": "https://iplusgorcorp.github.io/atelier-objects/",
-    "createdAt": "2026-07-31T12:00:00Z"
   }
 ]

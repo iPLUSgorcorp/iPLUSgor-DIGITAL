@@ -5,13 +5,14 @@ import {
   Sun,
   X,
 } from "@phosphor-icons/react";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import { PrimaryCTA } from "./Primitives.jsx";
 import { useLocale } from "../i18n.jsx";
 import { publicAsset } from "../lib/publicAsset.js";
 import { AmbientBrandVideo } from "./AmbientBrandVideo.jsx";
 import { ProgressiveAssetWarmup } from "./ProgressiveAssetWarmup.jsx";
+import { getBaseRoute, getLocalizedPath } from "../seo-metadata.js";
 
 const useGlobalAmbientVideo = true;
 
@@ -52,7 +53,7 @@ const contourSelector = [
 function ScrollMotion() {
   const location = useLocation();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const main = document.getElementById("main-content");
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -143,9 +144,9 @@ function ScrollMotion() {
 }
 
 function LocaleSwitcher({ mobile = false }) {
-  const { locale, setLocale } = useLocale();
+  const { locale, setLocale, t } = useLocale();
   return (
-    <div className={`locale-switcher ${mobile ? "locale-switcher--mobile" : ""}`} role="group" aria-label="Language">
+    <div className={`locale-switcher ${mobile ? "locale-switcher--mobile" : ""}`} role="group" aria-label={t("shared.language")}>
       {["ua", "en", "de"].map((code) => (
         <button
           key={code}
@@ -162,17 +163,19 @@ function LocaleSwitcher({ mobile = false }) {
 }
 
 function ThemeToggle({ mobile = false, theme, onToggle }) {
+  const { t } = useLocale();
   const nextTheme = theme === "dark" ? "light" : "dark";
+  const themeLabel = nextTheme === "dark" ? t("shared.themeDark") : t("shared.themeLight");
   return (
     <button
       className={`theme-toggle ${mobile ? "theme-toggle--mobile" : ""}`}
       type="button"
-      aria-label={`Use ${nextTheme} theme`}
-      title={`Use ${nextTheme} theme`}
+      aria-label={themeLabel}
+      title={themeLabel}
       onClick={onToggle}
     >
       {theme === "dark" ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}
-      {mobile && <span>{nextTheme === "dark" ? "Dark mode" : "Light mode"}</span>}
+      {mobile && <span>{nextTheme === "dark" ? t("shared.darkMode") : t("shared.lightMode")}</span>}
     </button>
   );
 }
@@ -181,8 +184,8 @@ export function SiteHeader({ theme, onThemeToggle, localAmbient = false }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-  const { t } = useLocale();
-  const showDesktopCta = ["/", "/work"].includes(location.pathname);
+  const { locale, t } = useLocale();
+  const showDesktopCta = ["/", "/work"].includes(getBaseRoute(location.pathname));
 
   useEffect(() => {
     setOpen(false);
@@ -205,13 +208,24 @@ export function SiteHeader({ theme, onThemeToggle, localAmbient = false }) {
       {localAmbient && location.pathname !== "/" && (
         <>
           <AmbientBrandVideo className="site-header__ambient site-header__ambient--cover" priority />
-          <AmbientBrandVideo className="site-header__ambient site-header__ambient--contain" priority />
+          <div className="ambient-brand-video site-header__ambient site-header__ambient--contain" aria-hidden="true">
+            <img
+              src={publicAsset("assets/brand/iplusgor-ambient-forms-poster.webp")}
+              alt=""
+              width="1280"
+              height="720"
+              loading="eager"
+              decoding="async"
+              fetchPriority="low"
+              draggable="false"
+            />
+          </div>
         </>
       )}
-      <Link className="brand" to="/" aria-label="iPLUSgor Digital home">
+      <Link className="brand" to={getLocalizedPath("/", locale)} aria-label={t("shared.home")}>
         <img
           className="brand__symbol"
-          src={publicAsset("assets/brand/iplusgor-symbol-signal.png")}
+          src={publicAsset("assets/brand/iplusgor-symbol-signal.webp")}
           width="1254"
           height="1254"
           alt=""
@@ -229,7 +243,7 @@ export function SiteHeader({ theme, onThemeToggle, localAmbient = false }) {
         {navigation.map((item) => (
           <NavLink
             key={item.to}
-            to={item.to}
+            to={getLocalizedPath(item.to, locale)}
             className={({ isActive }) => (isActive ? "is-active" : undefined)}
           >
             {t(`navigation.${item.key}`)}
@@ -256,13 +270,13 @@ export function SiteHeader({ theme, onThemeToggle, localAmbient = false }) {
       <div className={`mobile-menu ${open ? "is-open" : ""}`} id="mobile-menu">
         <nav aria-label={t("navigation.mobile")}>
           {navigation.map((item, index) => (
-            <NavLink key={item.to} to={item.to}>
+            <NavLink key={item.to} to={getLocalizedPath(item.to, locale)}>
               <span>0{index + 1}</span>
               {t(`navigation.${item.key}`)}
               <ArrowUpRight aria-hidden="true" />
             </NavLink>
           ))}
-          <NavLink to="/start-project">
+          <NavLink to={getLocalizedPath("/start-project", locale)}>
             <span>05</span>
             {t("navigation.start")}
             <ArrowUpRight aria-hidden="true" />
@@ -278,19 +292,19 @@ export function SiteHeader({ theme, onThemeToggle, localAmbient = false }) {
 }
 
 export function SiteFooter({ localAmbient = false }) {
-  const { t } = useLocale();
+  const { locale, t } = useLocale();
   return (
     <footer className="site-footer">
-      {localAmbient && <AmbientBrandVideo className="site-footer__ambient" />}
+      {localAmbient && <AmbientBrandVideo className="site-footer__ambient" forceStatic />}
       <div>
         <div className="site-footer__brand">
           <img
             className="site-footer__symbol"
-            src={publicAsset("assets/brand/iplusgor-symbol-signal.png")}
+            src={publicAsset("assets/brand/iplusgor-symbol-signal.webp")}
             width="1254"
             height="1254"
             alt=""
-            loading="eager"
+            loading="lazy"
             decoding="async"
             fetchPriority="low"
           />
@@ -303,11 +317,11 @@ export function SiteFooter({ localAmbient = false }) {
       </div>
       <nav aria-label={t("navigation.footer")}>
         {navigation.map((item) => (
-          <Link key={item.to} to={item.to}>
+          <Link key={item.to} to={getLocalizedPath(item.to, locale)}>
             {t(`navigation.${item.key}`)}
           </Link>
         ))}
-        <Link to="/start-project">{t("navigation.review")}</Link>
+        <Link to={getLocalizedPath("/start-project", locale)}>{t("navigation.review")}</Link>
         <a href="https://www.instagram.com/iplusgor/" target="_blank" rel="noreferrer">Instagram</a>
       </nav>
       <p className="site-footer__note">
@@ -338,7 +352,7 @@ export function SiteLayout() {
     <>
       <ProgressiveAssetWarmup />
       {useGlobalAmbientVideo && (
-        <AmbientBrandVideo className="site-wide-ambient" priority hideWhenStatic />
+        <AmbientBrandVideo className="site-wide-ambient" forceStatic hideWhenStatic />
       )}
       <a className="skip-link" href="#main-content">
         {t("navigation.skip")}

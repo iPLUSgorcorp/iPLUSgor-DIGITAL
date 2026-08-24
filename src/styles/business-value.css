@@ -71,9 +71,13 @@
 
 .business-evidence__register article > div {
   display: grid;
-  grid-template-columns: minmax(13rem, 0.7fr) minmax(20rem, 1.3fr) auto;
+  grid-template-columns: minmax(21.5rem, 0.92fr) minmax(20rem, 1.18fr) minmax(7.5rem, auto);
   align-items: start;
-  gap: clamp(1.2rem, 3vw, 3.5rem);
+  gap: clamp(1rem, 2vw, 2.25rem);
+}
+
+.business-evidence__register article > div > * {
+  min-width: 0;
 }
 
 .business-evidence__register h4,
@@ -216,7 +220,7 @@
   background: #111315;
 }
 
-@media (max-width: 980px) {
+@media (max-width: 1180px) {
   .business-evidence__register article > div {
     grid-template-columns: 1fr;
     gap: 0.9rem;

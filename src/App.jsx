@@ -1,15 +1,56 @@
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { SiteLayout } from "./components/SiteLayout.jsx";
 import { HomePage } from "./pages/HomePage.jsx";
-import { ApproachPage } from "./pages/ApproachPage.jsx";
-import { SolutionsPage } from "./pages/SolutionsPage.jsx";
-import { CataloguePage } from "./pages/CataloguePage.jsx";
-import { WorkPage } from "./pages/WorkPage.jsx";
-import { TeamPage } from "./pages/TeamPage.jsx";
-import { StartProjectPage } from "./pages/StartProjectPage.jsx";
-import { useEffect, useLayoutEffect } from "react";
+import { lazy, Suspense, useEffect, useLayoutEffect } from "react";
 import { LocaleProvider, useLocale } from "./i18n.jsx";
-import { getSeoMetadata, siteOrigin } from "./seo-metadata.js";
+import {
+  getBaseRoute,
+  getLocalizedPath,
+  getSeoMetadata,
+  localeOpenGraphCodes,
+  siteOrigin,
+} from "./seo-metadata.js";
+
+const ApproachPage = lazy(() => import("./pages/ApproachPage.jsx").then((module) => ({ default: module.ApproachPage })));
+const SolutionsPage = lazy(() => import("./pages/SolutionsPage.jsx").then((module) => ({ default: module.SolutionsPage })));
+const CataloguePage = lazy(() => import("./pages/CataloguePage.jsx").then((module) => ({ default: module.CataloguePage })));
+const WorkPage = lazy(() => import("./pages/WorkPage.jsx").then((module) => ({ default: module.WorkPage })));
+const TeamPage = lazy(() => import("./pages/TeamPage.jsx").then((module) => ({ default: module.TeamPage })));
+const StartProjectPage = lazy(() => import("./pages/StartProjectPage.jsx").then((module) => ({ default: module.StartProjectPage })));
+
+const publicPages = [
+  ["approach", ApproachPage],
+  ["solutions", SolutionsPage],
+  ["solutions/catalogue", CataloguePage],
+  ["work", WorkPage],
+  ["team", TeamPage],
+  ["start-project", StartProjectPage],
+];
+
+function LazyRoute({ component: PageComponent }) {
+  return (
+    <Suspense fallback={<div className="route-loading" role="status" aria-label="Loading page"><span /></div>}>
+      <PageComponent />
+    </Suspense>
+  );
+}
+
+function LocalizedRoutes({ prefix = "" }) {
+  const routePrefix = prefix ? `${prefix}/` : "";
+  return (
+    <Route element={<SiteLayout />}>
+      <Route path={prefix || "/"} element={<HomePage />} />
+      {publicPages.map(([path, PageComponent]) => (
+        <Route
+          key={`${prefix}-${path}`}
+          path={`${routePrefix}${path}`}
+          element={<LazyRoute component={PageComponent} />}
+        />
+      ))}
+      <Route path={`${routePrefix}work/aton`} element={<Navigate to={`${prefix ? `/${prefix}` : ""}/work`} replace />} />
+    </Route>
+  );
+}
 
 function RouteMetadata() {
   const location = useLocation();
@@ -33,12 +74,18 @@ function RouteMetadata() {
   }, [location.pathname]);
 
   useEffect(() => {
-    const page = getSeoMetadata(location.pathname, locale);
+    const baseRoute = getBaseRoute(location.pathname);
+    const page = getSeoMetadata(baseRoute, locale);
+    const openGraphLocale = localeOpenGraphCodes[locale] || "uk_UA";
     const baseUrl = (import.meta.env.VITE_SITE_URL || (window.location.hostname === "iplusgor.com" ? window.location.origin : siteOrigin)).replace(/\/$/, "");
-    const canonicalUrl = `${baseUrl}${location.pathname === "/" ? "/" : location.pathname}`;
+    const canonicalUrl = `${baseUrl}${getLocalizedPath(baseRoute, locale)}`;
     document.title = page.title;
     document.documentElement.lang = locale === "ua" ? "uk" : locale;
     document.querySelector('meta[name="description"]')?.setAttribute("content", page.description);
+    document.querySelector('meta[name="robots"]')?.setAttribute(
+      "content",
+      page.robots || "index, follow, max-image-preview:large",
+    );
     document
       .querySelector('meta[property="og:title"]')
       ?.setAttribute("content", page.title);
@@ -49,6 +96,9 @@ function RouteMetadata() {
       .querySelector('meta[property="og:url"]')
       ?.setAttribute("content", canonicalUrl);
     document
+      .querySelector('meta[property="og:locale"]')
+      ?.setAttribute("content", openGraphLocale);
+    document
       .querySelector('meta[name="twitter:title"]')
       ?.setAttribute("content", page.title);
     document
@@ -57,6 +107,11 @@ function RouteMetadata() {
     document
       .querySelector('link[rel="canonical"]')
       ?.setAttribute("href", canonicalUrl);
+    document.querySelectorAll('link[rel="alternate"][hreflang]').forEach((link) => {
+      const hreflang = link.getAttribute("hreflang");
+      const alternateLocale = hreflang === "uk" || hreflang === "x-default" ? "ua" : hreflang;
+      link.setAttribute("href", `${baseUrl}${getLocalizedPath(baseRoute, alternateLocale)}`);
+    });
   }, [locale, location.pathname]);
 
   return null;
@@ -72,17 +127,10 @@ export function App() {
       <BrowserRouter basename={basename}>
         <RouteMetadata />
         <Routes>
-          <Route element={<SiteLayout />}>
-            <Route index element={<HomePage />} />
-            <Route path="approach" element={<ApproachPage />} />
-            <Route path="solutions" element={<SolutionsPage />} />
-            <Route path="solutions/catalogue" element={<CataloguePage />} />
-            <Route path="work" element={<WorkPage />} />
-            <Route path="work/aton" element={<Navigate to="/work" replace />} />
-            <Route path="team" element={<TeamPage />} />
-            <Route path="start-project" element={<StartProjectPage />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Route>
+          {LocalizedRoutes({ prefix: "" })}
+          {LocalizedRoutes({ prefix: "en" })}
+          {LocalizedRoutes({ prefix: "de" })}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
     </LocaleProvider>

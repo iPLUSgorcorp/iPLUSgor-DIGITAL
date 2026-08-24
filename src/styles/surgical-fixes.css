@@ -71,6 +71,25 @@
   width: min(100%, 21rem);
 }
 
+/* Long German editorial headings keep complete words while remaining inside
+   the profile shell at compact desktop widths. */
+.team-profile > h2:lang(de) {
+  max-width: 100%;
+  font-size: clamp(2.3rem, 1.55rem + 2.3vw, 4.2rem);
+}
+
+@media (max-width: 74rem) {
+  .team-profile > h2:lang(de) {
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    letter-spacing: -0.025em;
+  }
+
+  html[lang="de"] .team-disciplines > h2 {
+    font-size: clamp(2rem, 3.5vw, 3rem) !important;
+    letter-spacing: -0.025em;
+  }
+}
+
 /* Work previews keep the protective inset, but no longer look like a heavy
    browser frame around the source artwork. */
 .concept-card__media {

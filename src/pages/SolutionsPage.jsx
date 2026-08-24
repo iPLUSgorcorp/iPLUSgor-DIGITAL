@@ -23,100 +23,103 @@ import { useLocale } from "../i18n.jsx";
 
 const solutionNodes = [
   {
-    title: "Architecture",
+    title: "Traffic context",
     icon: Blueprint,
-    text: "A structure built around the business, its offer and the next customer decision.",
+    text: "Connect the page to the campaign, service and intent that brought the visitor there.",
   },
   {
-    title: "Content",
+    title: "Offer clarity",
     icon: CirclesThreePlus,
-    text: "Clear pages, service groups and content that helps people understand the offer.",
+    text: "Make the service, value and relevant next step clear before attention is lost.",
   },
   {
-    title: "Customer path",
+    title: "Trust path",
     icon: Sparkle,
-    text: "Guide visitors to the right next step instead of making them search through a deep menu.",
+    text: "Place real proof, process and objection handling where a buyer needs them.",
   },
   {
-    title: "Compare",
+    title: "CTA hierarchy",
     icon: ArrowsLeftRight,
-    text: "Make the differences between services, offers or options easy to understand.",
+    text: "Give calls, forms and booking actions a clear hierarchy instead of equal visual weight.",
   },
   {
-    title: "Documentation",
+    title: "Lead capture",
     icon: FileText,
-    text: "Bring useful information, answers and proof into the decision path.",
+    text: "Ask for the minimum useful information and prepare a reliable handoff to the business.",
   },
   {
-    title: "Contact routes",
+    title: "Mobile UX",
     icon: Handshake,
-    text: "Connect messages, calls and request forms to a clear path for the business.",
+    text: "Protect readability, tap targets and the primary action across real mobile widths.",
   },
   {
     title: "Frontend",
     icon: Code,
-    text: "A responsive implementation designed by the same team as the UX.",
+    text: "Build the responsive interface with the same commercial logic approved in design.",
   },
   {
     title: "Analytics",
     icon: ChartLineUp,
-    text: "Prepare meaningful interaction points without inventing performance claims.",
+    text: "Prepare CTA, form and booking events for measurement without claiming future results.",
   },
   {
-    title: "AI selection",
+    title: "Launch",
     icon: Path,
-    text: "Prepare guided choices without making unsupported promises.",
+    text: "Verify core journeys, performance and domain configuration before the site receives traffic.",
   },
 ];
 
 const solutionCopy = {
   en: {
-    label: "SOLUTIONS — WEBSITE SYSTEM",
-    title: <>ONE WEBSITE.<br />EVERY CUSTOMER ROUTE.</>,
-    intro: "From the first impression to a clear next step.",
-    footer: "STRATEGY — UX — SYSTEM — BUILD",
-    explore: "Explore the solution",
-    frame: "A website is strongest when business context, structure, interaction and frontend share one logic.",
-    discuss: "Discuss your website",
+    label: "SERVICES — CONVERSION SYSTEM",
+    title: <>FROM PAID CLICK.<br />TO QUALIFIED INQUIRY.</>,
+    intro: "Nine connected decisions inside one focused landing page or commercial website.",
+    footer: "TRAFFIC — OFFER — TRUST — CTA — LEAD",
+    explore: "Request a conversion review",
+    frame: "If traffic already reaches the site, the next question is where clarity, trust or action breaks down.",
+    discuss: "Review my website",
+    systemLabel: "Conversion website system",
   },
   ua: {
-    label: "РІШЕННЯ — СИСТЕМА САЙТУ",
-    title: <>ОДИН САЙТ.<br />УСІ ШЛЯХИ КЛІЄНТА.</>,
-    intro: "Від першого враження до зрозумілого наступного кроку.",
-    footer: "СТРАТЕГІЯ — UX — СИСТЕМА — РЕАЛІЗАЦІЯ",
-    explore: "Дослідити рішення",
-    frame: "Сайт найсильніший, коли контекст бізнесу, структура, взаємодія і frontend мають спільну логіку.",
-    discuss: "Обговорити сайт",
+    label: "ПОСЛУГИ — КОНВЕРСІЙНА СИСТЕМА",
+    title: <>ВІД ПЛАТНОГО КЛІКУ.<br />ДО КВАЛІФІКОВАНОГО ЗВЕРНЕННЯ.</>,
+    intro: "Дев’ять пов’язаних рішень в одній сфокусованій landing page або комерційному сайті.",
+    footer: "ТРАФІК — ОФЕР — ДОВІРА — CTA — ЛІД",
+    explore: "Запросити conversion review",
+    frame: "Якщо трафік уже приходить на сайт, варто знайти місце, де ламається ясність, довіра або дія.",
+    discuss: "Перевірити мій сайт",
+    systemLabel: "Система конверсійного сайту",
     nodes: [
-      ["Архітектура", "Структура навколо бізнесу, його пропозиції й наступного рішення клієнта."],
-      ["Контент", "Зрозумілі сторінки, групи послуг і зміст, який допомагає розібратися в пропозиції."],
-      ["Шлях клієнта", "Ведіть відвідувачів до потрібної дії, а не змушуйте шукати в глибокому меню."],
-      ["Порівняння", "Показуйте відмінності між послугами, пропозиціями чи варіантами зрозуміло."],
-      ["Корисна інформація", "Додавайте відповіді й докази у шлях прийняття рішення."],
-      ["Шляхи контакту", "Об’єднуйте повідомлення, дзвінки й форми у зрозумілий шлях до бізнесу."],
-      ["Frontend", "Адаптивна реалізація тією ж командою, яка проєктує UX."],
-      ["Аналітика", "Готуйте змістовні точки взаємодії без вигаданих показників."],
-      ["Керований вибір", "Готуйте зрозумілий вибір без непідтверджених обіцянок."],
+      ["Контекст трафіку", "Пов’язуємо сторінку з кампанією, послугою та наміром, які привели відвідувача."],
+      ["Ясність оферу", "Пояснюємо послугу, цінність і наступний крок до втрати уваги."],
+      ["Шлях довіри", "Розміщуємо реальні докази, процес і відповіді там, де вони потрібні покупцеві."],
+      ["Ієрархія CTA", "Дзвінки, форми й запис отримують чітку ієрархію замість однакової ваги."],
+      ["Збір звернень", "Запитуємо мінімум корисної інформації й готуємо надійну передачу бізнесу."],
+      ["Мобільний UX", "Зберігаємо читабельність, touch targets і головну дію на реальних mobile widths."],
+      ["Frontend", "Реалізуємо адаптивний інтерфейс із погодженою комерційною логікою."],
+      ["Аналітика", "Готуємо події CTA, форми й booking без прогнозування майбутнього результату."],
+      ["Запуск", "Перевіряємо основні сценарії, швидкість і домен до прийому трафіку."],
     ],
   },
   de: {
-    label: "LÖSUNGEN — WEBSITE-SYSTEM",
-    title: <>EINE WEBSITE.<br />JEDER KUNDENWEG.</>,
-    intro: "Vom ersten Eindruck bis zum klaren nächsten Schritt.",
-    footer: "STRATEGIE — UX — SYSTEM — UMSETZUNG",
-    explore: "Lösung erkunden",
-    frame: "Eine Website ist am stärksten, wenn Geschäftskontext, Struktur, Interaktion und Frontend einer Logik folgen.",
-    discuss: "Website besprechen",
+    label: "LEISTUNGEN — CONVERSION-SYSTEM",
+    title: <>VOM BEZAHLTEN KLICK.<br />ZUR QUALIFIZIERTEN ANFRAGE.</>,
+    intro: "Neun verbundene Entscheidungen in einer fokussierten Landingpage oder kommerziellen Website.",
+    footer: "TRAFFIC — ANGEBOT — VERTRAUEN — CTA — LEAD",
+    explore: "Conversion-Review anfragen",
+    frame: "Wenn Traffic bereits die Website erreicht, gilt es zu finden, wo Klarheit, Vertrauen oder Aktion abreißen.",
+    discuss: "Website prüfen lassen",
+    systemLabel: "Conversion-Website-System",
     nodes: [
-      ["Architektur", "Eine Struktur rund um das Unternehmen, sein Angebot und die nächste Entscheidung der Kunden."],
-      ["Inhalte", "Klare Seiten, Leistungsgruppen und Inhalte, die das Angebot verständlich machen."],
-      ["Kundenweg", "Besucher zum richtigen nächsten Schritt führen, statt sie durch tiefe Menüs suchen zu lassen."],
-      ["Vergleich", "Unterschiede zwischen Leistungen, Angeboten oder Optionen verständlich machen."],
-      ["Nützliche Informationen", "Antworten und Belege in den Entscheidungsweg integrieren."],
-      ["Kontaktwege", "Nachrichten, Anrufe und Formulare zu einem klaren Weg zum Unternehmen verbinden."],
-      ["Frontend", "Responsive Umsetzung durch dasselbe Team, das die UX entwirft."],
-      ["Analyse", "Sinnvolle Interaktionspunkte vorbereiten, ohne Leistungswerte zu erfinden."],
-      ["Geführte Auswahl", "Verständliche Auswahl vorbereiten, ohne unbelegte Versprechen."],
+      ["Traffic-Kontext", "Seite, Kampagne, Leistung und Besucherabsicht miteinander verbinden."],
+      ["Klares Angebot", "Leistung, Wert und nächsten Schritt erklären, bevor Aufmerksamkeit verloren geht."],
+      ["Vertrauensweg", "Echte Belege, Prozess und Einwände dort platzieren, wo Käufer sie brauchen."],
+      ["CTA-Hierarchie", "Anrufe, Formulare und Buchung klar gewichten, statt sie konkurrieren zu lassen."],
+      ["Lead-Erfassung", "Nur nützliche Informationen abfragen und zuverlässig an das Unternehmen übergeben."],
+      ["Mobile UX", "Lesbarkeit, Touch-Flächen und Hauptaktion auf echten mobilen Breiten schützen."],
+      ["Frontend", "Das responsive Interface mit der freigegebenen kommerziellen Logik umsetzen."],
+      ["Analyse", "CTA-, Formular- und Buchungsereignisse vorbereiten, ohne Ergebnisse zu versprechen."],
+      ["Launch", "Kernabläufe, Tempo und Domain prüfen, bevor Traffic auf die Website kommt."],
     ],
   },
 };
@@ -161,7 +164,7 @@ export function SolutionsPage() {
             ref={railRef}
             className="solution-manifold__rail"
             role="tablist"
-            aria-label="Solution system"
+            aria-label={labels.systemLabel}
           >
             {localizedNodes.map((node, index) => {
               const Icon = node.icon;
@@ -198,7 +201,7 @@ export function SolutionsPage() {
 
         <div className="solutions-hero__footer">
           <p>{labels.footer}</p>
-          <PrimaryCTA to="/solutions/catalogue" tone="jade">
+          <PrimaryCTA to="/start-project" tone="jade">
             {labels.explore}
           </PrimaryCTA>
         </div>

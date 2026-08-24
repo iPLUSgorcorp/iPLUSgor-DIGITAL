@@ -70,7 +70,7 @@ function CatalogueSelect({
         />
       </button>
 
-      <div className="catalogue-filter-menu" aria-hidden={!open}>
+      <div className="catalogue-filter-menu" inert={!open}>
         <div>
           <div id={listboxId} role="listbox" aria-label={label}>
             {options.map((option) => (
@@ -184,8 +184,8 @@ export function CatalogueFilterPanel({
         onChange={setInstallation}
         options={[
           { value: "all", label: labels.allApplications },
-          { value: "Wall-mounted", label: "Wall-mounted" },
-          { value: "Floor-standing", label: "Floor-standing" },
+          { value: "Wall-mounted", label: labels.wallMounted },
+          { value: "Floor-standing", label: labels.floorStanding },
         ]}
       />
 

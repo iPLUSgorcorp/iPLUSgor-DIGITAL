@@ -140,6 +140,27 @@ h1 {
   animation: page-in var(--motion-slow) var(--ease-shell) both;
 }
 
+.route-loading {
+  display: grid;
+  width: min(calc(100% - 2rem), var(--container));
+  min-height: min(44rem, 70vh);
+  margin: 0 auto var(--space-6);
+  place-items: center;
+}
+
+.route-loading span {
+  width: 2.4rem;
+  height: 2.4rem;
+  border: 1px solid var(--color-line-strong);
+  border-top-color: var(--color-jade-deep);
+  border-radius: 50%;
+  animation: route-loading-spin 0.65s linear infinite;
+}
+
+@keyframes route-loading-spin {
+  to { transform: rotate(1turn); }
+}
+
 .page-intro {
   max-width: 52rem;
   color: rgba(23, 25, 24, 0.84);
@@ -200,17 +221,13 @@ h1 {
 .motion-reveal {
   opacity: 1;
   translate: 0 0.65rem;
-  filter: blur(2px);
-  transition:
-    translate 300ms var(--ease-shell),
-    filter 240ms var(--ease-shell);
+  transition: translate 260ms var(--ease-shell);
   transition-delay: calc(var(--motion-order, 0) * 22ms);
-  will-change: opacity, translate;
+  will-change: translate;
 }
 
 .motion-reveal.is-motion-visible {
   translate: 0 0;
-  filter: blur(0);
 }
 
 .motion-draw .motion-draw__stroke {
