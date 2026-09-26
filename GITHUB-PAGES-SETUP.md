@@ -1,96 +1,23 @@
-# GitHub Pages publication
+# Publish this site to the existing GitHub Pages domain
 
-## Upload the archive
+Target repository: `iPLUSgorcorp/iPLUSgor-DIGITAL`
 
-1. Create an empty GitHub repository or open the target repository.
-2. Extract the release archive locally.
-3. Upload all extracted files and folders to the repository root.
-4. Commit them to the `main` branch.
+Target branch: `main`
 
-GitHub's browser uploader may skip the hidden `.github` folder. If the workflow
-is absent after the upload, create it manually as described below.
+Production domain: `iplusgor.com`
 
-## Create the workflow in GitHub
+The repository already contains `.github/workflows/deploy-pages.yml`. A push to `main` runs source, browser and accessibility tests, builds the Vite site, verifies the generated localized routes and publishes `dist/client` with GitHub Actions. The current workflow sets the site origin and Vite base path to `https://iplusgor.com` and `/`. `public/CNAME` also contains `iplusgor.com`. No replacement repository or new domain is needed.
 
-1. Open the repository and select **Add file → Create new file**.
-2. Enter this complete filename: `.github/workflows/deploy-pages.yml`.
-3. Paste the following content and commit it to `main`:
+## Before pushing
 
-```yaml
-name: Deploy iPLUSgor Digital to GitHub Pages
+1. Sign in to GitHub CLI with an account that has write access to `iPLUSgorcorp/iPLUSgor-DIGITAL`. Check with `gh repo view iPLUSgorcorp/iPLUSgor-DIGITAL --json viewerPermission`. `READ` is insufficient.
+2. Run `npm ci`, `npm test`, `npm run build:pages`, `npm run verify:pages` and `npm run test:e2e`.
+3. Review the complete source diff and generated `dist/client/CNAME`. Confirm the old public address does not appear in source or generated output.
+4. Commit the verified site changes and push the same `main` branch. The push starts the existing Pages workflow automatically.
+5. Watch the workflow until both build and deploy jobs succeed. Open the live site at `https://iplusgor.com/` and verify UA, EN and DE routes, direct links, assets, contact draft and metadata.
 
-on:
-  push:
-    branches: [main]
-  workflow_dispatch:
+## Domain settings
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+The existing GitHub Pages configuration reports `cname: iplusgor.com` and an approved HTTPS certificate for `iplusgor.com` and `www.iplusgor.com`. DNS A records point to GitHub Pages. The Pages API currently reports `https_enforced: false`; once signed in with repository admin permission, enable **Enforce HTTPS** in **Settings → Pages** or with the Pages API, then verify HTTP redirects to HTTPS. Keep the existing domain and DNS records.
 
-concurrency:
-  group: pages
-  cancel-in-progress: true
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v7
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v7
-        with:
-          node-version: 24
-          cache: npm
-
-      - name: Configure GitHub Pages
-        id: pages
-        uses: actions/configure-pages@v6
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build static site
-        shell: bash
-        run: |
-          REPO_NAME="${GITHUB_REPOSITORY#*/}"
-          if [[ "$REPO_NAME" == *.github.io ]]; then
-            BASE_PATH="/"
-          else
-            BASE_PATH="/$REPO_NAME/"
-          fi
-          VITE_BASE_PATH="$BASE_PATH" \
-          VITE_SITE_URL="https://${GITHUB_REPOSITORY_OWNER}.github.io${BASE_PATH%/}" \
-          npm run build:pages
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v5
-        with:
-          path: dist/client
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v5
-```
-
-## Enable Pages
-
-1. Open **Settings → Pages**.
-2. Under **Build and deployment**, select **GitHub Actions** as the source.
-3. Open **Actions**, select **Deploy iPLUSgor Digital to GitHub Pages**, and
-   run the workflow if it did not start automatically.
-4. Wait for both the `build` and `deploy` jobs to finish successfully.
-
-The workflow supports both `username.github.io` repositories and ordinary
-project repositories. It calculates the correct base path automatically and
-includes an SPA fallback for direct links such as `/solutions/catalogue`.
+If deployment cannot run after the push, check **Settings → Pages → Build and deployment** is set to **GitHub Actions** and that the Actions workflow has Pages deployment permission. Do not upload `dist` manually or change the base path to the repository name: this site uses the custom apex domain.

@@ -1,167 +1,89 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { readFile, readdir, stat } from "node:fs/promises";
+import { join, resolve } from "node:path";
 import test from "node:test";
+import { getLocalizedPath, legacyRedirects, seoMetadata, siteOrigin } from "../src/seo-metadata.js";
 
-const app = await readFile(new URL("../src/App.jsx", import.meta.url), "utf8");
-const work = await readFile(new URL("../src/pages/WorkPage.jsx", import.meta.url), "utf8");
-const catalogue = await readFile(new URL("../src/pages/CataloguePage.jsx", import.meta.url), "utf8");
-const intake = await readFile(new URL("../src/pages/StartProjectPage.jsx", import.meta.url), "utf8");
-const conversionOffer = await readFile(new URL("../src/components/ConversionOffer.jsx", import.meta.url), "utf8");
-const analytics = await readFile(new URL("../src/lib/analytics.js", import.meta.url), "utf8");
-const layout = await readFile(new URL("../src/components/SiteLayout.jsx", import.meta.url), "utf8");
-const i18n = await readFile(new URL("../src/i18n.jsx", import.meta.url), "utf8");
-const team = await readFile(new URL("../src/pages/TeamPage.jsx", import.meta.url), "utf8");
-const teamProfileUa = await readFile(new URL("../src/content/team-profile.ua.md", import.meta.url), "utf8");
-const teamProfileEn = await readFile(new URL("../src/content/team-profile.en.md", import.meta.url), "utf8");
-const teamProfileDe = await readFile(new URL("../src/content/team-profile.de.md", import.meta.url), "utf8");
-const seo = await readFile(new URL("../src/seo-metadata.js", import.meta.url), "utf8");
-const indexDocument = await readFile(new URL("../index.html", import.meta.url), "utf8");
-const robots = await readFile(new URL("../public/robots.txt", import.meta.url), "utf8");
-const sitemap = await readFile(new URL("../public/sitemap.xml", import.meta.url), "utf8");
-const pagesWorkflow = await readFile(new URL("../.github/workflows/deploy-pages.yml", import.meta.url), "utf8");
-const cname = (await readFile(new URL("../public/CNAME", import.meta.url), "utf8")).trim();
-const workConceptsSource = await readFile(new URL("../public/data/work-concepts.json", import.meta.url), "utf8");
-const workConcepts = JSON.parse(workConceptsSource);
-const { seoMetadata, siteOrigin } = await import("../src/seo-metadata.js");
+const root = resolve(".");
+const read = (path) => readFile(join(root, path), "utf8");
 
-test("declares every required public route", () => {
-  for (const route of [
-    "approach",
-    "solutions",
-    "solutions/catalogue",
-    "work",
-    "team",
-    "start-project",
-  ]) {
-    assert.match(app, new RegExp(`\\["${route.replace("/", "\\/")}",`));
-  }
-  assert.match(app, /routePrefix}work\/aton/);
-  assert.match(app, /<Navigate to={`\$\{prefix \? `\/\$\{prefix}` : ""}\/work`} replace \/>/);
-});
-
-test("uses an honest concept library with explicit publication permission", () => {
-  assert.match(work, /work-concepts\.json/);
-  assert.match(work, /explicit client permission/);
-  assert.match(work, /SELF-INITIATED STUDY/);
-  assert.match(work, /before/);
-  assert.match(work, /after/);
-  assert.doesNotMatch(work, /ATON|VTN LED|AEROSTAR/);
-  assert.match(work, /MagnifyingGlassPlus/);
-  assert.match(work, /MagnifyingGlassMinus/);
-  assert.match(work, /Math\.min\(3, Math\.max\(1/);
-  assert.match(work, /onDoubleClick/);
-});
-
-test("labels demo data and uses a real email handoff", () => {
-  assert.match(catalogue, /INTERFACE EXAMPLE — NOT CLIENT DATA/);
-  assert.match(intake, /igorcorp\.tech@gmail\.com/);
-  assert.match(intake, /mailto:/);
-  assert.match(intake, /mail\.google\.com/);
-  assert.match(intake, /\$4,000/);
-  assert.match(intake, /\$8,500/);
-  assert.match(intake, /\$10,000/);
-  assert.doesNotMatch(`${intake}${layout}${app}`, /€|15,000|PROJECTS FROM/);
-});
-
-test("publishes exact conversion scopes and analytics-ready events", () => {
-  assert.match(conversionOffer, /\$4,000/);
-  assert.match(conversionOffer, /\$8,500/);
-  assert.match(conversionOffer, /\$10,000/);
-  assert.match(conversionOffer, /2–3/);
-  assert.match(conversionOffer, /5–7/);
-  assert.match(analytics, /iplusgor:conversion/);
-  assert.match(analytics, /dataLayer/);
-  assert.match(intake, /form_started/);
-  assert.match(intake, /form_handoff/);
-});
-
-test("provides browser-detected UA, EN and DE locales", () => {
-  assert.match(i18n, /navigator\.languages/);
-  assert.match(i18n, /startsWith\("uk"\)/);
-  assert.match(i18n, /startsWith\("de"\)/);
-  assert.match(i18n, /localStorage/);
-  assert.match(layout, /\["ua", "en", "de"\]/);
-});
-
-test("keeps every localized team profile concise first and expandable in full", () => {
-  assert.match(team, /<details className="team-profile__details">/);
-  assert.match(team, /teamProfiles/);
-  assert.match(team, /splitTeamProfile/);
-  assert.match(teamProfileUa, /# Коротко про iPLUSgor/);
-  assert.match(teamProfileUa, /# Повна версія/);
-  assert.match(teamProfileUa, /Менше передач між підрядниками/);
-  assert.match(teamProfileUa, /Conversion Website Sprint — \$8,500/);
-  assert.match(teamProfileEn, /# About iPLUSgor/);
-  assert.match(teamProfileEn, /# Full profile/);
-  assert.match(teamProfileEn, /Fewer handoffs/);
-  assert.match(teamProfileEn, /Conversion Website Sprint — \$8,500/);
-  assert.match(teamProfileDe, /# Kurz über iPLUSgor/);
-  assert.match(teamProfileDe, /# Vollständiges Profil/);
-  assert.match(teamProfileDe, /Weniger Übergaben/);
-  assert.match(teamProfileDe, /Conversion Website Sprint — \$8,500/);
-});
-
-test("publishes consistent crawlable SEO metadata for the production domain", () => {
-  assert.match(indexDocument, /<html lang="uk">/);
-  assert.match(indexDocument, /<title>Розробка сайтів і лендингів для бізнесу \| iPLUSgor<\/title>/);
-  assert.match(indexDocument, /<link rel="canonical" href="https:\/\/iplusgor\.com\/"/);
-  assert.match(indexDocument, /"@type": "WebSite"/);
-  assert.match(indexDocument, /"@type": "Organization"/);
-  assert.match(indexDocument, /"@type": "Service"/);
-  assert.match(indexDocument, /"serviceType": "Conversion-focused commercial website strategy, design and frontend development"/);
-  assert.match(indexDocument, /"@type": "OfferCatalog"/);
-  assert.match(indexDocument, /"price": "4000"/);
-  assert.match(indexDocument, /"price": "8500"/);
-  assert.match(indexDocument, /"minPrice": "10000"/);
-  assert.match(indexDocument, /https:\/\/www\.instagram\.com\/iplusgor\//);
-  for (const locale of ["ua", "en", "de"]) assert.match(seo, new RegExp(`^  ${locale}:`, "m"));
-  for (const route of ["approach", "solutions", "work", "team", "start-project"]) {
-    assert.match(sitemap, new RegExp(`<loc>https://iplusgor\\.com/${route}/</loc>`));
-    assert.match(sitemap, new RegExp(`<loc>https://iplusgor\\.com/en/${route}/</loc>`));
-    assert.match(sitemap, new RegExp(`<loc>https://iplusgor\\.com/de/${route}/</loc>`));
-  }
-  assert.doesNotMatch(sitemap, /solutions\/catalogue/);
-  assert.equal(seoMetadata.ua["/solutions/catalogue"].robots, "noindex, follow");
-  assert.match(indexDocument, /hreflang="uk" href="https:\/\/iplusgor\.com\/"/);
-  assert.match(indexDocument, /hreflang="en" href="https:\/\/iplusgor\.com\/en\/"/);
-  assert.match(indexDocument, /hreflang="de" href="https:\/\/iplusgor\.com\/de\/"/);
-  assert.match(robots, /Sitemap: https:\/\/iplusgor\.com\/sitemap\.xml/);
-  assert.doesNotMatch(`${seo}${indexDocument}`, /Creative|industrial|manufactur|dealer|equipment/i);
-});
-
-test("provides complete localized metadata for every public route", () => {
-  const publicRoutes = ["/", "/approach", "/solutions", "/solutions/catalogue", "/work", "/team", "/start-project"];
-  assert.equal(siteOrigin, "https://iplusgor.com");
+test("keeps four distinct pages in UA, EN and DE", async () => {
+  const sitemap = await read("public/sitemap.xml");
   for (const locale of ["ua", "en", "de"]) {
-    assert.deepEqual(Object.keys(seoMetadata[locale]).sort(), [...publicRoutes].sort());
-    for (const route of publicRoutes) {
-      assert.ok(seoMetadata[locale][route].title.trim(), `${locale} ${route} needs a title`);
-      assert.ok(seoMetadata[locale][route].description.trim(), `${locale} ${route} needs a description`);
+    assert.deepEqual(Object.keys(seoMetadata[locale]).sort(), ["/", "/about", "/services", "/start-project"].sort());
+    for (const [route, metadata] of Object.entries(seoMetadata[locale])) {
+      assert.ok(metadata.title.length > 20);
+      assert.ok(metadata.description.length > 50);
+      assert.match(sitemap, new RegExp(`${siteOrigin}${getLocalizedPath(route, locale)}`));
     }
   }
-  assert.match(seo, /ua: "uk_UA", en: "en_US", de: "de_DE"/);
-  assert.match(app, /meta\[property="og:locale"\]/);
+  assert.doesNotMatch(sitemap, /\/work\/|\/team\/|\/approach\/|\/solutions\//);
 });
 
-test("keeps concept copy localized and free of Russian interface text", () => {
-  const russianInterfaceWords = /\b(?:изображение|изображения|задача|задачи|задачу|посмотреть|отправить|выбрать|сравнить|наличие|мощность|установка|предыдущий|следующий|закрыть|открыть)\b/iu;
-  assert.doesNotMatch(`${workConceptsSource}${work}${catalogue}${intake}${team}${seo}`, russianInterfaceWords);
-  for (const concept of workConcepts) {
-    for (const field of [concept.description, concept.tag]) {
-      assert.equal(typeof field, "object", `${concept.id} needs localized concept copy`);
-      for (const locale of ["ua", "en", "de"]) assert.ok(field[locale], `${concept.id} needs ${locale} copy`);
-    }
-    for (const image of concept.images || []) {
-      assert.equal(typeof image.label, "object", `${concept.id} image labels must be localized`);
-      for (const locale of ["ua", "en", "de"]) assert.ok(image.label[locale], `${concept.id} image needs a ${locale} label`);
+test("retains legacy links and GitHub Pages production routing", async () => {
+  const app = await read("src/App.jsx");
+  const workflow = await read(".github/workflows/deploy-pages.yml");
+  const prepare = await read("scripts/prepare-github-pages.mjs");
+  assert.equal(legacyRedirects["/approach"], "/");
+  assert.equal(legacyRedirects["/solutions/catalogue"], "/services");
+  assert.equal(legacyRedirects["/team"], "/about");
+  assert.match(app, /Object\.entries\(legacyRedirects\)/);
+  assert.match(prepare, /http-equiv="refresh"/);
+  assert.match(workflow, /VITE_BASE_PATH:\s*\//);
+  assert.match(workflow, /npm run verify:pages/);
+});
+
+test("uses one public contact address and an honest email handoff", async () => {
+  const index = await read("index.html");
+  const intake = await read("src/pages/StartProjectPage.jsx");
+  const layout = await read("src/components/SiteLayout.jsx");
+  const readme = await read("README.md");
+  for (const source of [index, intake, layout, readme]) assert.match(source, /hello@iplusgor\.com/);
+  assert.match(intake, /mailto:/);
+  assert.match(intake, /navigator\.clipboard\.writeText/);
+  assert.match(readme, /No form backend is configured/);
+});
+
+test("keeps copy grounded in implementation and budget reality", async () => {
+  const copy = await read("src/content/site-copy.js");
+  for (const phrase of ["Conversion systems", "AI and business automation", "Custom tools and integrations", "Diagnostic / scope to cash", "$4,000 to $10,000+", "October 20, 2026", "up to 30%"])
+    assert.ok(copy.includes(phrase), `Missing ${phrase}`);
+  assert.doesNotMatch(copy, /guaranteed revenue|guaranteed leads|trusted by 10,000/i);
+});
+
+test("serves a small set of intentional public assets", async () => {
+  const brand = await readdir(join(root, "public/assets/brand"));
+  assert.deepEqual(brand.sort(), ["iplusgor-logo-dark.png", "iplusgor-logo-light.png", "iplusgor-symbol-signal.webp", "iplusgor-symbol.webp"].sort());
+  const layout = await read("src/components/SiteLayout.jsx");
+  for (const asset of ["iplusgor-logo-dark.png", "iplusgor-logo-light.png"]) assert.ok(layout.includes(asset));
+  assert.match(await read("index.html"), /iplusgor-symbol-signal\.webp/);
+  const manifest = JSON.parse(await read("public/site.webmanifest"));
+  assert.equal(manifest.icons[0].type, "image/webp");
+});
+
+test("explains every capability and practical automation in each language", async () => {
+  const { serviceDepth } = await import("../src/content/service-depth.js");
+  for (const locale of ["en", "ua", "de"]) {
+    const copy = serviceDepth[locale];
+    assert.equal(copy.items.length, 4);
+    assert.equal(copy.examples.length, 4);
+    for (const item of copy.items) {
+      for (const key of ["problem", "build", "after", "fit", "scope"]) assert.ok(item[key].length > 70, `${locale} ${item.id} ${key}`);
+      assert.ok(item.statement.length > 35, `${locale} ${item.id} statement`);
+      assert.ok(item.components.length >= 7);
+      assert.ok(item.workflow.length >= 5);
+      assert.ok(item.impact.length >= 2);
     }
   }
 });
 
-test("builds GitHub Pages at the custom-domain root", () => {
-  assert.match(pagesWorkflow, /VITE_BASE_PATH:\s*\//);
-  assert.match(pagesWorkflow, /VITE_SITE_URL:\s*https:\/\/iplusgor\.com/);
-  assert.match(pagesWorkflow, /npm run verify:pages/);
-  assert.doesNotMatch(pagesWorkflow, /BASE_PATH="\/\$REPO_NAME\/"/);
-  assert.equal(cname, "iplusgor.com");
+test("ships four localized process photos at a practical size", async () => {
+  const { processImages, processImageNote } = await import("../src/content/process-media.js");
+  assert.equal(processImages.length, 4);
+  for (const image of processImages) {
+    const file = await stat(join(root, "public/assets/process", image.file));
+    assert.ok(file.size < 150_000, `${image.file} is too large`);
+    for (const locale of ["en", "ua", "de"]) assert.ok(image.alt[locale].length > 30);
+  }
+  for (const locale of ["en", "ua", "de"]) assert.ok(processImageNote[locale].length > 30);
 });

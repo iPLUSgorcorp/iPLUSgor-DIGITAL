@@ -1,138 +1,83 @@
-import {
-  ArrowDown,
-  Blueprint,
-  Browser,
-  BracketsCurly,
-  Funnel,
-} from "@phosphor-icons/react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  CommercialFrame,
-  PrimaryCTA,
-  SectionLabel,
-  SoftShell,
-} from "../components/Primitives.jsx";
 import { useLocale } from "../i18n.jsx";
-import { AmbientBrandVideo } from "../components/AmbientBrandVideo.jsx";
-import { BusinessValueFaq } from "../components/BusinessValueFaq.jsx";
-import { ConversionOffer } from "../components/ConversionOffer.jsx";
+import { siteCopy } from "../content/site-copy.js";
+import { serviceDepth } from "../content/service-depth.js";
+import { processImages, processImageNote } from "../content/process-media.js";
+import { HighlightedText } from "../components/HighlightedText.jsx";
+import { MagneticLink } from "../components/MagneticLink.jsx";
 import { getLocalizedPath } from "../seo-metadata.js";
+import { trackEvent } from "../lib/analytics.js";
 
-const useAmbientHeroVideo = true;
-
-const capabilities = [
-  { icon: Blueprint, key: "structure" },
-  { icon: Funnel, key: "ux" },
-  { icon: Browser, key: "interface" },
-  { icon: BracketsCurly, key: "frontend" },
-];
-
-const copy = {
-  en: {
-    label: "Conversion websites for service businesses",
-    title: <>GET MORE VALUE<br />FROM THE TRAFFIC<br />YOU ALREADY PAY FOR.</>,
-    lead: "iPLUSgor builds conversion-focused websites and landing pages for roofing, HVAC, home-service, dental, medspa and legal businesses already acquiring customers.",
-    review: "Request a conversion review",
-    premium: "$4,000 LANDING SPRINT — $8,500 WEBSITE SPRINT — CUSTOM FROM $10,000",
-    capabilities: { structure: "Structure", ux: "UX", interface: "Interface system", frontend: "Frontend" },
-    capabilitiesLabel: "Core capabilities",
-    scroll: "See how we work",
-    proofLabel: "The expensive gap after the click",
-    proofTitle: <>YOUR ADS CAN DO THEIR JOB.<br />THE WEBSITE CAN STILL<br />LOSE THE INQUIRY.</>,
-    proof: "We align the offer, trust signals, mobile path, calls to action and lead capture before we polish the interface. No guaranteed outcomes — just a clearer commercial path you can measure.",
-    explore: "See the sprint approach",
-    frame: "Already paying for traffic? Let us show you what the website makes harder than it needs to be.",
-  },
-  ua: {
-    label: "Конверсійні сайти для сервісного бізнесу",
-    title: <>ОТРИМУЙТЕ БІЛЬШЕ<br />ЦІННОСТІ З ТРАФІКУ,<br />ЗА ЯКИЙ УЖЕ ПЛАТИТЕ.</>,
-    lead: "iPLUSgor створює конверсійні сайти й лендинги для покрівельних компаній, HVAC, домашніх сервісів, стоматологій, медичних студій і юридичних практик, які вже залучають клієнтів.",
-    review: "Запросити конверсійний розбір",
-    premium: "ЛЕНДИНГ-СПРИНТ $4,000 — WEBSITE-СПРИНТ $8,500 — CUSTOM ВІД $10,000",
-    capabilities: { structure: "Структура", ux: "UX", interface: "Система інтерфейсу", frontend: "Frontend" },
-    capabilitiesLabel: "Основні можливості",
-    scroll: "Як ми працюємо",
-    proofLabel: "Дорога втрата після кліку",
-    proofTitle: <>РЕКЛАМА МОЖЕ ПРАЦЮВАТИ.<br />САЙТ УСЕ ОДНО МОЖЕ<br />ВТРАТИТИ ЗВЕРНЕННЯ.</>,
-    proof: "Спочатку узгоджуємо пропозицію, докази довіри, мобільний шлях, CTA й збір звернень — потім поліруємо інтерфейс. Без гарантій результату, зате з ясним комерційним шляхом, який можна вимірювати.",
-    explore: "Подивитися процес спринту",
-    frame: "Уже платите за трафік? Покажемо, де сайт ускладнює шлях до звернення.",
-  },
-  de: {
-    label: "Conversion-Websites für Dienstleistungsunternehmen",
-    title: <>MEHR WERT AUS DEM<br />TRAFFIC, FÜR DEN SIE<br />BEREITS BEZAHLEN.</>,
-    lead: "iPLUSgor entwickelt conversion-orientierte Websites und Landingpages für Dachdecker, HVAC- und Hausservice-Betriebe, Zahnarztpraxen, Medical Spas und Kanzleien mit aktiver Kundengewinnung.",
-    review: "Conversion-Review anfragen",
-    premium: "LANDING SPRINT $4,000 — WEBSITE SPRINT $8,500 — CUSTOM AB $10,000",
-    capabilities: { structure: "Struktur", ux: "UX", interface: "Interface-System", frontend: "Frontend" },
-    capabilitiesLabel: "Kernkompetenzen",
-    scroll: "Unsere Arbeitsweise",
-    proofLabel: "Die teure Lücke nach dem Klick",
-    proofTitle: <>DIE ANZEIGE KANN FUNKTIONIEREN.<br />DIE WEBSITE KANN DIE<br />ANFRAGE TROTZDEM VERLIEREN.</>,
-    proof: "Wir ordnen Angebot, Vertrauensbelege, mobilen Weg, CTAs und Lead-Erfassung, bevor wir das Interface verfeinern. Keine Ergebnisgarantie — dafür ein klarer, messbarer kommerzieller Weg.",
-    explore: "Sprint-Ansatz ansehen",
-    frame: "Sie bezahlen bereits für Traffic? Wir zeigen, wo die Website den Weg zur Anfrage unnötig erschwert.",
-  },
-};
+function Action({ to, children, secondary = false, locale }) {
+  const Component = secondary ? Link : MagneticLink;
+  return <Component className={secondary ? "text-link" : "button"} to={getLocalizedPath(to, locale)}
+    onClick={() => trackEvent("primary_cta_click", { destination: to, locale })}>{children}<span aria-hidden="true">↗</span></Component>;
+}
 
 export function HomePage() {
   const { locale } = useLocale();
-  const labels = copy[locale] || copy.en;
-  return (
-    <div className="page page--home">
-      <SoftShell className={`home-hero ${useAmbientHeroVideo ? "home-hero--ambient" : ""}`}>
-        {useAmbientHeroVideo && (
-          <AmbientBrandVideo className="home-hero__ambient" priority />
-        )}
-        <div className="home-hero__copy">
-          <SectionLabel>{labels.label}</SectionLabel>
-          <h1>{labels.title}</h1>
-          <p className="home-hero__lead">
-            {labels.lead}
-          </p>
-          <div className="home-hero__actions">
-            <PrimaryCTA>{labels.review}</PrimaryCTA>
-            <p>
-              <strong>{labels.premium}</strong>
-            </p>
+  const copy = siteCopy[locale];
+  const home = copy.home;
+  const depth = serviceDepth[locale];
+  const [flowIndex, setFlowIndex] = useState(0);
+  const selectedFlow = depth.examples[flowIndex];
+  const heroAccent = { en: "clarity.", ua: "ясність.", de: "Klarheit." }[locale];
+  const offerActive = Date.now() < new Date("2026-10-21T00:00:00+03:00").getTime();
+  return <div className="page page--home">
+    <section className="hero container" aria-labelledby="hero-title">
+      <div className="hero__main">
+        <p className="hero__identity">I+Gor <span aria-hidden="true">/</span> {home.heroIdentity}</p>
+        <h1 id="hero-title"><HighlightedText text={home.heroTitle} phrase={heroAccent} /></h1>
+        <p className="hero__lead">{home.heroLead}</p>
+        <div className="hero__actions"><Action to="/start-project" locale={locale}>{copy.nav.start}</Action><Action to="/services" locale={locale} secondary>{home.seeServices}</Action></div>
+      </div>
+      <div className="hero__side" aria-hidden="true"><img className="hero__symbol" src={`${import.meta.env.BASE_URL}assets/brand/iplusgor-symbol.webp`} width="638" height="638" alt="" decoding="async" /><p>{home.heroAside}</p></div>
+    </section>
+
+    <section className="section section--problems" aria-labelledby="problems-title">
+      <div className="container section__grid"><div className="section__lead"><h2 id="problems-title">{home.problemTitle}</h2><p>{home.problemIntro}</p></div>
+        <div className="problem-list">{home.problems.map(([setup, failure]) => <div className="problem-row" key={setup}><strong>{setup}</strong><span>{failure}</span></div>)}</div>
+      </div>
+    </section>
+
+    <section className="section" aria-labelledby="services-title">
+      <div className="container"><div className="section__heading" data-reveal><h2 id="services-title">{depth.homeTitle}</h2><p>{depth.homeIntro}</p></div>
+        <div className="capability-list">{depth.items.map((item, index) => <article className="capability" key={item.id} data-reveal>
+          <div className="capability__heading"><span className="service-index__number">0{index + 1}</span><h3>{item.title}</h3><p>{item.statement}</p></div>
+          <div className="capability__detail"><div className="capability__logic"><div><h4>{depth.labels.problem}</h4><p>{item.problem}</p></div><div><h4>{depth.labels.build}</h4><p>{item.build}</p></div></div>
+            <div className="capability__outcome"><h4>{depth.labels.after}</h4><p>{item.after}</p></div>
+            <ul className="component-line" aria-label={depth.labels.components}>{item.components.slice(0, 4).map((part) => <li key={part}>{part}</li>)}</ul>
+            <div className="capability__foot"><span>{item.impact.join(" · ")}</span><Link className="text-link" to={`${getLocalizedPath("/services", locale)}#${item.id}`}>{depth.labels.explore}<span aria-hidden="true">↗</span></Link></div>
           </div>
-          <div className="home-hero__capabilities" aria-label={labels.capabilitiesLabel}>
-            {capabilities.map(({ icon: Icon, key }) => (
-              <div key={key}>
-                <Icon aria-hidden="true" weight="regular" />
-                <span>{labels.capabilities[key]}</span>
-              </div>
-            ))}
-          </div>
-        </div>
+        </article>)}</div>
+      </div>
+    </section>
 
-        <Link className="home-hero__scroll" to={getLocalizedPath("/approach", locale)}>
-          {labels.scroll}
-          <ArrowDown aria-hidden="true" />
-        </Link>
-      </SoftShell>
+    <section className="section section--flows" aria-labelledby="flow-title"><div className="container">
+      <div className="section__heading" data-reveal><h2 id="flow-title">{depth.flowTitle}</h2><p>{depth.flowIntro}</p></div>
+      <div className="flow-layout" data-reveal><div className="flow-selector" role="group" aria-label={depth.flowLabel}>{depth.examples.map((example, index) =>
+        <button type="button" key={example.title} aria-pressed={index === flowIndex} onClick={() => setFlowIndex(index)}><span>0{index + 1}</span>{example.title}<span aria-hidden="true">↗</span></button>)}</div>
+        <div className="flow-display" key={`${locale}-${flowIndex}`} aria-live="polite"><p className="flow-display__label">{depth.labels.workflow} / {selectedFlow.title}</p><ol className="flow-steps">{selectedFlow.steps.map((step, index) => <li key={`${step}-${index}`} style={{ "--step": index }}><span>0{index + 1}</span><strong>{step}</strong></li>)}</ol><p className="flow-display__note">{selectedFlow.note}</p></div>
+      </div><p className="flow-disclaimer">{depth.flowNote}</p>
+    </div></section>
 
-      <section className="home-proof" aria-labelledby="home-proof-title">
-        <SectionLabel>{labels.proofLabel}</SectionLabel>
-        <h2 id="home-proof-title">{labels.proofTitle}</h2>
-        <div className="home-proof__body">
-          <p>
-            {labels.proof}
-          </p>
-          <PrimaryCTA to="/approach" tone="jade">
-            {labels.explore}
-          </PrimaryCTA>
-        </div>
-      </section>
+    <section className="section section--method" id="method" aria-labelledby="method-title">
+      <div className="container"><div className="section__heading" data-reveal><h2 id="method-title">{home.methodTitle}</h2><p>{home.methodIntro}</p></div>
+        <ol className="method-list">{home.steps.map(([title, detail], index) => <li key={title} data-reveal><span className="method-list__number">0{index + 1}</span><span className="method-list__media"><img className="method-list__visual" src={`${import.meta.env.BASE_URL}assets/process/${processImages[index].file}`} width="1280" height="854" alt={processImages[index].alt[locale]} loading="lazy" decoding="async" /></span><div><h3>{title}</h3><p>{detail}</p></div></li>)}</ol>
+        <p className="method-image-note">{processImageNote[locale]}</p>
+      </div>
+    </section>
 
-      <ConversionOffer />
+    <section className="section section--investment" aria-labelledby="investment-title"><div className={`container investment-grid${offerActive ? "" : " investment-grid--single"}`}>
+      <div><h2 id="investment-title">{home.investmentTitle}</h2><p className="investment-grid__lead">{home.investmentLead}</p><p>{home.investmentNote}</p></div>
+      {offerActive && <aside className="capacity-note"><h3>{home.offerTitle}</h3><p>{home.offer}</p></aside>}
+    </div></section>
 
-      <BusinessValueFaq />
+    <section className="section section--credibility"><div className="container credibility-grid"><h2>{home.credibilityTitle}</h2><p>{home.credibility}</p></div></section>
 
-      <CommercialFrame
-        text={labels.frame}
-        cta={labels.review}
-      />
-    </div>
-  );
+    <section className="section" aria-labelledby="faq-title"><div className="container faq-grid"><h2 id="faq-title">{home.faqTitle}</h2><div className="faq-list">{home.faq.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true">+</span></summary><p>{answer}</p></details>)}</div></div></section>
+
+    <section className="closing" aria-labelledby="closing-title"><div className="container"><h2 id="closing-title">{home.finalTitle}</h2><p>{home.finalLead}</p><Action to="/start-project" locale={locale}>{copy.nav.start}</Action></div></section>
+  </div>;
 }

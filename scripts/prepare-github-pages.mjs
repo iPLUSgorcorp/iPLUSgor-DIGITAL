@@ -1,7 +1,8 @@
-import { copyFileSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import {
   getLocalizedPath,
+  legacyRedirects,
   localeHtmlCodes,
   localeOpenGraphCodes,
   seoMetadata,
@@ -16,12 +17,15 @@ for (const locale of ["ua", "en", "de"]) {
     const outputRoute = canonicalPath.replace(/^\/+|\/+$/g, "");
     appRoutes.push({ outputRoute, canonicalPath, locale, metadata });
   }
-  appRoutes.push({
-    outputRoute: getLocalizedPath("/work/aton", locale).replace(/^\/+|\/+$/g, ""),
-    canonicalPath: getLocalizedPath("/work", locale),
-    locale,
-    metadata: seoMetadata[locale]["/work"],
-  });
+  for (const [from, to] of Object.entries(legacyRedirects)) {
+    appRoutes.push({
+      outputRoute: getLocalizedPath(from, locale).replace(/^\/+|\/+$/g, ""),
+      canonicalPath: getLocalizedPath(to, locale),
+      locale,
+      metadata: { ...seoMetadata[locale][to], robots: "noindex, follow" },
+      redirectTo: `${getLocalizedPath(to, locale)}${from === "/approach" ? "#method" : ""}`,
+    });
+  }
 }
 
 function routeDocument(template, canonicalPath, locale, metadata) {
@@ -59,13 +63,20 @@ function routeDocument(template, canonicalPath, locale, metadata) {
 
 mkdirSync(output, { recursive: true });
 const indexDocument = readFileSync(resolve(output, "index.html"), "utf8");
-copyFileSync(resolve(output, "index.html"), resolve(output, "404.html"));
+writeFileSync(resolve(output, "404.html"), indexDocument.replace(
+  /(<meta\s+name="robots"\s+content=")[^"]*("\s*\/?>)/i,
+  '$1noindex, follow$2',
+));
 
-for (const { outputRoute, canonicalPath, locale, metadata } of appRoutes) {
+for (const { outputRoute, canonicalPath, locale, metadata, redirectTo } of appRoutes) {
   if (!outputRoute) continue;
   const routeOutput = resolve(output, outputRoute);
   mkdirSync(routeOutput, { recursive: true });
-  writeFileSync(resolve(routeOutput, "index.html"), routeDocument(indexDocument, canonicalPath, locale, metadata));
+  let document = routeDocument(indexDocument, canonicalPath, locale, metadata);
+  if (redirectTo) {
+    document = document.replace("</head>", `<meta http-equiv="refresh" content="0;url=${redirectTo}" /></head>`);
+  }
+  writeFileSync(resolve(routeOutput, "index.html"), document);
 }
 
 writeFileSync(resolve(output, ".nojekyll"), "");

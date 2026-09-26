@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://iplusgor.com/</loc><lastmod>2026-08-23</lastmod></url>
-  <url><loc>https://iplusgor.com/approach/</loc><lastmod>2026-08-23</lastmod></url>
-  <url><loc>https://iplusgor.com/solutions/</loc><lastmod>2026-08-23</lastmod></url>
-  <url><loc>https://iplusgor.com/work/</loc><lastmod>2026-08-23</lastmod></url>
-  <url><loc>https://iplusgor.com/team/</loc><lastmod>2026-08-23</lastmod></url>
-  <url><loc>https://iplusgor.com/start-project/</loc><lastmod>2026-08-23</lastmod></url>
-  <url><loc>https://iplusgor.com/en/</loc><lastmod>2026-08-23</lastmod></url>
-  <url><loc>https://iplusgor.com/en/approach/</loc><lastmod>2026-08-23</lastmod></url>
-  <url><loc>https://iplusgor.com/en/solutions/</loc><lastmod>2026-08-23</lastmod></url>
-  <url><loc>https://iplusgor.com/en/work/</loc><lastmod>2026-08-23</lastmod></url>
-  <url><loc>https://iplusgor.com/en/team/</loc><lastmod>2026-08-23</lastmod></url>
-  <url><loc>https://iplusgor.com/en/start-project/</loc><lastmod>2026-08-23</lastmod></url>
-  <url><loc>https://iplusgor.com/de/</loc><lastmod>2026-08-23</lastmod></url>
-  <url><loc>https://iplusgor.com/de/approach/</loc><lastmod>2026-08-23</lastmod></url>
-  <url><loc>https://iplusgor.com/de/solutions/</loc><lastmod>2026-08-23</lastmod></url>
-  <url><loc>https://iplusgor.com/de/work/</loc><lastmod>2026-08-23</lastmod></url>
-  <url><loc>https://iplusgor.com/de/team/</loc><lastmod>2026-08-23</lastmod></url>
-  <url><loc>https://iplusgor.com/de/start-project/</loc><lastmod>2026-08-23</lastmod></url>
+  <url><loc>https://iplusgor.com/</loc></url>
+  <url><loc>https://iplusgor.com/services/</loc></url>
+  <url><loc>https://iplusgor.com/about/</loc></url>
+  <url><loc>https://iplusgor.com/start-project/</loc></url>
+  <url><loc>https://iplusgor.com/en/</loc></url>
+  <url><loc>https://iplusgor.com/en/services/</loc></url>
+  <url><loc>https://iplusgor.com/en/about/</loc></url>
+  <url><loc>https://iplusgor.com/en/start-project/</loc></url>
+  <url><loc>https://iplusgor.com/de/</loc></url>
+  <url><loc>https://iplusgor.com/de/services/</loc></url>
+  <url><loc>https://iplusgor.com/de/about/</loc></url>
+  <url><loc>https://iplusgor.com/de/start-project/</loc></url>
 </urlset>

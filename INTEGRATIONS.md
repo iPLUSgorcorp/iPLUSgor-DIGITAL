@@ -18,11 +18,11 @@ No analytics script or tracking ID is committed now.
 
 ## Booking
 
-Calendly or Cal.com can be added later as a secondary action after the conversion review. Prefer an external booking link over a heavy embedded widget so the main site remains fast. The booking account and calendar should be owned by iPLUSgor.
+The primary intake is asynchronous. A booking link can be added later as a secondary step after a project inquiry. Prefer an external link over a heavy embedded widget. The booking account and calendar should be owned by I+Gor.
 
 ## Form and CRM
 
-The current static form prepares an email through Gmail or the visitor’s mail application. It does not pretend to submit to a backend.
+The current static form prepares a draft for the visitor’s mail application and provides a copyable project brief. It does not pretend to submit to a backend. The public destination is `hello@iplusgor.com`.
 
 Possible later adapters:
 

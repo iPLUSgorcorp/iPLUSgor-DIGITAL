@@ -1,6 +1,6 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { extname, join, relative, resolve } from "node:path";
-import { getLocalizedPath, seoMetadata, siteOrigin } from "../src/seo-metadata.js";
+import { getLocalizedPath, legacyRedirects, localeHtmlCodes, seoMetadata, siteOrigin } from "../src/seo-metadata.js";
 
 const output = resolve("dist/client");
 const failures = [];
@@ -30,10 +30,31 @@ for (const locale of ["ua", "en", "de"]) {
     if (!document.includes(`<link rel="canonical" href="${canonicalUrl}"`)) {
       failures.push(`${localizedPath} has no matching canonical URL`);
     }
+    if (!document.includes(`<html lang="${localeHtmlCodes[locale]}"`)) {
+      failures.push(`${localizedPath} has the wrong document language`);
+    }
+    if (!document.includes(`<title>${seoMetadata[locale][route].title}</title>`)) {
+      failures.push(`${localizedPath} has the wrong title`);
+    }
+    for (const alternate of ["ua", "en", "de"]) {
+      const expected = `<link rel="alternate" hreflang="${localeHtmlCodes[alternate]}" href="${siteOrigin}${getLocalizedPath(route, alternate)}"`;
+      if (!document.includes(expected)) failures.push(`${localizedPath} has a wrong ${alternate} hreflang`);
+    }
   }
 
-  const legacyRoute = getLocalizedPath("/work/aton", locale).replace(/^\/+|\/+$/g, "");
-  requireFile(resolve(output, legacyRoute, "index.html"), `/${legacyRoute}/ legacy route document`);
+  for (const [from, to] of Object.entries(legacyRedirects)) {
+    const legacyRoute = getLocalizedPath(from, locale).replace(/^\/+|\/+$/g, "");
+    const documentPath = resolve(output, legacyRoute, "index.html");
+    requireFile(documentPath, `/${legacyRoute}/ legacy route document`);
+    if (!existsSync(documentPath)) continue;
+    const document = readFileSync(documentPath, "utf8");
+    if (!document.includes(`content="0;url=${getLocalizedPath(to, locale)}`)) {
+      failures.push(`/${legacyRoute}/ has no static redirect`);
+    }
+    if (!document.includes('<meta name="robots" content="noindex, follow"')) {
+      failures.push(`/${legacyRoute}/ should be noindex`);
+    }
+  }
 }
 
 for (const required of ["404.html", ".nojekyll", "CNAME", "robots.txt", "sitemap.xml"]) {
