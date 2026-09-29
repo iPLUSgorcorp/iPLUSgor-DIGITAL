@@ -44,7 +44,7 @@ export function HomePage() {
     <section className="section" aria-labelledby="services-title">
       <div className="container"><div className="section__heading" data-reveal><h2 id="services-title">{depth.homeTitle}</h2><p>{depth.homeIntro}</p></div>
         <div className="capability-list">{depth.items.map((item, index) => <article className="capability" key={item.id} data-reveal>
-          <div className="capability__heading"><span className="service-index__number">0{index + 1}</span><h3>{item.title}</h3><p>{item.statement}</p></div>
+          <div className="capability__heading"><span className="service-index__number">0{index + 1}</span><h3><Link to={`${getLocalizedPath("/services", locale)}#${item.id}`}>{item.title}</Link></h3><p>{item.statement}</p></div>
           <div className="capability__detail"><div className="capability__logic"><div><h4>{depth.labels.problem}</h4><p>{item.problem}</p></div><div><h4>{depth.labels.build}</h4><p>{item.build}</p></div></div>
             <div className="capability__outcome"><h4>{depth.labels.after}</h4><p>{item.after}</p></div>
             <ul className="component-line" aria-label={depth.labels.components}>{item.components.slice(0, 4).map((part) => <li key={part}>{part}</li>)}</ul>

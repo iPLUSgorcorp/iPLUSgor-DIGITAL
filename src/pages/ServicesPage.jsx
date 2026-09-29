@@ -15,6 +15,7 @@ export function ServicesPage() {
   const titleAccent = { en: "system", ua: "систему", de: "System" }[locale];
   return <div className="page page--interior">
     <header className="interior-hero container"><p className="page-kicker">I+Gor / {copy.nav.services}</p><h1><HighlightedText text={depth.heroTitle} phrase={titleAccent} /></h1><p>{depth.heroLead}</p></header>
+    <nav className="container service-jump" aria-label={copy.nav.services}>{depth.items.map((item) => <Link key={item.id} to={`#${item.id}`}>{item.title}</Link>)}</nav>
     <section className="container service-details" aria-label={copy.nav.services}>{depth.items.map((item, index) => <article className="service-chapter" id={item.id} key={item.id}>
       <div className="service-chapter__header" data-reveal><span>0{index + 1} / 04</span><h2>{item.title}</h2><p>{item.statement}</p></div>
       <div className="service-chapter__main"><div className="service-chapter__narrative" data-reveal>

@@ -4,6 +4,7 @@ import { useLocale } from "../i18n.jsx";
 import { siteCopy } from "../content/site-copy.js";
 import { getLocalizedPath } from "../seo-metadata.js";
 import { MagneticLink } from "./MagneticLink.jsx";
+import { AnalyticsConsent } from "./AnalyticsConsent.jsx";
 
 const languages = ["ua", "en", "de"];
 const brandAsset = (name) => `${import.meta.env.BASE_URL}assets/brand/${name}`;
@@ -34,7 +35,7 @@ export function SiteLayout() {
   const footer = siteCopy[locale].footer;
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [theme, setTheme] = useState(() => document.documentElement.dataset.theme || "light");
+  const [theme, setTheme] = useState(() => typeof document === "undefined" ? "light" : document.documentElement.dataset.theme || "light");
 
   useEffect(() => { setMenuOpen(false); }, [location.pathname, location.hash, locale]);
   useEffect(() => {
@@ -125,6 +126,7 @@ export function SiteLayout() {
           <a href="mailto:hello@iplusgor.com">hello@iplusgor.com</a>
           <span>© {new Date().getFullYear()} I+Gor</span>
         </div>
+        <AnalyticsConsent />
       </footer>
     </>
   );

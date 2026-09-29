@@ -6,24 +6,11 @@ const STORAGE_KEY = "iplusgor-locale";
 const supported = ["ua", "en", "de"];
 
 function detectLocale() {
-  const pathLocale = getLocaleFromPath(window.location.pathname);
-  if (pathLocale !== "ua") return pathLocale;
-  try {
-    const stored = window.localStorage.getItem(STORAGE_KEY);
-    if (supported.includes(stored)) return stored;
-  } catch { /* Language detection remains available. */ }
-  const languages = navigator.languages?.length ? navigator.languages : [navigator.language];
-  for (const language of languages) {
-    const code = String(language || "").toLowerCase();
-    if (code.startsWith("uk")) return "ua";
-    if (code.startsWith("de")) return "de";
-    if (code.startsWith("en")) return "en";
-  }
-  return "ua";
+  return getLocaleFromPath(window.location.pathname);
 }
 
-export function LocaleProvider({ children }) {
-  const [locale, setLocaleState] = useState(detectLocale);
+export function LocaleProvider({ children, initialLocale }) {
+  const [locale, setLocaleState] = useState(initialLocale ?? detectLocale);
 
   useEffect(() => {
     document.documentElement.lang = locale === "ua" ? "uk" : locale;

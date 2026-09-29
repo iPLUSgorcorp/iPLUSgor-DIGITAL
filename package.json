@@ -5,12 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/prepare-github-pages.mjs",
-    "build:pages": "vite build && node scripts/prepare-github-pages.mjs",
+    "build": "vite build && vite build --ssr src/entry-static.jsx --outDir dist/server && node scripts/prepare-github-pages.mjs",
+    "build:pages": "vite build && vite build --ssr src/entry-static.jsx --outDir dist/server && node scripts/prepare-github-pages.mjs",
     "verify:pages": "node scripts/verify-pages-build.mjs",
     "clean:media": "node scripts/strip-media-metadata.mjs public",
     "preview": "vite preview",
-    "test": "node --test tests/app-contract.test.mjs tests/sites-worker.test.mjs",
+    "test": "node --test tests/app-contract.test.mjs tests/sites-worker.test.mjs tests/seo-analytics.test.mjs",
     "test:e2e": "playwright test"
   },
   "dependencies": {

@@ -27,6 +27,14 @@ for (const locale of ["ua", "en", "de"]) {
     if (!existsSync(documentPath)) continue;
     const document = readFileSync(documentPath, "utf8");
     const canonicalUrl = `${siteOrigin}${localizedPath}`;
+    if ((document.match(/<h1(?:\s|>)/g) || []).length !== 1) failures.push(`${localizedPath} must have one prerendered primary heading`);
+    if (!document.includes('<main id="main-content">') || document.includes('<div id="root"></div>')) failures.push(`${localizedPath} has no indexable page body`);
+    const schemaMatch = document.match(/<script id="site-schema" type="application\/ld\+json">([\s\S]*?)<\/script>/);
+    try {
+      const schema = JSON.parse(schemaMatch?.[1] || "{}");
+      if (!schema["@graph"]?.some((node) => node["@id"] === `${canonicalUrl}#webpage`)) failures.push(`${localizedPath} has no page-specific structured data`);
+      if (schema["@graph"]?.filter((node) => node["@type"] === "Service").length !== (["/", "/services"].includes(route) ? 4 : 0)) failures.push(`${localizedPath} has incorrect service definitions`);
+    } catch { failures.push(`${localizedPath} contains invalid structured data`); }
     if (!document.includes(`<link rel="canonical" href="${canonicalUrl}"`)) {
       failures.push(`${localizedPath} has no matching canonical URL`);
     }
@@ -71,6 +79,7 @@ const assetPattern = /\/?assets\/[A-Za-z0-9_.\/-]+\.(?:avif|css|gif|jpe?g|js|mp4
 for (const file of walk(output)) {
   if (!textExtensions.has(extname(file).toLowerCase())) continue;
   const source = readFileSync(file, "utf8");
+  if (/igorcorp\.tech@gmail\.com/i.test(source)) failures.push(`Obsolete public email in ${relative(output, file)}`);
   for (const match of source.matchAll(assetPattern)) {
     const assetPath = match[0].replace(/^\//, "");
     requireFile(resolve(output, assetPath), `${assetPath} referenced by ${relative(output, file)}`);

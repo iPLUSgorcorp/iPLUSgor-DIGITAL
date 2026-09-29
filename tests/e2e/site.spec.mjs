@@ -1,6 +1,26 @@
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
+test.beforeEach(async ({ page }, testInfo) => {
+  if (testInfo.title.includes("analytics consent")) return;
+  await page.addInitScript(() => localStorage.setItem("iplusgor-analytics-consent", "declined"));
+});
+
+test("analytics consent is optional and can be changed", async ({ page }) => {
+  const requests = [];
+  page.on("request", (request) => { if (/google-analytics|googletagmanager/.test(request.url())) requests.push(request.url()); });
+  await page.goto("/en/");
+  await expect(page.getByRole("button", { name: "Continue without analytics" })).toBeVisible();
+  expect(requests).toEqual([]);
+  await page.getByRole("button", { name: "Continue without analytics" }).click();
+  await expect(page.locator(".analytics-panel")).toHaveCount(0);
+  await page.getByRole("button", { name: "Analytics settings" }).click();
+  await page.getByRole("button", { name: "Allow analytics" }).click();
+  expect(await page.evaluate(() => localStorage.getItem("iplusgor-analytics-consent"))).toBe("accepted");
+  // Local development never sends production analytics.
+  expect(requests).toEqual([]);
+});
+
 test("home and service journey work in every language", async ({ page }) => {
   await page.goto("/en/");
   for (const [prefix, heading] of [["/en", /Turn complexity into clarity/], ["", /Перетворюємо складність/], ["/de", /Aus Komplexität wird Klarheit/]]) {
@@ -80,7 +100,7 @@ test("intake can prepare and copy a complete brief", async ({ page }) => {
   await page.context().grantPermissions(["clipboard-read", "clipboard-write"]);
   await page.goto("/en/start-project/");
   await page.getByRole("button", { name: "Copy project brief" }).click();
-  await expect(page.getByRole("status")).toContainText("Add your name");
+  await expect(page.locator("#intake-message")).toContainText("Add your name");
   await page.locator('input[name="name"]').fill("Alex Example");
   await page.locator('input[name="email"]').fill("alex@example.com");
   await page.locator('input[name="company"]').fill("Example Co");
@@ -88,12 +108,12 @@ test("intake can prepare and copy a complete brief", async ({ page }) => {
   await page.locator('textarea[name="outcome"]').fill("Route each request to the right owner.");
   await page.locator('select[name="budget"]').selectOption({ label: "$4,000–$10,000" });
   await page.getByRole("button", { name: "Copy project brief" }).click();
-  await expect(page.getByRole("status")).toContainText("Brief copied");
+  await expect(page.locator("#intake-message")).toContainText("Brief copied");
   const clipboard = await page.evaluate(() => navigator.clipboard.readText());
   expect(clipboard).toContain("Example Co");
   expect(clipboard).toContain("Qualified requests");
   await page.getByRole("button", { name: "Prepare email draft" }).click();
-  await expect(page.getByRole("status")).toContainText("Please send the draft there");
+  await expect(page.locator("#intake-message")).toContainText("Please send the draft there");
 });
 
 test("primary actions, method link and language switcher work", async ({ page }) => {
@@ -171,7 +191,9 @@ test("interior pages fit small screens and reduced motion removes entrance anima
 
 test("metadata and unknown routes are honest", async ({ page }) => {
   await page.goto("/en/services/");
-  await expect(page).toHaveTitle(/Conversion, automation and custom systems/);
+  await expect(page).toHaveTitle(/AI automation, CRM integrations and conversion systems/);
+  const schema = await page.locator("#site-schema").textContent();
+  expect(JSON.parse(schema)["@graph"].filter((node) => node["@type"] === "Service")).toHaveLength(4);
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://iplusgor.com/en/services/");
   await expect(page.locator('link[hreflang="de"]')).toHaveAttribute("href", "https://iplusgor.com/de/services/");
   await page.goto("/en/does-not-exist/");

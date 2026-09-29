@@ -22,7 +22,7 @@ npm run test:e2e
 
 ## Routes
 
-The public pages are `/`, `/services/`, `/about/` and `/start-project/`. Ukrainian uses root paths; English and German use `/en/` and `/de/`. Legacy paths are retained as static and client-side redirects to relevant new pages. `scripts/prepare-github-pages.mjs` emits localized route documents and the GitHub Pages SPA fallback. `scripts/verify-pages-build.mjs` checks those documents and referenced assets.
+The public pages are `/`, `/services/`, `/about/` and `/start-project/`. Ukrainian uses root paths; English and German use `/en/` and `/de/`. Legacy paths are retained as static and client-side redirects to relevant new pages. `scripts/prepare-github-pages.mjs` renders full localized page HTML from a build-only React SSR entry and emits the GitHub Pages SPA fallback. Pages contain their visible copy, links and page-specific structured data before JavaScript runs. The sitemap includes reciprocal language alternatives and a factual content modification date. `scripts/verify-pages-build.mjs` checks those documents and referenced assets.
 
 ## Contact
 
@@ -30,7 +30,7 @@ The intake prepares an email to `hello@iplusgor.com` and offers a copyable brief
 
 ## Analytics
 
-The site dispatches `iplusgor:conversion` events and pushes the same event into an existing `window.dataLayer` if one is present. It does not load a tracking script or transmit form contents. See [INTEGRATIONS.md](INTEGRATIONS.md).
+GA4 (`G-NXQSRS6NSX`) loads after optional analytics consent on the production domain. SPA page views use GA4 history measurement. Custom events exclude all form values. Development and static rendering never collect data. See [INTEGRATIONS.md](INTEGRATIONS.md).
 
 ## Deployment
 

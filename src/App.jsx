@@ -4,6 +4,8 @@ import { SiteLayout } from "./components/SiteLayout.jsx";
 import { HomePage } from "./pages/HomePage.jsx";
 import { LocaleProvider, useLocale } from "./i18n.jsx";
 import { getBaseRoute, getLocalizedPath, getSeoMetadata, legacyRedirects, localeOpenGraphCodes, siteOrigin } from "./seo-metadata.js";
+import { getStructuredData, serializeStructuredData } from "./structured-data.js";
+import { updateAnalyticsPage } from "./lib/analytics.js";
 
 const ServicesPage = lazy(() => import("./pages/ServicesPage.jsx").then((m) => ({ default: m.ServicesPage })));
 const AboutPage = lazy(() => import("./pages/AboutPage.jsx").then((m) => ({ default: m.AboutPage })));
@@ -21,7 +23,7 @@ function RouteMetadata() {
     document.title = page.title;
     document.documentElement.lang = locale === "ua" ? "uk" : locale;
     for (const [selector, value] of [
-      ['meta[name="description"]', page.description], ['meta[name="robots"]', page.robots || "index, follow, max-image-preview:large"],
+      ['meta[name="description"]', page.description], ['meta[name="robots"]', page.robots || "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"],
       ['meta[property="og:title"]', page.title], ['meta[property="og:description"]', page.description], ['meta[property="og:url"]', canonicalUrl],
       ['meta[property="og:locale"]', localeOpenGraphCodes[locale]], ['meta[name="twitter:title"]', page.title], ['meta[name="twitter:description"]', page.description],
       ['link[rel="canonical"]', canonicalUrl],
@@ -31,6 +33,10 @@ function RouteMetadata() {
       const alternate = code === "uk" || code === "x-default" ? "ua" : code;
       link.setAttribute("href", `${baseUrl}${getLocalizedPath(canonicalRoute, alternate)}`);
     });
+    let schema = document.getElementById("site-schema");
+    if (!schema) { schema = document.createElement("script"); schema.id = "site-schema"; schema.type = "application/ld+json"; document.head.append(schema); }
+    schema.textContent = page.robots ? "{}" : serializeStructuredData(getStructuredData(canonicalRoute, locale));
+    updateAnalyticsPage();
     if (!location.hash) window.scrollTo(0, 0);
   }, [locale, location.pathname, location.hash]);
   return null;
