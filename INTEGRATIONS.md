@@ -22,7 +22,7 @@ Any adapter needs spam protection, a privacy notice, server-side validation and 
 
 Measurement ID: `G-NXQSRS6NSX`. The Google tag loads asynchronously only on `iplusgor.com` / `www.iplusgor.com` after the visitor allows analytics. The footer's Analytics settings control can change that choice. Declining suppresses the tag; revoking disables collection and removes first-party GA cookies. Advertising storage, ad personalization and Google signals are disabled.
 
-GA4's automatic page views and enhanced history measurement own SPA page views. The app updates page metadata with `update: true` and does not send a competing manual page-view event. Keep the stream's enhanced Page views / browser-history option enabled. No GTM container is required.
+GA4 sends the initial page view when the tag loads. On SPA route changes, the app updates page metadata and sends one explicit page-view event. Keep the stream's enhanced "Page changes based on browser history events" option disabled to avoid duplicates. No GTM container is required.
 
 Custom events are `primary_cta_click`, `form_started`, `form_handoff`. Only the allowlisted `destination`, `locale` and `method` values can be sent by the site. A prepared email is not reported as a submitted lead. Form values, contact details and brief text are excluded.
 

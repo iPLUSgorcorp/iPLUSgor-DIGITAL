@@ -18,6 +18,7 @@ export function initializeAnalytics() {
   window.gtag('consent', initialized ? 'update' : 'default', { analytics_storage: 'granted', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
   if (initialized) return;
   initialized = true;
+  previousPage = `${window.location.origin}${window.location.pathname}`;
   window.gtag('js', new Date());
   window.gtag('config', measurementId, {
     allow_google_signals: false,
@@ -33,10 +34,15 @@ export function initializeAnalytics() {
 }
 
 export function setAnalyticsConsent(choice) {
+  const previousChoice = getAnalyticsConsent();
   sessionChoice = choice;
   try { window.localStorage.setItem(consentKey, choice); } catch { /* Session choice still applies. */ }
   if (choice === 'accepted') {
     initializeAnalytics();
+    if (initialized && previousChoice === 'declined') {
+      previousPage = `${window.location.origin}${window.location.pathname}`;
+      window.gtag('event', 'page_view', { page_title: document.title, page_location: previousPage });
+    }
   } else {
     window[`ga-disable-${measurementId}`] = true;
     window.gtag?.('consent', 'update', { analytics_storage: 'denied' });
@@ -52,8 +58,9 @@ export function updateAnalyticsPage() {
   if (!initialized || getAnalyticsConsent() !== 'accepted') return;
   const page = `${window.location.origin}${window.location.pathname}`;
   if (page === previousPage) return;
-  // GA4 enhanced measurement owns history page views; update metadata without a second event.
+  const pageReferrer = previousPage;
   window.gtag('config', measurementId, { update: true, page_title: document.title, page_location: page });
+  window.gtag('event', 'page_view', { page_title: document.title, page_location: page, page_referrer: pageReferrer });
   previousPage = page;
 }
 

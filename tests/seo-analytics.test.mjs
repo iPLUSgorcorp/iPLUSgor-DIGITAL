@@ -49,9 +49,10 @@ test('GA4 requires consent, loads once and excludes inquiry data', async () => {
     assert.deepEqual(event, ['event', 'form_handoff', { locale: 'en', method: 'mailto' }]);
     window.location.pathname = '/en/services/';
     analytics.updateAnalyticsPage();
-    assert.equal(window.dataLayer.at(-1)[2].update, true);
-    assert.equal(window.dataLayer.at(-1)[2].page_location, 'https://iplusgor.com/en/services/');
-    assert.equal(window.dataLayer.filter((item) => item[0] === 'event' && item[1] === 'page_view').length, 0);
+    assert.equal(window.dataLayer.at(-2)[2].update, true);
+    assert.deepEqual(Array.from(window.dataLayer.at(-1)), ['event', 'page_view', { page_title: 'I+Gor', page_location: 'https://iplusgor.com/en/services/', page_referrer: 'https://iplusgor.com/en/' }]);
+    analytics.updateAnalyticsPage();
+    assert.equal(window.dataLayer.filter((item) => item[0] === 'event' && item[1] === 'page_view').length, 1);
     analytics.setAnalyticsConsent('declined');
     assert.equal(window['ga-disable-G-NXQSRS6NSX'], true);
     const count = window.dataLayer.length;
